@@ -1,0 +1,66 @@
+\chapter{Measuring Web API Use}
+\section{Introduction}
+The web is the world's largest open application platform.  While initially
+developed for simple document delivery, it has grown to become the
+most popular way of delivering applications to users.  Along with this growth
+in popularity has been a growth in complexity, as the web has
+picked up more capabilities over time.
+
+This growth in complexity has been guided by both browser vendors and web
+standards.  Many of these new web capabilities are provided through new
+\JS APIs (referred to in this paper as \textbf{features}).  These
+capabilities are organized into collections of related
+features which are published as standards documents (in this paper, we
+refer to these collections of APIs as \textbf{standards}).
+
+To maximize compatibility between websites and web browsers,
+browser vendors rarely remove features from browsers.  Browser vendors
+aim to provide website authors with new features without breaking
+sites that rely on older browser features.  The result is an ever growing
+set of features in the browser.
+
+Many web browser features have been controversial and even actively opposed
+by privacy and free software activists for imposing significant costs
+on users, in the form of information leakage or loss of control.
+The \emph{WebRTC}~\cite{webrtcw3c} standard has been
+criticized for revealing users' IP addresses~\cite{webrtcprivacy2015}, and
+protestors have literally taken to the streets~\cite{emeprotests2016} to oppose the
+\emph{Encrypted Media Extensions}~\cite{eme} standard. This standard aims to
+give content owners much more control over how their content is experienced
+within the browser. Such features could be used to prevent users from exerting
+control over their browsing experience.
+
+Similarly, while some aspects of web complexity are understood (such as the
+number of resources web sites request~\cite{butkiewicz2011understanding}),
+other aspects of complexity are not, such as how
+much of the available functionality in the browser gets used, by which
+sites, how often, and for what purposes.  Other related questions include
+whether recently introduced features are as popular as older features, whether
+popular websites use different features than less popular sites, and how the use
+of popular extensions, like those that block advertisements and
+online tracking, impact which browser features are used.
+
+This paper answers these questions by examining the use of browser features on
+the web.  We measure which browser features are frequently used by site authors,
+and which browser features are rarely used, by examining the \JS feature
+usage of the ten thousand most popular sites on the web.  We find, for example, that
+50\% of the JavaScript provided features in the web browser are never
+used by the ten thousand most popular websites.
+
+We additionally measure the browser feature use in the presence of popular ad and
+tracking blocking extensions, to determine how they effect browser feature use.
+We find that installing
+advertising and tracking blocking extensions not only reduces
+the amount of \JS users execute when browsing the web, but changes the kinds of
+features browsers execute. We identify a set of browser
+features (approximately 10\%) that are used by websites, but which ad and
+tracking blockers prevent from executing more than 90\% of the time.
+Similarly, we find that over 83\% of features available in the browser are
+executed on less than 1\% of websites in the presence of these popular extensions.
+
+We have published data described in this work.  This data includes the JavaScript
+feature usage of the Alexa 10k in both a default browser configuration and with ad
+and tracking blocking extensions in place, as well as the mappings of JavaScript
+features to standards documents.  The database with these measurements, along
+with documentation describing the database's schema, is available
+online~\cite{snyderp2016webapidata}.

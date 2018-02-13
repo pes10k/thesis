@@ -1,0 +1,57 @@
+\usepackage{newlfont}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{euler}
+\usepackage{glossaries}
+\usepackage{xspace}
+\usepackage{float}
+\usepackage{flushend}
+\usepackage{footnote}
+\newcommand{\argmax}{\arg\!\max}
+\usepackage{enumitem}
+
+%
+% This is the user manual for UICTHESI CLS.
+% Document date 1/10/92 (phd)
+% Updated to include information on equation numbering 6/25/92 (phd)
+%
+% Updated to compile under LaTeX version 2e 2/21/96
+%
+% The material below is needed only for this document, not normally in
+% a thesis prepared with this style file.
+%
+\def\new@fontshape#1#2#3#4#5{\expandafter
+     \edef\csname#1/#2/#3\endcsname{\expandafter\noexpand
+                                 \csname #4\endcsname}}
+\new@fontshape{cmr}{bx}{sc}{
+      <5>cmcsc8 at 5pt%
+      <6>cmcsc8 at 6pt%
+      <7>cmcsc8 at 7pt%
+      <8>cmcsc8%
+      <9>cmcsc9%
+      <10>cmcsc10%
+      <11>cmcsc10 at 10.95pt%
+      <12>cmcsc10 at 12pt%
+      <14>cmcsc10 at 14.4pt%
+      <17>cmcsc10 at 17.28%
+      <20>cmcsc10 at 20.736pt%
+      <25>cmcsc10 at 24.8832pt%
+      }{}
+\mathversion{normal}
+\newcommand{\ams}{{$\cal{A}\cal{M}\cal{S}$}}
+\newcommand{\amslatex}{{$\cal{A}\cal{M}\cal{S}$-\LaTeX{}}}
+\newcommand{\amstex}{{$\cal{A}\cal{M}\cal{S}$-\TeX{}}}
+\newcommand{\BibTeX}{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\newcommand{\uicthesi}{{$\mathbb{UICTHESI}$}}
+ 
+\newcommand\bs{\char '134 }   % A backslash character for \tt font
+\newcommand{\lb}{\char '173 } % A left brace character for \tt font
+\newcommand{\rb}{\char '175 } % A right brace character for \tt font
+ 
+ 
+% one or two other commands
+\def\newfont#1#2{\@ifdefinable #1{\font #1=#2\relax}}
+\def\symbol#1{\char #1\relax}
+
+\makeglossaries
