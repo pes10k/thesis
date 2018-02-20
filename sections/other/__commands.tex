@@ -1,1 +1,115 @@
 \newcommand{\JS}{JavaScript\xspace}
+\newcommand{\WAPI}{Web API\xspace}
+\newcommand{\numfeatures}{1,392\xspace}
+\newcommand{\numstandards}{74\xspace}
+\newcommand{\numfirefoxes}{186\xspace}
+\newcommand{\FF}{Firefox\xspace}
+\newcommand{\FFversion}{46.0.1\xspace}
+\newcommand{\subsubsubsection}[1]{\normalfont\normalsize\textbf{#1: }}
+
+% \newcommand\fixme[1]{\textcolor{red}{#1}}
+\newcommand{\WA}{Web API\xspace}
+\newcommand{\WAS}{Web API standard\xspace}
+\newcommand{\WASs}{Web API standards\xspace}
+\newcommand{\ATK}{Alexa 10k\xspace}
+\newcommand{\FFWithVersion}{Firefox 43.0.1\xspace}
+\newcommand{\CDF}{\gls{cdf}\xspace}
+\newcommand{\HTML}{\gls{html}\xspace}
+
+% ================
+% Data Statistics
+% ================
+
+% The number of standards we instrument in the browser
+\newcommand{\NumStandards}{74\xspace}
+
+% ======================
+% "Benefit" Methodology
+% ======================
+
+% The number of sites tested by josh or Muin
+\newcommand{\NumSitesTestedInStandardTests}{1679\xspace}
+
+% The maximum number of sites that were tested for each standard
+\newcommand{\NumSitesPerStandard}{40\xspace}
+
+% Number of seconds that josh and Muin spent on each site
+\newcommand{\NumSecForPerStandardTests}{60\xspace}
+
+% The percentage of times that Josh and Muin gave the site the same score
+\newcommand{\PctAgreementOnStandardTests}{96.74\%\xspace}
+
+% The average difference in the score Josh and Muin gave a site
+\newcommand{\AvgDiffOnStandardTests}{.03\xspace}
+
+% ===================
+% "Cost" Methodology
+% ===================
+
+% The number of CVEs since 2010 that have something to do with Firefox
+\newcommand{\NumFirefoxCVEs}{1,554\xspace}
+
+% The number of CVEs since 2010 that have something to do with Firefox, but
+% are really about third party software (Flash plugins, etc)
+\newcommand{\NumFirefoxCVEsOther}{41\xspace}
+
+% The number of CVEs since 2010 that are actually in the Firefox browser
+% (ie the difference of the above two numbers)
+\newcommand{\NumFirefoxCVEsFiltered}{953\xspace}
+
+% The number of CVEs since 2010 we were able to associate with one of the
+% 75 measured standards
+\newcommand{\NumFirefoxStandardCVEs}{175\xspace}
+
+\newcommand{\NumStandardsWithCVE}{39\xspace}
+
+% The number of CVE-to-standard associations we identified.
+\newcommand{\NumCVEStandardPairs}{188\xspace}
+
+\newcommand{\NumCVEsWithMultipleStandards}{13\xspace}
+
+% ==============================
+% Extension URL and information
+% ==============================
+
+% The URL of the source of the extension
+\newcommand{\ExtensionSourceUrl}{\url{https://github.com/snyderp/web-api-manager}\xspace}
+
+% Attacks from conferences
+\newcommand{\NumAttackPapers}{20\xspace}
+\newcommand{\NumAttackStandards}{23\xspace}
+
+% Javascript formatting help
+% \definecolor{lightgray}{rgb}{.9,.9,.9}
+% \definecolor{darkgray}{rgb}{.4,.4,.4}
+% \definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\lstdefinelanguage{JavaScript}{
+  keywords={break, case, catch, continue, debugger, default, delete, do, else, false, finally, for, function, if, in, instanceof, new, null, return, switch, this, throw, true, try, typeof, var, void, while, with},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  % keywordstyle=\color{blue}\bfseries,
+  % ndkeywordstyle=\color{darkgray}\bfseries,
+  % identifierstyle=\color{black},
+  % commentstyle=\color{purple}\ttfamily,
+  % stringstyle=\color{red}\ttfamily,
+  sensitive=true
+}
+
+\lstset{
+   language=JavaScript,
+  %  backgroundcolor=\color{lightgray},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}

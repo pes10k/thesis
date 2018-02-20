@@ -5,6 +5,6 @@ clean:
 	rm -f *.lof *.glo *.glsdefs *.lot *.toc *.dvi *.ist
 
 thesis: thesis.tex thesis.bib
-	latex thesis
+	latexmk -bibtex -pdf thesis
 	makeglossaries thesis
-	latexmk -pdf thesis.tex
+	latexmk -bibtex -pdf thesis

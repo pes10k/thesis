@@ -1,0 +1,23 @@
+\begin{table}[t]
+  \centering
+  % \rowcolors{2}{gray!25}{white}
+  \resizebox{\columnwidth}{!}{
+    \begin{tabular}{ l | r r }
+      \toprule
+        Statistic &
+        Conservative &
+        Aggressive \\
+      \midrule
+        Standards blocked              & 15      & 45      \\
+        Previous CVEs \#               & 89      & 123     \\
+        Previous CVEs \%               & 52.0\%  & 71.9\%  \\
+        LOC Removed \#                 & 37,848  & 53,518  \\
+        LOC Removed \%                 & 50.00\% & 70.76\% \\
+        \% Popular sites broken        & 7.14\%  & 15.71\% \\
+        \% Less popular sites broken   & 3.87\%  & 11.61\% \\
+      \bottomrule
+    \end{tabular}
+  }
+  \caption{Cost and benefit statistics for the evaluated conservative and aggressive browser configurations.}
+  \label{table:config-eval}
+\end{table}

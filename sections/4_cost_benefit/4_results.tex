@@ -1,0 +1,201 @@
+\section{Results}
+\label{cost-benefit:results}
+
+This section presents the results of applying the methodology discussed in
+Section~\ref{cost-benefit:methodology} to \FFWithVersion.  The section first describes
+the benefit of each \WAS, and follows with the cost measurements.
+
+\input{tables/megatable}
+
+\subsection{Per-Standard Benefit}
+\label{cost-benefit:results:results-benefit}
+
+\input{figures/breakrate_histogram.tex}
+
+As explained in Section~\ref{cost-benefit:methodology:per-standard-benefit}, our workers
+conducted up to \NumSitesPerStandard measurements of websites in the \ATK known
+to use each specific \WAS. If a standard was observed being used fewer than
+\NumSitesPerStandard times within the \ATK, all sites using that standard were
+measured. In total, we did two measurements of 1,684 (website, disabled feature)
+tuples, one by each worker.
+
+\ref{fig:feature-benefit} gives a histogram of the break rates for each of
+the \NumStandards standards measured in this work.  As the graph shows, removing
+over 60\% of the measured standards resulted in no noticeable effect on the
+user's experience.
+
+In some cases, this was because the standard was never observed being
+used\footnote{e.x. the \textit{WebVTT} standard, which allows document
+authors to synchronize text changes with media playing on the page.}.
+In other cases, it was because the standard is intended to be used in a way
+that users do not notice\footnote{e.x. the \textit{Beacon} standard, which allows content
+authors to trigger code execution when a user browses away from a website.}.
+
+Other standards caused a large number of sites to break when removed
+from the browser.  Disabling access to the \textit{DOM 1} standard (which provides
+basic functionality for modifying the text and appearance of a document)
+broke an estimated 69.05\% of the web.
+
+A listing of the site break rate for all \NumStandards standards is provided in
+in \ref{table:megatable}.
+
+We note that these measurements only cover the interacting with a website
+as an unauthenticated user. It is possible that site feature use changes when
+users log into websites, since some sites only provide full
+functionality to registered users.  These numbers only describe the functionality
+sites use before they've established a trust-relationship with the site (e.g.
+before they've created an account and logged into a web site).
+
+
+\subsection{Per-Standard Cost}
+\label{cost-benefit:results:results-costs}
+As described in Section~\ref{cost-benefit:methodology:per-standard-cost}, we measure the cost of a
+\WAS being available in the browser in three ways: first by related research
+documenting security and privacy attacks that leverage the standard
+(Section~\ref{cost-benefit:results:costs-research}), second by the number of
+historical CVEs reported against the standard since 2010
+(Section~\ref{cost-benefit:results:costs-cves}), and third with a lower bound estimate of
+the number of \gls{eloc} needed to implement the
+standard in the browser (Section~\ref{cost-benefit:results:costs-loc}).
+
+
+\subsubsection{Security Costs - Attacks from Related Research}
+\label{cost-benefit:results:costs-research}
+
+We searched the last five years of work published at major research
+conferences and journals for research on browser weaknesses related
+to \WASs.  These papers either explicitly identify either
+\WASs, or features or functionality that belong to a \WAS.  In each case the standard
+was either necessary for the attack to succeed, or was used to make the attack
+faster or more reliable.  While academic attacks do not aim to discover all possible vulnerabilities,
+the academic emphasis on novelty mean that the \WASs implicated in these attacks
+allow a new, previously undiscovered way to exploit the browser.
+
+The most frequently cited standard was the
+\textit{High Resolution Time Level 2}~\cite{highres2016w3c} standard, which
+provides highly accurate, millisecond-resolution timers.  Seven
+papers published since 2013 leverage the standard to break the isolation protections provided
+by the browser, such as learning information about the environment the browser
+is running in~\cite{ho2014tick,oren2015spy,gruss2015practical}, learning information about
+other open browser windows~\cite{andrysco2015subnormal,kotcher2013cross,gruss2015practical}, and gaining
+identifying information from other domains~\cite{van2015clock}.
+
+Other implicated standards include the \textit{Canvas} standard, which
+was identified by researchers as allowing attackers to persistently
+track users across websites~\cite{acar2014web}, learn about the browser's
+execution environment~\cite{ho2014tick} or obtain information from other
+browsing windows~\cite{kotcher2013cross}, and the \textit{Media Capture and Streams}
+standard, which was used by researchers to perform ``cross-site request forgery, history sniffing, and information
+stealing'' attacks~\cite{tian2014all}.
+
+In total we identified \NumAttackPapers papers leveraging \NumAttackStandards
+standards to attack the privacy and security protections of the web browser.
+Citations for these papers are included in \ref{table:megatable}.
+
+
+\subsubsection{Security Costs - CVEs}
+\label{cost-benefit:results:costs-cves}
+
+\input{figures/cve_breakrate}
+\input{figures/cve_breakrate_severe}
+
+Vulnerability reports are not evenly distributed across browser standards.
+Figure \ref{fig:cve-breakrate-severe} presents this comparison of
+standard benefit (measured by the number of sites that require the standard
+to function) on the y-axis, and the number of severe CVEs historically associated with
+the standard on the x-axis.  A plot of all CVEs (not just high and severe ones),
+is included in the appendix as Figure \ref{fig:cve-breakrate}.
+It shows the same general relationships between break rate and CVEs as
+Figure \ref{fig:cve-breakrate-severe}, and is included for completeness.
+
+Points in the upper-left of the graph depict standards that are high benefit,
+low cost, i.e. standards that are frequently required on the web but have
+rarely (or never) been implicated in CVEs.  For example, consider the
+\textit{Document Object Model (DOM) Level 2 Events Specification} standard,
+denoted by \textbf{DOM2-E} in Figure \ref{fig:cve-breakrate-severe}.  This
+standard defines how website authors can associate functionality with page
+events such as button clicks and mouse movement.  This standard is highly
+beneficial to browser users, being required by 34\% of pages to function
+correctly.  Enabling the standard comes with little risk to web users,
+being associated with zero CVEs since 2010.
+
+Standards in the lower-right section of the graph, by contrast, are low benefit,
+high cost standards, when using historical CVE counts as an estimate of security
+cost.   The \textit{WebGL Specification} standard, denoted by \textbf{WEBGL}
+in Figure \ref{fig:cve-breakrate-severe}, is an example of such a low-benefit,
+high-cost standard.  The standard allows websites to take advantage of graphics
+hardware on the browsing device for 3D graphics and other advanced image
+generation.  The standard is needed for less than 1\% of web sites
+in the \ATK to function correctly, but is implicated in 22 high or severe CVEs since
+2010.  How infrequently this standard is needed on the web, compared with
+how often the standard has previously been the cause of security
+vulnerabilities, suggests that the standard poses a high security
+risk to users going forward, with little attenuating benefit.
+
+As \ref{fig:cve-breakrate} and \ref{fig:cve-breakrate-severe} show, some standards have historically
+put users at much greater risk than others.  Given that for many of these
+standards the risk has come with little benefit to users, these standards
+are good candidates for disabling when visiting untrusted websites.
+
+
+\subsubsection{Security Costs - Implementation Complexity}
+\label{cost-benefit:results:costs-loc}
+
+\input{figures/loc_breakrate.tex}
+
+We further found that the cost of implementing standards in the browser are
+not equal, and that some standards have far more complex implementations than
+others (with complexity measured as the \gls{eloc} uniquely needed to
+implement a given standard). Figure \ref{fig:loc-breakrate} presents a
+comparison of standard benefit (again measured by the number of sites that
+require the standard to function) and the exclusive lines of code needed to implement the standard, using the method
+described in section \ref{cost-benefit:results:costs-loc}.
+
+Points in the upper-left of Figure \ref{fig:loc-breakrate} depict standards
+that are frequently needed on the web for sites for function correctly,
+but which have relatively non-complex implementations.  One example of
+such a standard is the \textit{Document Object Model (DOM) Level 2 Core
+Specification} standard, denoted by \textbf{DOM2-C}.  This standard
+provides extensions the browser's basic document modification methods,
+most popularly, the \texttt{Document.prototype.createDocumentFragment}
+method, which allows websites to quickly create and append sub-documents
+to the current website.  This method is needed for 89\% of websites to
+function correctly, suggesting it is highly beneficial to web users to have it
+enabled in their browser.  The standard comes with a low security cost to users as well;
+our technique identifies only 225 exclusive lines of code that are in
+the codebase solely to enable this standard.
+
+Points in the lower-right of the figure depict standards that provide
+infrequent benefit to browser users, but which are responsible for a great
+deal of complexity in the browser's code base.  The \textit{Scalable Vector
+Graphics (SVG) 1.1 (Second Edition)} standard, denoted by \textbf{SVG},
+is an example of such a high-cost, low-benefit standard.  The standards
+allows website authors to dynamically create and interact with embedded SVG
+documents through \JS.  The standard is required for core functionality in
+approximately 0\% of websites on the \ATK, while adding a large amount of
+complexity to the browser's code base (at least 5,949 exclusive lines of
+code, more than our technique identified for any other standard).
+
+
+\subsection{Threats to Validity}
+The main threat to validity in this experiment is the accuracy of our
+human-executed casual browsing scenario. With respect to internal validity, the
+high agreement between the two users performing tasks on the same sites lends
+credence to the claim that the users were able to successfully exercise most or
+all of the functionality that a casual browser might encounter. The students
+who worked on this project spent over 500 hours combined performing these
+casual browsing tasks and recording their results, and while they were
+completely separated while actively browsing, they spent a good deal of time
+comparing notes about how to fully exercise the functionality of a website
+within the 70 second time window for each site.
+
+External validity, i.e. the extent to which our results can be generalized, is also
+a concern. However, visiting a website for 70 or fewer seconds encapsulates
+80\% of all web page visits according to~\cite{liu2010understanding}, thus
+accurately representing a majority of web browsing activity, especially when
+visiting untrusted websites. Furthermore, while our experiment does not
+evaluate the \JS functionality that is only available to authenticated users,
+we posit that protection against unknown sites---the content aggregators,
+pop-up ads, or occasionally consulted websites that a user does not interact
+with enough to trust---are precisely the sites with which the user should
+exercise the most caution.

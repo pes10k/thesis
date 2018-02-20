@@ -1,0 +1,82 @@
+\section{Introduction}
+\label{measurement:overview}
+
+An important first steps for understanding the security and privacy implications
+of the current, and quickly expanding, \WAPI is to understand whats features
+are being used on the web, by who, and for what purposes.  If a \WAPI feature
+is used by every site on the web, thats a useful (though not determinative)
+signal that a feature may be very useful to a user.  Conversely, if a user
+never visits a website using a specific \WAPI feature, then that feature
+is (trivially) providing no direct benefit to the user.
+
+However, the design and development of the the web makes these kinds of
+seemingly easy measurements surprisingly complex, and for many reasons.
+First, with the exception of trivial cases, one cannot simply ``download
+a website'' and count invocations of functions calls, the way one might be
+able to approximate with traditional applications.   Web sites are downloaded
+(and sometimes, generated) dynamically, one portion at a time, depending on user
+input. The server side of an application can even change while the client is
+interacting with the application!  All of which means, there is no way to
+meaningfully know if you've downloaded the entire web application, making
+static analysis of a website difficult, if not impossible.
+
+Similarly, the highly-dynamic nature of \JS (how the client-side of web
+applications are implemented) means that the language is more difficult to
+statically analyze than applications developed in other languages.  So even
+if one could download all of the \JS code that comprises a web application,
+its a non-trivial task to determine what \WAPI functions are called in a piece of
+code, let alone determining which subsets of code the user would execute during
+a likely interaction with the website.
+
+To confound matters more, all feature invocations on a website are not equally
+desirable.  A user may benefit if a feature is being used to render a news
+story she wishes to read, while the user might experience harm if the feature
+is being leveraged to implement functional she does not approve of (for example,
+by fingerprinting her browser for tracking purposes).
+
+And finally, the scale of the internet means that manual interaction is not
+feasible to measure a representatively large portion of the web.  An automated
+technique is needed.
+
+For these reasons, among others, determining what functionality users are likely
+to encounter on the web, and distinguishing harmful from beneficial feature
+invocations, is a difficult problem.
+
+This work presents a solution to this problem, in the form of an automated
+measurement technique that interacts with websites in a manner that approximates
+the types of interactions a human user would carry out.  By counting the
+which features are invoked during each automated interaction, we're able
+to determine which features users would encounter when interacting with
+a website.  Any by performing this same measurement under a variety of
+browser configurations, with different advertising and tracking blocking
+extensions installed, and by comparing the difference in features that are executed
+under each configuration, we're able to distinguish user-serving \WAPI use
+from non-user-serving \WAPI use.
+
+By applying this technique to the Alexa 10k, we were able to answer the motivating
+question: which \WAPI features do web users use when browsing the web, and in
+what numbers.  We find, for example, that 50\% of the \JS provided
+features are never used by the ten thousand most popular websites.  We were also
+able to identify features that are used predominantly for non-user-serving
+purposes.  Approximately 10\% of features are used by websites, but which ad and
+tracking blockers prevent from executing more than 90\% of the time.
+Similarly, we find that over 83\% of features available in the browser are
+executed on less than 1\% of websites in the presence of these popular blocking
+extensions.
+
+The data described in this work has been publicity shared and is freely
+available.  The dataset includes the \JS feature use in the Alexa 10k,
+both by typical browsers, and when ad and tracking blocking extensions are in
+place.  The database with these measurements, along
+with documentation describing the database's schema, is available
+online~\cite{snyderp2016webapidata}.
+
+The rest of this chapter is organized as follows. Section~\ref{measurement:data-sources}
+describes the data sources used to conduct this work.
+Section~\ref{measurement:methodology} describes the methodology used
+in this chapter in greater detail, Section~\ref{measuement:results} presents the
+results of this automated measurement, including how frequently features occur,
+and which features are blocked by popular blocking extensions, and which
+features are associated with security vulnerabilities.  Section~\ref{measurement:validity}
+describes steps taken verify that our  an results are correct. Section~\ref{measurement:conclusions}
+provides some discussion of the significance of these results.

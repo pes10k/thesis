@@ -1,6 +1,6 @@
 \documentclass{uicthesi}
-\input{sections/other/__preamble.tex}
-\input{sections/other/__commands.tex}
+\input{sections/other/__preamble}
+\input{sections/other/__commands}
 
 
 \begin{document}
@@ -11,29 +11,37 @@
 \committee{Christopher Kanich, Chair and Advisor \\
 Venkat Venkatakrishnan \\
 Jakob Eriksson \\
-Steve Checkoway \\
+Stephen Checkoway \\
 Damon McCoy, New York University}
 
-\input{sections/other/__terms.tex}
+\input{sections/other/__terms}
 
 \maketitle
 \copyrightpage
 
-\input{sections/_1_dedication.tex}
-\input{sections/_2_acknowledgement.tex}
+\input{sections/_1_dedication}
+\input{sections/_2_acknowledgement}
 
 \tableofcontents
 \listoftables
 \listoffigures
 
+\input{sections/_3_glossery}
+\input{sections/_4_summary}
+
+
+
 \input{sections/1_introduction/0_index}
-\input{sections/2_background/0_index.tex}
-\input{sections/3_measuring/0_index.tex}
+\input{sections/2_background/0_index}
+\input{sections/3_measurement/0_index}
+\input{sections/4_cost_benefit/0_index}
+\input{sections/5_current_web/0_index}
+\input{sections/6_future_web/0_index}
+\input{sections/7_conclusion/0_index}
 
 
-% \input{sections/_4_summary.tex}
-
-% \input{sections/2_measurement/0_index.tex}
-% \input{sections/tbd.tex}
+\newpage
+\bibformb
+\bibliography{thesis}
 
 \end{document}

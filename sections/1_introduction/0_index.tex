@@ -1,60 +1,45 @@
 \chapter{Introduction}
+\label{intro}
 
 The \gls{www} is possibly the worlds largest open system, allowing information
-to be transfer, and individuals to interact, with a speed and ease that would
-have been unimaginable only a generation ago.  However, the earliest interactions
-for the \gls{www} specified only static documents and form submission systems,
-with interactivity limited to applets and plugins.
+to be transferred, and individuals to interact, with a speed and ease that would
+have been unimaginable only a generation ago.  This growth in popularity
+has happened alongside an explosion in the type of functionality provided to
+websites, as both cause and effect.  Where websites were initially limited
+to static documents of images and hyper text, websites now rival traditional
+applications in terms of size and capability.  Web applications are frequently
+megabytes in size, and can access graphics cards, web cameras, microphones,
+perform low-level audio synthesis, and carry out parallel computation, just to
+name a few examples.
 
-It wasn't until Netscape introduced \JS to the web in 1996 in Netscape 2.0
-that the web as a modern application platform began to develop. Since then,
-the web has picked up a large, and quickly growing, set of capabilities,
-designed to allow web site authors to deliver new and more complex applications
-to users.
+Each of these features brings some plausible benefit to users, and from a
+narrow point of view, web users benefit as the web gains more functionality.
+More functionality means web site authors can create richer, more capable
+applications. However, this point of view ignores half of the ledger.
 
-This feature growth was initially driven by competition between
-browser vendors.  Netscape and Microsoft attempted to gain market advantage
-by implementing unique functionality, to entice web authors
-to target their browsers, and ensure a larger user base for the browser.
-More recently, this feature growth is driven primarily by competition between the
-web and ``native'' application platforms, or systems provided by operating
-systems, that may provide better performance, or additional functionality, then
-web sites can provide.  Each of these efforts to expand the functionality
-of the browser has been accompanied by a different marketing slogan (e.x.
-DHTML, Web 2.0, HTML5, the browser as OS).
+In practice, feature growth brings both costs and benefits; it benefits users
+by enabling new types of web applications that browser users may enjoy, but
+harms users by adding complexity to the platform.  Increased complexity
+can harm users by expanding the users trusted computing base (making bugs and
+vulnerabilities more likely), expanding the attack surface of the platform,
+and making information flows more difficult for users to predict.
 
-The end result is that the web has changed from a system of static document
-retrieval, to a platform for delivering applications that are every bit
-as sophisticated as applications delivered and deployed through more
-conventional means.  Where websites could once be thought of as simple
-collections of images, text and styling instructions (with possible
-interactive elements at the periphery), websites now have access to a
-range of functionality that rivals ``native'' applications.  Websites can
-access graphics cards, create peer-to-peer networks, access IO devices
-(e.x. the file system, microphone, ambient light sensor, video camera, VR
-devices) and perform high resolution timing operations, among countless other
-capabilities.  Browser vendors, working with standards bodies like the \gls{w3c},
-aggressively add to the list.
+Instead of providing websites with a maximal set of features, web users would
+be best served by restricting the functionality websites have access to,
+to only those features where the benefit outweighs the cost. More casually,
+web browsers should only allow websites access to functionality when
+the cargo is worth the freight.
 
-This work presents a systematic evaluation of feature growth on the web, and
-to understand the costs and benefits that different features bring to web users.
-The overarching goal is to improve the privacy and security of web users
-by preventing websites from accessing harmful functionality.  This
-work attempts to achieve that goal by understanding
-
-restricting websites to the functionality they need to carry
-
-identify low-benefit, or high-cost, functionality in
-the browser, and to
-
-The hypotheses
-investigated are that benefit and cost is not distributed equally
-across all browser features, second, that most websites only require the
-subset of highly-beneficial, low-risk features to carry out the functionality that
-web users care about,third,
+This work presents an attempt to measure the costs and benefits of feature
+growth in the browser, both to understand how to improve the web as it exists
+today, and to explore alternate ways of deploying web applications with
+an emphasis on security and privacy.  This approach, of improving browser
+privacy and security by restricting websites to a minimal feature set,
+makes it very different from most research in the area, which focuses
+primarily on either changing the implementations of a small number of features
+in the browser or developing new methods for identifying implementation errors.
 
 
-
-
-\input{sections/1_introduction/1_contributions}
-\input{sections/1_introduction/2_organization}
+\input{sections/1_introduction/1_terms}
+\input{sections/1_introduction/2_contributions}
+\input{sections/1_introduction/3_organization}

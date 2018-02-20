@@ -1,0 +1,172 @@
+\section{Implementation}
+\label{future-web:implementation}
+
+We implemented \CDF in two parts, first as a document specification, and second
+as several additions to the browser's trusted base: a \emph{parser} that converts \CDF documents into
+trusted \HTML and \JS, a \emph{HTTP proxy} that converts \CDF documents for use
+in web browsers, and a set of \emph{trusted \JS libraries} that run in
+the browser to implement the interactive aspects of \CDF documents.
+
+The described system was implemented to allow \CDF documents to be run in
+web browsers today, with no additions or modifications needed to any recently
+released browser.  The same design could be implemented by modifying a browser
+to be able parse and understand \CDF documents ``natively'', though at the cost
+of a much greater engineering task.
+
+We also adopted cascading style sheets, or CSS, to handle the presentation
+of \CDF applications.  We did so to minimize the engineering effort needed
+to implemented the \CDF concept, and because of the relative lack of security
+issues associated with CSS compared to \JS.
+
+This section gives a high level explanation of how our implementation
+of the \CDF design works.  Documentation for creating \CDF documents, including
+type specifications, nesting rules, and the interactivity primitives
+included in \CDF can be found in an open source implementation and accompanying
+documentation\footnote{https://github.com/bitslab/cdf.}.
+
+\subsection{Document Format}
+\CDF uses JSON strings to represent documents.  \CDF documents are
+trees of typed objects.  Types in \CDF fall into one of four categories.
+
+\begin{itemize}
+     \setlength{\itemsep}{-2pt}
+  \item \textbf{Elements.} The structure and text of the document.
+  \item \textbf{Events.} New input from the network or the user.
+  \item \textbf{Behaviors.} Descriptions of what should happen when an Event has
+                   triggered.
+  \item \textbf{Deltas.} Changes to be applied to the document.
+\end{itemize}
+
+Each type defines the configuration it can receive (e.g. the
+URL that a \texttt{image} object can refer to), and the types it
+accepts as children in the tree.  For example \texttt{text} objects can be
+children of \texttt{button} objects (to create labels on buttons), but
+\texttt{button} objects cannot be children of \texttt{text} objects.
+Since the types in \CDF are all well defined, they can be strictly checked to
+ensure they will have predictable effects when rendered in the client.
+
+Some types accept configuration parameters (e.g. the class names to add to the
+element when rendered in HTML, or the local URL to post a form's information
+to).  These configuration parameters are also strictly typed, and so can be
+checked for safety and correctness before being rendered in the client.
+
+Types are designed to emphasize predictable information flow and user privacy.
+For example, in \CDF \texttt{form} elements are only allow to send information to
+the origin domain, while in HTML applications, \texttt{<form>} elements
+can be configured to send information to any domain.
+
+
+% Since the types in \CDF are all well defined, they can be strictly checked to
+% ensure they will have predictable effects when rendered in HTML.  This
+% strict checking allows \CDF to prevent XSS and other code injection attacks,
+% as the example in Figure~\ref{fig:text-example} demonstrates.
+
+%
+% \CDF contains four kinds of types, which compose into arbitrarily complex
+% interactive web applications.  \textbf{Element} types describe the structure
+% of a document, analogous to ``tags'' HTML documents.  Examples of structure
+% types include the \texttt{ul} type, used to describe unordered lists of elements
+% in a document, the \texttt{img} type, used to refer to an image resource, or the
+% \texttt{text} type, the sole way of presenting text.
+% These types are designed to be mostly familiar to HTML authors.  Figure~\ref{fig:cdf-list}
+% shows how \CDF's types can be composed to create a simple list, and
+% Figure~\ref{fig:html-list} shows how that same list could be represented in \HTML.
+%
+%
+% \textbf{Event} types are used to describe things that should be responded to
+% in a \CDF document.  Examples of event types include \texttt{timer} events and
+% \texttt{mouse} events.  These have close analogues in HTML and \JS based
+% applications.
+%
+% \textbf{Behavior} types describe things that should happen in response to
+% events.  Examples include the \texttt{update} type, indicating a request
+% that should be made to the originating server, optionally including information
+% from the document (similar to an \texttt{AJAX} request in an HTML application),
+% or the \texttt{state} type, describing a state machine that an
+% application should be advanced through (state machines are sets of ``delta''
+% objects, described below).
+%
+% Finally, \textbf{delta} types describe changes that should be made to the
+% existing \CDF document.  Examples of delta types include \texttt{tree modifications},
+% indicating that given element objects should be appended to, or removed from,
+% part of the document, or \texttt{attribute modifications}, indicating that
+% the properties of an element should be changed (e.x. the image URL a
+% ``img'' element refers to should be changed).
+%
+% The four types in \CDF are designed to compose well.  For example, a \CDF document
+% might include a \texttt{button} object (an ``element'' type) that has a \texttt{click}
+% object (``event'' type) attached.  This \texttt{click} object might have an \texttt{update} object
+% attached (``behavior'' type), indicating that a request should be made to the server,
+% when the click occurred.  The server might then respond to this request with a
+% \texttt{update subtree} object (``delta'' type), including some additional text
+% to add to document.
+%
+% Since the types in \CDF are all well defined, they can be strictly checked to
+% ensure they will have predictable effects when rendered in HTML.  This
+% strict checking allows \CDF to prevent XSS and other code injection attacks,
+% as the example in Figure~\ref{fig:text-example} demonstrates.
+%
+
+\subsection{Trusted Base Additions}
+We implemented the \CDF design through three additions to the current trusted
+web browser trusted base.  These additions, in tandem, enforce the security and
+privacy properties discussed in Section~\ref{future-web:design}.
+
+\subsubsection{Parser}
+The first addition \CDF makes to the browser's trusted base is a \CDF parser.
+The role of the \CDF parser is to take strings and either identify them as
+invalid \CDF documents, or to render an equivalent and safe HTML and \JS string that
+can be rendered in the browser. The parser also provides debugging
+information as a convenience to \CDF authors.
+
+If the parser is given a valid \CDF document, it converts it into a combination
+of \HTML tags, escaped text, \texttt{<script>} tags referencing \JS libraries
+that are part of the \CDF trusted base, and \texttt{<script>} tags containing
+parameters to be passed to those trusted libraries.  Invalid documents
+``fail closed'', and return an error code and no output.
+
+\subsubsection{HTTP Proxy}
+\label{future-web:implementation:proxy}
+The second addition \CDF makes to the browser's trusted base is an HTTP proxy
+that sits between the browser and the internet.  The proxy passes requests
+from the browser to the destination server unchanged.  Once the server responds,
+the proxy examines the response.  If the response appears to be a \CDF document,
+the HTTP proxy extracts the body of the request and provides it to the parser.
+If the parser accepts the response as a valid \CDF document, the proxy passes
+the parser-generated \HTML and \JS back to the client.  If the parser rejects
+the server's response as invalid \CDF, the proxy instead passes back an error
+message to the client, informing the user that the server provided an invalid
+document.
+%
+% In addition to \CDF documents, the proxy also needs to allow \CDF files to
+% include static resources that are displayed in the resulting \HTML.
+% The proxy allows this by further examining the mime-type of the server's
+% response.  If that mime-type is of a type the proxy expects to be found inline
+% in a \HTML document (such as an image, a video, or an audio file) the proxy
+% allows the content through the client.
+%
+% Finally, the proxy allows \CDF documents to prompt users to download any type
+% of file, but not include most types of files for display in the browser itself.
+% The proxy achieves this policy as follows: If the server response was not a
+% \CDF document, and was not of a type expected to be found inline, the proxy
+% checks to the \texttt{Content-Disposition} header of the HTTP response.  If it
+% is set as  \texttt{Attachment} (indicating that the browser should not attempt
+% render the content, but only prompt the user to download it), the content is
+% allowed to pass through to the client.  In all other cases the response is
+% dropped.
+%
+\subsubsection{Client \JS Libraries}
+\label{future-web:implementation:client-js}
+The third addition to the browser's trusted base is in a small number of
+\JS libraries (14) that implement the interactive elements of each
+page.  These libraries handle all the client-side logic and functionality
+needed for all of the event, behavior and delta types used in the system,
+plus some plumbing code needed to route the parameters extracted by the
+parser to the correct library implementations.
+%
+% For efficiency purposes---primarily caching---these libraries are not included
+% inline in the document, but are instead included as references to \JS
+% hosted on the current website's domain.  However, when the browser issues an
+% HTTP request to the website's domain, that request is intercepted by the
+% proxy.  The proxy contains copies of each of the \JS client libraries, and
+% is able to respond to the browser's request immediately.

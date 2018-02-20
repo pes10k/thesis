@@ -1,0 +1,30 @@
+\section{Common Terms Used in Work}
+\label{intro:terms}
+
+Several terms will be used throughout this work.  They are presented upfront
+to ease the reading of the rest of the work.
+
+A browser \textbf{feature} is a piece of functionality, implemented as
+\JS function, method or property, implemented in a web browser, by a browser
+vendor.  Browser features are intended to be used by websites, through
+\JS delivered by the website, to carry out interactivity and functionality
+on the website.  Examples of browser features include
+\texttt{HTMLCanvasElement.prototype.toBlob}, used to read the contents of
+a \texttt{<canvas>} element in a HTML document into a string, and
+\texttt{Document.prototype.getElementById}, used to query an element in a
+HTML document.
+
+A \textbf{standard} is a set of related features, created by a standards
+organization, describing what features browser vendors should implement, and
+how those features should function.  Standards generally define many features,
+intended to be used together to accomplish related goals.  For example, the
+\textit{SVG}~\cite{svg2011standard} standard defines features used for creating
+and modifying SVG elements, and the \textit{WebGL}~\cite{webgl2015standard} and
+\textit{WebGL 2.0}~\cite{webgl22018standard} standards define features
+for performing 3d graphics operations in web pages.
+
+The \textbf{\WAPI} is the union of all the features in all of the standards
+implemented in modern web browsers. While the implemented \WAPI differs slightly
+between modern browsers (for reasons such as differing organizational priorities
+or different engineering capabilities), those differences tend to be temporary
+and minor.

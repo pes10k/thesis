@@ -1,0 +1,39 @@
+\begin{table}[h]
+    \begin{tabular}{ l c c }
+    \toprule
+        Capability                      &   HTML + JS    & CDF \\
+    \midrule
+    Load static media from remote
+        and local domains             &   \checkmark    & \checkmark  \\
+    Load non-client controlled \JS  &   \checkmark    & -           \\
+    Can express common web
+        design idioms                 &   \checkmark    & \checkmark  \\
+    Server control over
+        HTTP \texttt{referer} and
+        related privacy settings      &   \checkmark    & -           \\
+    Client guarantees over
+        HTTP \texttt{referer} and
+        related privacy settings      &   -             & \checkmark  \\
+    Read sensitive values from
+        cookies, local storage, etc.  &   \checkmark    & -           \\
+    Sub-page / AJAX requests and
+        updates                       &   \checkmark    & \checkmark  \\
+    Allow form submissions and
+        AJAX updates to remote
+        domains                       &   \checkmark    & -           \\
+    HTML5 multimedia
+        (\texttt{<audio>},
+        \texttt{<video>})             &   \checkmark    & \checkmark  \\
+    Supports common browser plugins
+        (Flash, Java, Silverlight)  &   \checkmark    & -           \\
+    Advanced \JS tools
+        (WebGL, \texttt{<canvas>},
+        ASM.js)                       &   \checkmark    & -           \\
+    Client side storage
+        (IndexDB, localStorage, etc)  &   \checkmark    & -           \\
+    Offline Applications            &   \checkmark    & \checkmark  \\
+    \bottomrule
+    \end{tabular}
+    \caption{Feature comparison between HTML and CDF document formats.}
+    \label{table:cdf-html-comparison}
+  \end{table}

@@ -1,0 +1,285 @@
+\section{Browser Extension}
+\label{current-web:extension}
+
+As part of this work, we are also releasing a Firefox browser extension
+that allows users to harden their browsers using the same standard
+disabling technique described in this paper.  The extension is available
+as source code\footnote{\ExtensionSourceUrl}.
+
+\subsection{Implementation}
+Our browser extension uses the same \WAS disabling technique described in
+Section~\ref{cost-benefit:intercepting-js} to dynamically control the DOM-related
+attack surface to expose to websites.  The extension allows users to
+deploy the same conservative and aggressive hardened browser configurations
+described in Section~\ref{subsec:eval-configs}.  Extension users can also
+create their own hardened configurations by selecting any permutation of the
+\NumStandards measured \WASs to disable.
+
+Hardened configurations can be adjusted over time, as the
+relative security and benefit of different browser features changes.  This
+fixed-core-functionality, updated-policies deployment model works well
+for popular web-modifying browser extensions (such as AdBlock, PrivacyBadger and
+Ghostery).  Our browser-hardening extension similarly allows users to subscribe
+to configuration updates from external sources (trusted members of the security
+community, a company's IT staff, security-and-privacy advice groups, etc.), or
+allows users to create their own configurations.
+
+If a browser standard were found to be vulnerable to new attacks in the future,
+security sensitive users could update their hardened configurations to remove it.
+Likewise, if other features became more popular or useful to users on the web,
+future hardened configurations could be updated to allow those standards.
+The extension enables users to define their own cost-benefit balance in the security
+of their browser, rather than prescribing a specific configuration.
+
+Finally, the tool allows users to create per-origin attack-surface policies,
+so that trusted sites can be granted access to more \JS-accessible
+features and standards than unknown or untrusted websites.  Similar to, but
+finer grained than, the origin based policies of tools like NoScript, this
+approach allows users to better limit websites to the least privilege
+needed to carry out the sites' desired functionality.
+
+We discussed our approach with engineers at Mozilla, and we are
+investigating how our feature usage measurement and blocking techniques could be
+incorporated into Firefox Test Pilot as an experimental feature. This
+capability would allow wider deployment of this technique within a genuine
+browsing environment, which can also improve the external validity of our
+measurements.
+
+\subsection{Tradeoffs and Limitations}
+Implementing our approach as a browser extension entails significant tradeoffs.
+It has the benefit of being easy for users to install and update, and that
+it works on popular browsers already.  The extension approach also protect users
+from vulnerabilities that depends on accessing a \JS-exposed
+method or data structure (of which there are many, as documented in
+Section~\ref{subsubsec:results-costs-cves}), with minimal re-engineering effort,
+allowing policies to be updated quickly, as security needs change.  Finally,
+the \WAS-blocking, extension approach is also useful for disabling large
+portions of high-risk functionality, which could protect users from not-yet-discovered
+bugs, in a way that ad-hoc fixing of known bugs could not.
+
+There are several significant downsides to the extension-based approach however.
+First is that there are substantial categories of browser exploits that our
+extension-based approach cannot guard against.  Our approach does not provide
+protection against exploits that rely on browser functionality that is reachable
+through means other than \JS-exposed functionality.  The extension would not
+provide protection against, for example, exploits in the browser's CSS parser,
+TLS code, or image parsers (since the attacker would not require \JS to
+access such code-paths).
+
+Additionally, the extension approach does not have access to some
+information that could be used to make more sophisticated decisions about
+when to allow a website to access a feature.  An alternate approach that
+modified the browser could use factors such as the state of the stack at
+call time (e.x. distinguishing between first-and-third party calls
+to a \WAS), or where a function was defined (e.x. whether a function was defined
+in \JS code delivered over TLS from a trusted website).  Because such information
+is not exposed to the browser in \JS, our extension is not able to take advantage
+of such information.
+
+\subsection{Controlled Evaluation}
+TBD
+
+\subsubsection{Selecting Configurations}
+\label{current-web:extension:configurations}
+
+To evaluate the utility and usability of our fine grained, standards-focused
+approach to browser hardening, we created two hardened browser configurations.
+
+Table \ref{table:browser-configs} lists the standards that we blocked for
+the conservative and aggressive hardened browser configurations.
+Our \textbf{conservative} configuration focuses on removing features that are infrequently needed by websites to function, and would be fitting for users who desire more
+security than is typical of a commodity web browser, and are tolerant of a
+slight loss of functionality.  Our \textbf{aggressive} configuration focuses on removing
+attack surface from the browser, even when that necessitates breaking more websites.
+This configuration would fit highly security sensitive environments, where users
+are willing to accept breaking a higher percentage of websites in order to gain further security
+
+We selected these profiles based on the data discussed in Section~\ref{cost-benefit:results}, related
+previous work on how often standards are needed by websites~\cite{snyder2016browser},
+and prioritizing not affecting the functionality of the most popular sites on the
+web.  We further chose to not restrict the \emph{Web Crypto} standard, to
+avoid affecting the critical path of security sensitive code.
+
+We note that these are just two possible configurations, and that users
+(or trusted curators, IT administrators, or other sources) could
+use this method to find the security / usability tradeoff that best fit their needs.
+
+
+% \subsubsection{Evaluation}
+% \label{subsubsec:eval-configs-evaluation}
+\input{tables/extension_configuration_evaluation}
+
+We evaluated the usability and the security gains these hardened browser
+configurations provided.  Table \ref{table:config-eval}
+shows the results of this evaluation.  As expected, blocking more standards
+resulted in a more secure browser, but at some cost to usability (measured
+by the number of broken sites).
+
+Our evolution was carried out similarly to the per-standard measurement
+technique described in Section~\ref{subsec:per-standard-benefit}.  First
+we created two sets of test sites, \textbf{popular} sites (the 200 most popular
+sites in the Alexa 10k that are in English and not pornographic) and
+\textbf{less popular sites} (a random sampling of sites from the Alexa 10k that
+are rank 201 or lower).  This yielded 175 test sites in the popular category,
+and 155 in the less popular category.
+
+Next we had two evaluators visit each of these 330 websites under three browsing
+configurations, for 60 seconds each.  Our decision to use 60 seconds per page
+is based on prior research~\cite{liu2010understanding} finding that
+that users on average spend under a minute per page.
+
+Our evaluators first visited each site in an unmodified
+Firefox browser, to determine the author-intended functionality of the website.
+Second, they visited in a Firefox browser in the above mentioned conservative
+configuration.  And then finally, a third time in the aggressive hardened
+configuration.
+
+For the conservative and aggressive tests, the evaluators recorded how the
+modified browser configurations affected each page, using the same 1--3 scale
+described in Section~\ref{subsec:per-standard-benefit}.  Our evaluators
+independently gave each site the same 1--3 ranking 97.6\% of the time for
+popular sites, and 98.3\% of the time for less popular sites, giving us
+a high degree of confidence in their evaluations.  The ``\% Popular sites
+broken'' and ``\% Less popular sites broken'' rows in Table
+\ref{table:config-eval} give the results of this measurement.
+
+To further increase our confidence the reported site-break rates, our evaluators
+recorded, in text, what broken functionality they encountered.  We were then
+able to randomly sample and check these textual
+descriptions, and ensure that our evaluators were experiencing similar broken
+functionality.  The consistency we observed through this sampling supports
+the internal validity of the reported site break rates.
+
+As Table \ref{table:config-eval} shows, the trade off between gained security
+and lessened usability is non-linear.  The conservative configuration disables
+code paths associated with 52\% of previous CVEs, and removes 50\% of
+\gls{eloc}, while affecting the functionally of
+only 3.87\%-7.14\% of sites on the internet.  Similarly, the aggressive
+configuration disables 71.9\% of code paths associated with previous CVEs and
+over 70\% of \gls{eloc}, while affecting the usability
+of 11.61\%-15.71\% of the web.
+
+
+\subsubsection{Usability Comparison}
+\label{current-web:extension:usability-comparison}
+
+\input{tables/extension_useability_comparison}
+
+We compared the usability of our sample browser configurations against
+other popular browser security tools.  We compared our conservative and
+aggressive configurations first with Tor Browser and NoScript, each discussed
+in Section~\ref{current-web:extension:configurations}.  We find that the conservative
+configuration has the highest usability of all four tested tools, and that
+the aggressive hardened configuration is roughly comparable to the default
+configuration of the Tor Browser.  The results of this comparison are given in
+\ref{table:usability-comparison}.
+
+We note that this comparison is not included to imply which method is the most
+secure.  The types of security problems addressed by each of these approaches
+are largely intended to solve different types of problems, and all three compose
+well (i.e., one could use a cost-benefit method to determine which \WASs to enable
+\textit{and} harden the build environment and route traffic through the Tor
+network \textit{and} apply per-origin rules to script execution).  However, as Tor Browser and NoScript are widely used security tools, comparing against them gives a good baseline for usability for security conscious users.
+
+We tested the usability using the same technique we used for the conservative
+and aggressive browser configurations, described in Section
+\ref{subsec:eval-configs}; the same two evaluators visited the
+same 175 popular and 155 less popular sites, but compared the page in
+an unmodified Firefox browser with the default configuration of the NoScript
+extension.
+
+The same comparison was carried out for default Firefox against
+the default configuration of the Tor Browser bundle\footnote{Smaller sample
+sizes were used when evaluating the Tor Browser because of time constraints,
+not for fundamental methodological reasons.}.  The evaluators again
+reported very similar scores in their evaluation, reaching the same score
+99.75\% of the time when evaluating NoScript and 90.35\% when evaluating the
+Tor Browser.  We expect this lower agreement score for the Tor Browser is
+a result of our evaluators being routed differently through the Tor network, and
+receiving different versions of the website based on the location of their
+exit nodes.\footnote{We chose to \emph{not} fix the Tor exit node in a fixed
+location during this evaluation to accurately recreate the experience of using
+the default configuration of the TBB.}
+
+As Table \ref{table:usability-comparison} shows, the usability of our
+conservative and aggressive configurations is as good as or better than other
+popularly used browser security tools.  This suggests that, while
+our \WASs cost-benefit approach has some affect on usability, it is a
+cost security-sensitive users would accept.
+
+
+\subsubsection{Allowing Features For Trusted Applications}
+We further evaluated our approach by attempting to use several popular,
+complex \JS applications in a browser in the \textbf{aggressive} hardened
+configuration.  We then created application-specific configurations to allow
+these applications to run, but with access to only the minimal set of
+features needed for functionality.
+
+This process of creating specific feature configurations for different
+applications is roughly analogous to granting trusted applications additional
+capabilities (in the context of a permissions based system), or allowing trusted
+domains to run \JS code (in the context of browser security extensions, like
+NoScript).
+
+We built these application specific configurations using a tool-assisted,
+trial and error process: first, we visited the application with the browser
+extension in ``debug'' mode,
+which caused the extension to log blocked functionality.  Next,
+when we encountered a part of the web application that did not function correctly,
+we reviewed the extension's log to see what blocked functionality seemed
+related to the error.  We then iteratively enabled the related blocked
+standards and revisited the application, to see if enabling the standard
+allowed the app to function correctly.  We repeated the above steps
+until the app worked as desired.
+
+This process is would be beyond what typical web users would be
+capable of, or interested in doing.  Users who were interested in improving the
+security of their browser, but not interested in creating hardened app
+configurations themselves, could subscribe to trusted, expert curated polices,
+similar to how users of AdBlock Plus receive community created rules from
+EasyList.  Section~\ref{subsec:dynamic-config} discusses ways that rulesets
+could be distributed to users.
+
+For each of the following tests, we started with a browser configured in
+the previously mentioned \textbf{aggressive} hardened configuration, 
+which disables 42 of the \NumStandards \WASs measured in this work.  We then created
+application-specific configurations for three popular, complex web applications,
+enabling only the additional standards needed to allow each application
+to work correctly (as judged from the user's perspective).
+
+First, we watched videos on YouTube, by first searching for videos on the
+site's homepage, clicking on a video to watch, watching the video on its
+specific page, and then expanding the video's display to full-screen.
+Doing so required enabling three standards that are blocked in our 
+\textbf{aggressive} configuration: the \textit{File API} standard~\footnote{YouTube
+uses methods defined in this standard to create URL strings referring to media on the
+page.}, the \textit{Media Source Extensions} standard~\footnote{YouTube uses the
+\texttt{HTMLVideoElement.prototype.getVideoPlaybackQuality} method from this
+standard to calibrate video quality based on bandwidth.}, and the
+\textit{Fullscreen API} standard. Once we enabled these three standards on the
+site, we were able to search for and watch videos on the site, while still
+having 39 other standards disabled.
+
+Second, we used the Google Drive application to write and save a text
+document, formatting the text using the formatting features provided by
+the website (creating bulleted lists, altering justifications, changing
+fonts and text sizes, embedding links, etc.).  Doing so required enabling
+two standards that are by default blocked in our \textbf{aggressive} configuration:
+the \textit{HTML: Web Storage} standard~\footnote{Google Drive uses functionality
+from this standard to track user state between pages.} and the \textit{UI Events}
+standard~\footnote{Google Drive uses this standard for finer-grained detection
+of where the mouse cursor is clicking in the application's interface.}.
+Allowing Google Docs to access these two additional standards, but leaving
+the other 40 standards disabled, allowed us create rich text documents without
+any user-noticeable affect in site functionality.
+
+Third and finally, we used the Google Maps application to map a route between
+Chicago and New York.  We did so by first searching for ``Chicago, IL'',
+allowing the map to zoom in on the city, clicking the ``Directions'' button,
+searching for ``New York, NY'', and then selecting the ``driving directions''
+option.  Once we enabled the \textit{HTML: Channel Messaging}
+standard~\footnote{Which Google Maps uses to enable communication between different
+sub-parts of the application.} we were able to use the site as normal.
+
+\subsection{Real-World Deployment}
+TBD

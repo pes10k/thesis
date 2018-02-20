@@ -1,90 +1,512 @@
-@manual{amsltx,                                                                 
-     organization={American Mathematical Society},                              
-     title={\amslatex{} Version 1.0 User's Guide},                              
-     year=1990,                                                                 
-     note={Available on the {\tt TEX} disk as {\tt AMSLATEX PS}},               
-     }                                                                          
-@manual{warbrick,                                                               
-     author={Warbrick, John},                                                   
-     title={Essential \LaTeX{}},                                                
-     organization={Plymouth Polytechnic},                                       
-     year=1989,                                                                 
-     }                                                                          
-@manual{use_latex,                                                              
-     organization={UIC Computer Center},                                        
-     title={Using \LaTeX{} at UIC},                                             
-     year=1989,                                                                 
-     note={Available from {\tt INFORM}},                                        
-     }                                                                          
-@manual{use_tex,                                                                
-     organization={UIC Computer Center},                                        
-     title={Using \TeX{} at UIC},                                               
-     year=1989,                                                                 
-     note={Available from {\tt INFORM}},                                        
-     }                                                                          
-@manual{tex31,                                                                  
-     organization={UIC Computer Center},                                        
-     title={Mainframe \TeX{} Version 3.1 and Related Software},                 
-     year=1991,                                                                 
-     note={Available from {\tt INFORM}},                                        
-     }                                                                          
-@manual{texrox,                                                                 
-     organization={UIC Computer Center},                                        
-     title={\TeX{}, \LaTeX{} and \amstex{} Output on the Xerox 8790s            
-at UIC (TeXRoX)},                                                               
-     year=1989,                                                                 
-     note={Available from {\tt INFORM}},                                        
-     }                                                                          
-@book{latex_guide,                                                              
-     author={Lamport, Leslie},                                                  
-     title={\LaTeX{}: A Document Preparation System},                           
-     publisher={Addison-Wesley Publishing Company},                             
-     address={Reading, MA},                                                     
-     year=1986,                                                                 
-     }                                                                          
-@book{latex_engineers,                                                          
-     author ={Buerger, David J.},                                               
-     title={\LaTeX{} for Engineers \& Scientists},                              
-     publisher={McGraw-Hill Publishing Company},                                
-     address={New York},                                                        
-     year=1990,                                                                 
-     }                                                                          
-@manual{thesis_dir,                                                             
-     title={Thesis Directions},                                                 
-     organization={UIC Graduate College},                                       
-     year=1991,                                                                 
-     }                                                                          
-@article{smpl_article,                                                          
-     author={M. Grumbach and Alex Morishima and John H. Taylor},                
-     title={Human sex chromosome abnormalities in relation to {DNA}             
-     replication},                                                              
-     journal={Proc. Natl. Acad. Sci. USA},                                      
-     volume={49},                                                               
-     pages={581-589},                                                           
-     year=1963,                                                                 
-     }                                                                          
-@book{smpl_book,                                                                
-     author={John R. Elkinton and T. Samual Danowski},                          
-     title={The Body Fluids},                                                   
-     publisher={Williams and Wilkins},                                          
-     address={Baltimore},                                                       
-     year=1955,                                                                 
-     }                                                                          
-@incollection{smpl_incollection,                                                
-     author={Irving Schneider},                                                 
-     title={Insect tissue culture},                                             
-     booktitle={Methods in Developmental Biology},                              
-     editor={F. H. Wilt and N. K. Wesnes},                                      
-     pages={543-554},                                                           
-     publisher={Thomas Y. Crowell Co.},                                         
-     address={New York},                                                        
-     year=1967,                                                                 
-     }                                                                          
-@mastersthesis{smpl_masterthesis,                                               
-     author={Dean Ross},                                                        
-     title={The {I}rish-{C}atholic Immigrant, 1980--1900},                      
-     type={Master's Thesis},                                                    
-     address={New York},                                                        
-     school={Columbia University},                                              
-     year=1975,                                                                 
-     }                                                                          
+@misc{svg2011standard,
+  title={Scalable Vector Graphics (SVG) 1.1 (Second Edition)},
+  author={Erik Dahlström and Patrick Dengler and Anthony Grasso and Chris Lilley and Cameron McCormack and Doug Schepers and Jonathan Watt},
+  year={2011},
+  howpublished={\url{http://www.w3.org/TR/SVG11/}}
+}
+
+@misc{webgl2015standard,
+  title={WebGL Specification},
+  author={Dean Jackson},
+  year={2014},
+  howpublished={\url{https://www.khronos.org/registry/webgl/specs/1.0/}}
+}
+
+@misc{webgl22018standard,
+  title={WebGL 2.0 Specification},
+  author={Dean Jackson and Jeff Gillbert},
+  year={2018},
+  howpublished={\url{https://ww.khronos.org/registry/webgl/specs/latest/2.0/}}
+}
+
+@misc{snyderp2016webapidata,
+  title={Web API usage in the Alexa 10k},
+  author={Peter Snyder and Lara Ansari and Cynthia Taylor and Chris Kanich},
+  year={2016},
+  howpublished={\url{http://imdc.datcat.org/collection/1-0723-8=Web-API-usage-in-the-Alexa-10k}}
+}
+
+@misc{whatwg2018html,
+  title={HTML Living Standard},
+  author={{Web Hypertext Application Technology Working Group (WHATWG)}},
+  year={2018},
+  howpublished="\url{https://html.spec.whatwg.org/}"
+}
+
+@misc{dom1w3c,
+  title={Document Object Model (DOM) Level 1 Specification},
+  author={Vidur Apparao and Steve Byrne and Mike Champion and Scott Isaacs and Arnaud Le Hors and Gavin Nicol and Jonathan Robie and Peter Sharpe and Bill Smith and Jared Sorensen and Robert Sutor and Ray Whitmer and Chris Wilson},
+  year={1998},
+  howpublished={\url{https://www.w3.org/TR/REC-DOM-Level-1/}}
+}
+
+@misc{dom2corew3c,
+  title={Document Object Model (DOM) Level 2 Core Specification},
+  author={Arnaud Le Hors and Philippe Le Hegaret and Lauren Wood and Gavin Nicol and Jonathan Robie and Mike Champion and Steve Byrne},
+  year={2000},
+  howpublished={\url{https://www.w3.org/TR/DOM-Level-2-Core/}}
+}
+
+@misc{dom3corew3c,
+  title={Document Object Model (DOM) Level 3 Core Specification},
+  author={Arnaud Le Hors and Philippe Le Hegaret and Lauren Wood and Gavin Nicol and Jonathan Robie and Mike Champion and Steve Byrne},
+  year={2004},
+  howpublished={\url{https://www.w3.org/TR/DOM-Level-3-Core/}}
+}
+
+@misc{zaninotto2016gremlins,
+  title={{Gremlins.js}},
+  author={François Zaninotto},
+  year={2016},
+  howpublished={\url{https://github.com/marmelab/gremlins.js}}
+}
+
+@inproceedings{amalfitano2012using,
+  title={Using GUI ripping for automated testing of Android applications},
+  author={Amalfitano, Domenico and Fasolino, Anna Rita and Tramontana, Porfirio and De Carmine, Salvatore and Memon, Atif M},
+  booktitle={Proceedings of the 27th IEEE/ACM International Conference on Automated Software Engineering},
+  pages={258--261},
+  year={2012},
+  organization={ACM}
+}
+
+@inproceedings{liu2014decaf,
+  title={DECAF: detecting and characterizing ad fraud in mobile apps},
+  author={Liu, Bin and Nath, Suman and Govindan, Ramesh and Liu, Jie},
+  booktitle={11th USENIX Symposium on Networked Systems Design and Implementation (NSDI 14)},
+  pages={57--70},
+  year={2014}
+}
+
+@misc{mozillaobjectwatch,
+  author={{Mozilla Developer Network}},
+  title={Object.prototype.watch() - JavaScript | MDN},
+  howpublished={\url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/watch}},
+}
+
+@misc{beaconapi,
+  author={Ilya Grigorik and Alois Reitbauer and Arvind Jain and Jatinder Mann},
+  title={Beacon w3c Working Draft},
+  howpublished={\url{http://www.w3.org/TR/beacon/}},
+  year={2015}
+}
+
+@misc{ajaxwhatwg,
+  title={XMLHttpRequest},
+  author={Anne van Kesteren},
+  year={2016},
+  howpublished={\url{https://xhr.spec.whatwg.org/}}
+}
+
+@misc{ambientlightapi,
+  title={Ambient Light Events},
+  author={Doug Turner and Anssi Kostiainen},
+  howpublished={\url{http://www.w3.org/TR/ambient-light/}},
+  year={2105}
+}
+
+@misc{cssomw3c,
+  title={CSS Object Model (CSS-OM)},
+  author={Simon Pieters and Daniel Glazman},
+  year={2016},
+  howpublished={\url{https://www.w3.org/TR/cssom-1/}}
+}
+
+@misc{encodingw3c,
+  title={Encoding Standard},
+  author={Anne van Kesteren},
+  year={2016},
+  howpublished={\url{https://encoding.spec.whatwg.org/}}
+}
+
+@misc{htmlcmw3c,
+  title={HTML: Channel Messaging},
+  author={Ian Hickson and Simon Pieters and Anne van Kesteren and Philip Jägenstedt and Domenic Denicola},
+  year={2016},
+  howpublished={\url{https://html.spec.whatwg.org/multipage/comms.html#channel-messaging}}
+}
+
+@misc{htmlpluginsw3c,
+  title={HTML: Plugins},
+  author={Ian Hickson and Simon Pieters and Anne van Kesteren and Philip Jägenstedt and Domenic Denicola},
+  year={2016},
+  howpublished={\url{https://html.spec.whatwg.org/multipage/webappapis.html#plugins-2}}
+}
+
+@misc{perftimingw3c,
+  title={Performance Timeline Level 2},
+  author={Ilya Grigorik and Jatinder Mann and Zhiheng Wang},
+  year={2016},
+  howpublished={\url{https://w3c.github.io/performance-timeline/}}
+}
+
+@misc{selectors1w3c,
+  title={Selectors API Level 1},
+  author={Anne van Kesteren and Lachlan Hunt},
+  year={2013},
+  howpublished={\url{https://www.w3.org/TR/selectors-api/}}
+}
+
+@misc{uievents3c,
+  title={UI Events},
+  author={Ilya Grigorik and Jatinder Mann and Zhiheng Wang},
+  year={2016},
+  howpublished={\url{https://w3c.github.io/uievents/}}
+}
+
+@misc{vibrationapi,
+  title={Vibration},
+  author={Anssi Kostiainen},
+  howpublished={\url{http://www.w3.org/TR/vibration/}},
+  year={2015}
+}
+
+@misc{webcryptow3c,
+  title={Web Cryptography API},
+  author={Arnaud Le Hors and Philippe Le Hegaret and Lauren Wood and Gavin Nicol and Jonathan Robie and Mike Champion and Steve Byrne},
+  year={2014},
+  howpublished={\url{https://www.w3.org/TR/WebCryptoAPI/}}
+}
+
+@misc{webrtcw3c,
+  title={WebRTC 1.0: Real-time Communication Between Browser},
+  author={Adam Bergkvist and Daniel C. Burnett and Cullen Jennings and Anant Narayanan and Bernard Aboba},
+  year={2016},
+  howpublished={\url{https://www.w3.org/TR/webrtc/}}
+}
+
+@article{shin2011evaluating,
+  title={Evaluating complexity, code churn, and developer activity metrics as indicators of software vulnerabilities},
+  author={Shin, Yonghee and Meneely, Andrew and Williams, Laurie and Osborne, Jason A},
+  journal={IEEE Transactions on Software Engineering},
+  volume={37},
+  number={6},
+  pages={772--787},
+  year={2011},
+  publisher={IEEE}
+}
+
+@misc{indexeddb,
+  howpublished={\url{https://www.w3.org/TR/IndexedDB/}},
+  author={Ali Alabbas and Joshua Bell},
+  year={2018},
+  title={Indexed Database API 2.0}
+}
+
+@misc{cve_2012_4171,
+  title={CVE-2012-4171},
+  year={2012},
+  organization={MITRE},
+  howpublished={\url{https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-4171}}
+}
+
+@misc{cve_2013_2031,
+  title={CVE-2013-2031},
+  year={2013},
+  organization={MITRE},
+  howpublished={\url{https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-2031}}
+}
+
+@misc{cve_2011_2363,
+  title={CVE-2011-2363},
+  year={2011},
+  organization={MITRE},
+  howpublished={\url{https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-2363}}
+}
+
+@misc{cve_2015_0818,
+  title={CVE-2015-0818},
+  year={2015},
+  organization={MITRE},
+  howpublished={\url{https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-0818}}
+}
+
+@misc{dxr,
+  title={DXR},
+  author={Mozilla Corporation},
+  year={2016},
+  howpublished={\url{https://github.com/mozilla/dxr}}
+}
+
+@misc{pwa,
+  title={Progressive Web Apps},
+  author={Google Developers},
+  year={2016},
+  howpublished={\url{https://developers.google.com/web/progressive-web-apps/}}
+}
+
+@inproceedings{ozment2006milk,
+  title={Milk or wine: does software security improve with age?},
+  author={Ozment, Andy and Schechter, Stuart E},
+  booktitle={Usenix Security},
+  year={2006}
+}
+
+@incollection{zimmermann2008predicting,
+  title={Predicting bugs from history},
+  author={Zimmermann, Thomas and Nagappan, Nachiappan and Zeller, Andreas},
+  booktitle={Software Evolution},
+  pages={69--88},
+  year={2008},
+  publisher={Springer}
+}
+
+@misc{boringssl,
+  title={boringssl - Git at Google},
+  author={Google},
+  year={2018},
+  howpublished={\url{https://boringssl.googlesource.com/boringssl/}}
+}
+
+@inproceedings{liu2010understanding,
+  title={Understanding web browsing behaviors through Weibull analysis of dwell time},
+  author={Liu, Chao and White, Ryen W and Dumais, Susan},
+  booktitle={Proceedings of the 33rd international ACM SIGIR conference on Research and development in information retrieval},
+  pages={379--386},
+  year={2010},
+  organization={ACM}
+}
+
+@inproceedings{snyder2016browser,
+  title={Browser Feature Usage on the Modern Web},
+  author={Snyder, Peter and Ansari, Lara and Taylor, Cynthia and Kanich, Chris},
+  booktitle={Proceedings of the 2016  Internet Measurement Conference (to appear)},
+  year={2016}
+}
+
+@misc{highres2016w3c,
+  title={High Resolution Time Level 2},
+  year={2016},
+  howpublished={\url{https://www.w3.org/TR/hr-time-2/}},
+  author={Llya Grigorik and James Simonsen and Jatinder Mann}
+}
+
+@inproceedings{andrysco2015subnormal,
+  title={On subnormal floating point and abnormal timing},
+  author={Andrysco, Marc and Kohlbrenner, David and Mowery, Keaton and Jhala, Ranjit and Lerner, Sorin and Shacham, Hovav},
+  booktitle={2015 IEEE Symposium on Security and Privacy},
+  pages={623--639},
+  year={2015},
+  organization={IEEE}
+}
+
+@inproceedings{tian2014all,
+  title={All your screens are belong to us: attacks exploiting the html5 screen sharing api},
+  author={Tian, Yuan and Liu, Ying Chuan and Bhosale, Amar and Huang, Lin Shung and Tague, Patrick and Jackson, Collin},
+  booktitle={2014 IEEE Symposium on Security and Privacy},
+  pages={34--48},
+  year={2014},
+  organization={IEEE}
+}
+
+@inproceedings{van2016request,
+  title={Request and Conquer: Exposing Cross-Origin Resource Size},
+  author={Van Goethem, Tom and Vanhoef, Mathy and Piessens, Frank and Joosen, Wouter},
+  booktitle={Proceedings of the Usenix Security Symposium},
+  year={2016}
+}
+
+@inproceedings{oren2015spy,
+  title={The spy in the sandbox: Practical cache attacks in javascript and their implications},
+  author={Oren, Yossef and Kemerlis, Vasileios P and Sethumadhavan, Simha and Keromytis, Angelos D},
+  booktitle={Proceedings of the 22nd ACM SIGSAC Conference on Computer and Communications Security},
+  pages={1406--1418},
+  year={2015},
+  organization={ACM}
+}
+
+@inproceedings{acar2013fpdetective,
+  title={FPDetective: dusting the web for fingerprinters},
+  author={Acar, Gunes and Juarez, Marc and Nikiforakis, Nick and Diaz, Claudia and G{\"u}rses, Seda and Piessens, Frank and Preneel, Bart},
+  booktitle={Proceedings of the 2013 ACM SIGSAC conference on Computer \& communications security},
+  pages={1129--1140},
+  year={2013},
+  organization={ACM}
+}
+
+@inproceedings{kotcher2013cross,
+  title={Cross-origin pixel stealing: timing attacks using CSS filters},
+  author={Kotcher, Robert and Pei, Yutong and Jumde, Pranjal and Jackson, Collin},
+  booktitle={Proceedings of the 2013 ACM SIGSAC conference on Computer \& communications security},
+  pages={1055--1062},
+  year={2013},
+  organization={ACM}
+}
+
+@inproceedings{das2016tracking,
+  title={Tracking Mobile Web Users Through Motion Sensors: Attacks and Defenses},
+  author={Das, Anupam and Borisov, Nikita and Caesar, Matthew},
+  booktitle={Proceedings of the 23rd Annual Network and Distributed System Security Symposium (NDSS)},
+  year={2016}
+}
+
+@inproceedings{son2013postman,
+  title={The Postman Always Rings Twice: Attacking and Defending postMessage in HTML5 Websites.},
+  author={Son, Sooel and Shmatikov, Vitaly},
+  booktitle={NDSS},
+  year={2013}
+}
+
+@inproceedings{ho2014tick,
+  title={Tick tock: building browser red pills from timing side channels},
+  author={Ho, Grant and Boneh, Dan and Ballard, Lucas and Provos, Niels},
+  booktitle={8th USENIX Workshop on Offensive Technologies (WOOT 14)},
+  year={2014}
+}
+
+@inproceedings{kim2014exploring,
+  title={Exploring and mitigating privacy threats of HTML5 geolocation API},
+  author={Kim, Hyungsub and Lee, Sangho and Kim, Jong},
+  booktitle={Proceedings of the 30th Annual Computer Security Applications Conference},
+  pages={306--315},
+  year={2014},
+  organization={ACM}
+}
+
+@techreport{olejnik2015leaking,
+  title={The leaking battery A privacy analysis of the HTML5 Battery Status API},
+  author={Olejnik, Lukasz and Acar, Gunes and Castelluccia, Claude and Diaz, Claudia},
+  year={2015},
+  institution={Cryptology ePrint Archive, Report 2015/616, 2015, ht tp://eprint. iacr. org}
+}
+
+@inproceedings{gruss2015practical,
+  title={Practical memory deduplication attacks in sandboxed javascript},
+  author={Gruss, Daniel and Bidner, David and Mangard, Stefan},
+  booktitle={European Symposium on Research in Computer Security},
+  pages={108--122},
+  year={2015},
+  organization={Springer}
+}
+
+@inproceedings{englehardt2016online,
+  title={Online tracking: A 1-million-site measurement and analysis},
+  author={Englehardt, Steven and Narayanan, Arvind},
+  booktitle={Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security},
+  pages={1388--1401},
+  year={2016},
+  organization={ACM}
+}
+
+@inproceedings{van2015clock,
+  title={The Clock is Still Ticking: Timing Attacks in the Modern Web},
+  author={Van Goethem, Tom and Joosen, Wouter and Nikiforakis, Nick},
+  booktitle={Proceedings of the 22nd ACM SIGSAC Conference on Computer and Communications Security},
+  pages={1382--1393},
+  year={2015},
+  organization={ACM}
+}
+
+@inproceedings{acar2014web,
+  title={The Web never forgets: Persistent tracking mechanisms in the wild},
+  author={Acar, Gunes and Eubank, Christian and Englehardt, Steven and Juarez, Marc and Narayanan, Arvind and Diaz, Claudia},
+  booktitle={Proceedings of the 2014 ACM SIGSAC Conference on Computer and Communications Security},
+  pages={674--689},
+  year={2014},
+  organization={ACM}
+}
+
+@inproceedings{xu2015ucognito,
+  title={Ucognito: Private browsing without tears},
+  author={Xu, Meng and Jang, Yeongjin and Xing, Xinyu and Kim, Taesoo and Lee, Wenke},
+  booktitle={Proceedings of the 22nd ACM SIGSAC Conference on Computer and Communications Security},
+  pages={438--449},
+  year={2015},
+  organization={ACM}
+}
+
+@inproceedings{alaca2016device,
+  title={Device Fingerprinting for Augmenting Web Authentication: Classification and Analysis of Methods},
+  author={Alaca, Furkan and van Oorschot, PC},
+  year={2016},
+  booktitle={Proceedings of the 32th Annual Computer Security Applications Conference}
+}
+
+@inproceedings{weissbacher2015zigzag,
+  title={Zigzag: Automatically hardening web applications against client-side validation vulnerabilities},
+  author={Weissbacher, Michael and Robertson, William and Kirda, Engin and Kruegel, Christopher and Vigna, Giovanni},
+  booktitle={24th USENIX Security Symposium (USENIX Security 15)},
+  pages={737--752},
+  year={2015}
+}
+
+@misc{olejnik2017stealing,
+  title={{Stealing sensitive browser data with the W3C Ambient Light Sensor API}},
+  author={Olejnik, Lukasz},
+  year={2017},
+  howpublished={\url{https://blog.lukaszolejnik.com/stealing-sensitive-browser-data-with-the-w3c-ambient-light-sensor-api/}}
+}
+
+@inproceedings{cao2017cross,
+  title={{(Cross-)Browser Fingerprinting via OS and Hardware Level Features}},
+  author={Cao, Yinzhi and Li, Song and Wijmans, Erik},
+  year={2017},
+  booktitle={Proceedings of the Symposium on Networked and Distributed System Security}
+}
+
+@inproceedings{gras2017aslr,
+  title={{ASLR on the Line: Practical Cache Attacks on the MMU}},
+  author={Gras, Ben and Razavi, Kaveh and Bosman, Erik and Bos, Herbert and Giuffrida, Cristiano},
+  year={2017},
+  booktitle={Proceedings of the Symposium on Networked and Distributed System Security}
+}
+
+@inproceedings{nikiforakis2013cookieless,
+  title={Cookieless monster: Exploring the ecosystem of web-based device fingerprinting},
+  author={Nikiforakis, Nick and Kapravelos, Alexandros and Joosen, Wouter and Kruegel, Christopher and Piessens, Frank and Vigna, Giovanni},
+  booktitle={IEEE Symposium on Security and Privacy},
+  year={2013}
+}
+
+@inproceedings{laperdrix2016beauty,
+  title={Beauty and the Beast: Diverting modern web browsers to build unique browser fingerprints},
+  author={Laperdrix, Pierre and Rudametkin, Walter and Baudry, Benoit},
+  booktitle={37th IEEE Symposium on Security and Privacy (S\&P 2016)},
+  year={2016}
+}
+
+@inproceedings{gelernter2015cross,
+  title={Cross-site search attacks},
+  author={Gelernter, Nethanel and Herzberg, Amir},
+  booktitle={Proceedings of the 22nd ACM SIGSAC Conference on Computer and Communications Security},
+  pages={1394--1405},
+  year={2015},
+  organization={ACM}
+}
+
+@misc{webaudio2018standard,
+  title={Web Audio API},
+  author={Paul Adenot and Chris Wilson and Chris Rogers},
+  year={2018},
+  howpublished={\url{https://www.w3.org/TR/webaudio/}}
+}
+
+@inproceedings{eckersley2010unique,
+  title={How unique is your web browser?},
+  author={Eckersley, Peter},
+  booktitle={Privacy Enhancing Technologies},
+  pages={1--18},
+  year={2010},
+  organization={Springer}
+}
+
+@article{mowery2011fingerprinting,
+  title={Fingerprinting information in JavaScript implementations},
+  author={Mowery, Keaton and Bogenreif, Dillon and Yilek, Scott and Shacham, Hovav},
+  journal={Proceedings of W2SP},
+  year={2011}
+}
+
+@article{mowery2012pixel,
+  title={Pixel perfect: Fingerprinting canvas in HTML5},
+  author={Mowery, Keaton and Shacham, Hovav},
+  journal={Proceedings of W2SP},
+  year={2012}
+}
+
+@misc{hotCRPhomepage,
+  title={HotCRP Conference Management Software},
+  howpublished={\url{http://www.read.seas.harvard.edu/~kohler/hotcrp/}},
+  author={Eddie Kohler},
+  year={2014}
+}

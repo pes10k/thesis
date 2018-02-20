@@ -1,3 +1,6 @@
+Privacy and Security Implications of the Growth of the Web API
+---
+
 Web browsers are a complex and highly trusted part of modern computing.  Browser
 vendors implement new, and increasingly complex, functionality into the
 web platform, both to establish a competitive advantage against competing

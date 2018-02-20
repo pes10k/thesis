@@ -1,0 +1,111 @@
+\section{Design}
+\label{future-web:design}
+
+\CDF is an alternative method of creating modern, interactive websites, but with greater security and
+privacy guarantees than the current HTML-and-\JS system provides.  The principal
+features in the design of \CDF are as follows.
+
+\textbf{First}, \CDF prevents websites from running arbitrary code in the client browser.
+Instead, \CDF authors create interactive websites by
+composing trusted, client-controlled implementations of interactive web functionality
+using an easily checked, declarative syntax.
+\textbf{Second}, \CDF only uses a subset of browser features, allowing websites
+to access only the ``core'' or most popular and frequently used tools for
+creating interactive web sites.
+\textbf{Third}, \CDF places stricter constraints on web documents than current
+HTML-and-\JS applications enforce,
+to better protect user privacy and security.
+
+\input{tables/html_cdf_comparison}
+
+\ref{table:cdf-html-comparison} provides a comparison of the capabilities
+and guarantees made by current HTML-and-\JS based applications, contrasted
+against \CDF documents.  The following subsections provide more detail
+about each aspect of the design of \CDF.
+
+
+\subsection{Trusted Feature Implementation}
+\label{future-web:design:trusted-feature-implementation}
+\CDF's main method for improving user security and privacy is by preventing websites from
+executing arbitrary \JS in the browser.  The current
+\JS-based system for providing interactive websites is the cause
+of many web browser security problems.  Web browsers must trust that code
+will carry out some non-malicious purpose when executing it, and that a given
+set of \JS instructions will benefit the user (by, for example, setting up
+a website's user interface elements) instead of harming the user (e.g. by fingerprinting
+the user, accessing a browser feature with a known security flaw, or sending
+a session token to a remote server).
+
+Instead of the difficult to secure \JS approach, \CDF provides a set of
+trusted, client-side implemented interactive primitives, and allows websites
+to compose them using a declarative, easy to verify syntax.  \CDF authors can,
+for example, tie a \emph{mouse click} event to a \emph{document attribute
+change} event, not by writing code directly, but through the structure of the
+document.  \CDF clients include their own trusted libraries that handle
+generating code and executing the relevant functionality on the clients, without
+trusting code provided by the website.
+
+The result is that \CDF documents
+are composed from functionality implemented in trusted, client-controlled libraries.
+These libraries are designed to compose safely, and pages can only access them through
+a simple, declarative syntax.  This is in contrast to the typical \JS based approach, where websites
+can execute arbitrary code, and web browsers must judge if the resulting
+behavior seems safe through heuristics like XSS filters and code origin
+reputation systems.
+
+
+\subsection{\CDF Feature Selection}
+\label{future-web:design:feature-selection}
+\CDF also protects user security and privacy by reducing the browser's attack
+surface by preventing websites from accessing browser functionality that
+is either rarely used, or predominantly used for advertising and tracking.
+
+Modern web browsers implement a huge array of features, which site authors
+access through \JS APIs (either the DOM or the Web API).  Some features
+are closely related to the web's core purpose of interactive
+documents.  Examples of such features include the \textit{DOM Level 2: Core}
+standard~\cite{dom2corew3c}, used to manipulate and inspect an HTML document
+with \JS, or the \textit{XMLHttpRequest} standard~\cite{ajaxwhatwg}, which allows
+websites to make sub-document updates to the origin domain without refreshing
+the page.
+
+Other browser features are more esoteric and only loosely related to the goal
+of providing interactive documents.  For example, modern web browsers
+implement the \textit{Web Audio} standard~\cite{webaudio2018standard}, which
+allows websites to perform full audio synthesis, the \emph{Ambient Light}
+standard~\cite{ambientlightapi}, which allow websites to access any light
+sensors on the device, and the \emph{WebRTC} standard~\cite{webrtcw3c}, which
+allows web browsers to create peer-to-peer networks.
+
+Research done by Snyder et al~\cite{snyder2016browser} found that a small
+number of browser features, primary related to document-manipulation and updating,
+were frequently used on the web, while the majority of \JS-accessed
+features were never used by websites.  The same work found that even more
+browser features became rarely used when filtering out advertising and tracking
+related usage.
+
+\CDF improves user security and privacy by only allowing websites access
+to the frequently used, document-manipulation related features in the browser.
+By preventing websites from accessing features that do not generally provide
+user serving interests (either because those features are primary used for
+advertising and tracking, or because the features are rarely used at all),
+\CDF brings web browsers into closer alignment with the security principal of
+least privilege.  The attack surface exposed to websites is
+dramatically reduced, with minimal impact to the user experience.
+
+
+\subsection{Document Constraints}
+\label{sec:design:doc-constraints}
+HTML-based applications include several other design aspects that make them
+difficult to secure.  HTML and \JS based applications allow scripts to be
+loaded from remote locations from any part of the HTML document, enabling
+many XSS attacks.  HTML documents can contain full sub-documents
+through the use of \texttt{<iframe>} elements, enabling drive by downloads and related
+attacks.  And HTML applications generally include a ``referer'' header
+when requesting remote resources, enabling some forms of user tracking.
+
+\CDF improves user security and privacy by tightly-controlling what kinds of
+resources documents can fetch, and what information is sent during the fetch
+request.  CDF documents cannot include arbitrary code (either
+inline or hosted remotely), include sub-documents, or send information
+generated in the client directly to remote domains.
