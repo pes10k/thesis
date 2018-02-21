@@ -1,19 +1,19 @@
 \section{Introduction}
 \label{measurement:overview}
 
-An important first steps for understanding the security and privacy implications
-of the current, and quickly expanding, \WAPI is to understand whats features
-are being used on the web, by who, and for what purposes.  If a \WAPI feature
+An important first step for understanding the security and privacy implications
+of the current, and quickly expanding, \WAPI is to understand what features
+are being used on the web, and for what purposes.  If a \WAPI feature
 is used by every site on the web, thats a useful (though not determinative)
-signal that a feature may be very useful to a user.  Conversely, if a user
+signal that a feature may be useful to web users.  Conversely, if a user
 never visits a website using a specific \WAPI feature, then that feature
 is (trivially) providing no direct benefit to the user.
 
-However, the design and development of the the web makes these kinds of
-seemingly easy measurements surprisingly complex, and for many reasons.
+The design and development of the web makes these kinds of
+seemingly easy measurements surprisingly complex.
 First, with the exception of trivial cases, one cannot simply ``download
 a website'' and count invocations of functions calls, the way one might be
-able to approximate with traditional applications.   Web sites are downloaded
+able to approximate with traditional applications.  Web sites are downloaded
 (and sometimes, generated) dynamically, one portion at a time, depending on user
 input. The server side of an application can even change while the client is
 interacting with the application!  All of which means, there is no way to
@@ -38,7 +38,7 @@ And finally, the scale of the internet means that manual interaction is not
 feasible to measure a representatively large portion of the web.  An automated
 technique is needed.
 
-For these reasons, among others, determining what functionality users are likely
+For these reasons, among others, determining what \WAPI features users are likely
 to encounter on the web, and distinguishing harmful from beneficial feature
 invocations, is a difficult problem.
 
@@ -53,7 +53,7 @@ extensions installed, and by comparing the difference in features that are execu
 under each configuration, we're able to distinguish user-serving \WAPI use
 from non-user-serving \WAPI use.
 
-By applying this technique to the Alexa 10k, we were able to answer the motivating
+This work applies this technique to the Alexa 10k to answer the original
 question: which \WAPI features do web users use when browsing the web, and in
 what numbers.  We find, for example, that 50\% of the \JS provided
 features are never used by the ten thousand most popular websites.  We were also

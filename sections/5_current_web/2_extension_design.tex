@@ -11,9 +11,9 @@ Our browser extension uses the same \WAS disabling technique described in
 Section~\ref{cost-benefit:intercepting-js} to dynamically control the DOM-related
 attack surface to expose to websites.  The extension allows users to
 deploy the same conservative and aggressive hardened browser configurations
-described in Section~\ref{subsec:eval-configs}.  Extension users can also
-create their own hardened configurations by selecting any permutation of the
-\NumStandards measured \WASs to disable.
+described in Section~\ref{current-web:extension:configurations}.
+Extension users can also create their own hardened configurations by selecting
+any permutation of the \NumStandards measured \WASs to disable.
 
 Hardened configurations can be adjusted over time, as the
 relative security and benefit of different browser features changes.  This
@@ -51,7 +51,7 @@ It has the benefit of being easy for users to install and update, and that
 it works on popular browsers already.  The extension approach also protect users
 from vulnerabilities that depends on accessing a \JS-exposed
 method or data structure (of which there are many, as documented in
-Section~\ref{subsubsec:results-costs-cves}), with minimal re-engineering effort,
+Section~\ref{cost-benefit:results:costs-cves}), with minimal re-engineering effort,
 allowing policies to be updated quickly, as security needs change.  Finally,
 the \WAS-blocking, extension approach is also useful for disabling large
 portions of high-risk functionality, which could protect users from not-yet-discovered
@@ -82,10 +82,12 @@ TBD
 \subsubsection{Selecting Configurations}
 \label{current-web:extension:configurations}
 
+\input{tables/extension_configurations}
+
 To evaluate the utility and usability of our fine grained, standards-focused
 approach to browser hardening, we created two hardened browser configurations.
 
-Table \ref{table:browser-configs} lists the standards that we blocked for
+\ref{table:browser-configs} lists the standards that we blocked for
 the conservative and aggressive hardened browser configurations.
 Our \textbf{conservative} configuration focuses on removing features that are infrequently needed by websites to function, and would be fitting for users who desire more
 security than is typical of a commodity web browser, and are tolerant of a
@@ -116,7 +118,7 @@ resulted in a more secure browser, but at some cost to usability (measured
 by the number of broken sites).
 
 Our evolution was carried out similarly to the per-standard measurement
-technique described in Section~\ref{subsec:per-standard-benefit}.  First
+technique described in Section~\ref{cost-benefit:methodology:per-standard-benefit}.  First
 we created two sets of test sites, \textbf{popular} sites (the 200 most popular
 sites in the Alexa 10k that are in English and not pornographic) and
 \textbf{less popular sites} (a random sampling of sites from the Alexa 10k that
@@ -136,7 +138,7 @@ configuration.
 
 For the conservative and aggressive tests, the evaluators recorded how the
 modified browser configurations affected each page, using the same 1--3 scale
-described in Section~\ref{subsec:per-standard-benefit}.  Our evaluators
+described in Section~\ref{cost-benefit:methodology:per-standard-benefit}.  Our evaluators
 independently gave each site the same 1--3 ranking 97.6\% of the time for
 popular sites, and 98.3\% of the time for less popular sites, giving us
 a high degree of confidence in their evaluations.  The ``\% Popular sites
@@ -179,7 +181,9 @@ secure.  The types of security problems addressed by each of these approaches
 are largely intended to solve different types of problems, and all three compose
 well (i.e., one could use a cost-benefit method to determine which \WASs to enable
 \textit{and} harden the build environment and route traffic through the Tor
-network \textit{and} apply per-origin rules to script execution).  However, as Tor Browser and NoScript are widely used security tools, comparing against them gives a good baseline for usability for security conscious users.
+network \textit{and} apply per-origin rules to script execution).  However, as
+Tor Browser and NoScript are widely used security tools, comparing against them
+gives a good baseline for usability for security conscious users.
 
 We tested the usability using the same technique we used for the conservative
 and aggressive browser configurations, described in Section
@@ -280,6 +284,3 @@ searching for ``New York, NY'', and then selecting the ``driving directions''
 option.  Once we enabled the \textit{HTML: Channel Messaging}
 standard~\footnote{Which Google Maps uses to enable communication between different
 sub-parts of the application.} we were able to use the site as normal.
-
-\subsection{Real-World Deployment}
-TBD

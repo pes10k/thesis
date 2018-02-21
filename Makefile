@@ -1,8 +1,12 @@
+extensions_to_clean := out aux log bbl blg fls fdb_latexmk glg gls lof glo glsdefs lot toc dvi ist
+
 all: thesis
 
 clean:
-	rm -f *.out *.aux *.log *.bbl *.blg *.pdf *.fls *.fdb_latexmk *.glg *.gls
-	rm -f *.lof *.glo *.glsdefs *.lot *.toc *.dvi *.ist
+	@for extension in $(extensions_to_clean); do \
+		find . -type f -name "*.$$extension" -delete;\
+	done
+	rm thesis.pdf
 
 thesis: thesis.tex thesis.bib
 	latexmk -bibtex -pdf thesis

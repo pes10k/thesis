@@ -1,0 +1,62 @@
+\summary
+Over the last two decades, the web has grown from a system of delivering
+static documents, to the worlds most popular application platform.  As the
+web has become more popular and successful, browser vendors have added more
+and more functionality into the web platform, collectively called the \WAPI.
+While some of this functionality has proven very useful, and allowed site
+authors to deliver applications that users enjoy, other subsets of functionality
+have gone unused, and others have been leveraged by malicious users and site
+authors to harm browser users.
+
+This dissertation presents an effort to improving web privacy and security
+by applying a cost-benefit analysis to the \WAPI, as its implemented in
+commodity browsers.  The broad goal of the work is to apply the principal of
+``least privilege'' to the web, and restrict websites to functionality
+they need to carry out user-serving ends.  The work pursues that
+end through a novel method of measuring the costs and benefits associated with
+each standard in the \WAPI, identifying different high-benefit and low-risk
+subsets of the \WAPI, and evaluating a variety of approaches for
+restricting websites to these safer subsets.
+
+This dissertation covers four distinct research efforts, each of which provide
+part of an answer on how to improving privacy on the web.  First, this dissertation
+describes an automated technique for measuring \WAPI use on the web by
+instrumenting the DOM in a commodity web browser, automating the browser
+to interact with websites in a manner that elicits most of the same
+feature use as human users encounter, and recording what functionality is
+triggered during this execution.  This section also presents the results of
+applying this automated recording methodology to the entire Alexa 10k, both
+in default browser configurations, and with popular blocking extensions installed.
+
+Second, this work presents a systematic measurement of the costs and benefits of
+each standard in the modern \WAPI.  This work models a standard's benefit
+as the percentage of sites on the web that require the standard to carry out
+their core, user-serving functionality, and models a standard's cost as
+the security risk the standard brings with it (measured as the number of
+recent vulnerabilities relating to the standard's implementation, the additional
+complexity the standard's implementation brings to a code base, and the number
+of papers in recent top security conferences and journals that leverage the
+standard).
+
+Third, this work presents several efforts to apply these cost-measurement findings
+to secure web users interacting with existing web applications, by restricting
+which features current websites are able to access.  This second includes an
+evaluation of both a cross-browser browser extension that applies feature-access
+policies on websites, and efforts to integrate our findings into a deployed,
+security oriented browser.
+
+Finally, this work describes an alternate system for designing
+web applications that provides client-enforced privacy and security guarantees.
+The design of this system builds on the previously discussed per-standard
+cost-benefit methodology to determine which \WAPI features sites need to access.
+
+The results from each of these areas of work demonstrate that the privacy
+and security of the web can be improved with only a small cost to the user
+experience. In contrast to the the current practice of giving every site access
+to every feature in the browser (with only minor exceptions), this work presents
+a data driven approach to restricting websites to a subset of safer, user-serving
+functionality.  This dissertation further shows that the privacy and security
+benefits of enforcing this ``least privilege'' approach to the \WAPI would
+be meaningful, and real world deployment of these techniques shows that at
+least some web users find the approach useful in protecting their privacy and
+security.

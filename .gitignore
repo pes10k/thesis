@@ -13,7 +13,7 @@
 *.blg
 
 # The final product
-*.pdf
+thesis.pdf
 
 # VIM faffery
 *.swp
