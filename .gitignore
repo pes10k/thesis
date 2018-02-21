@@ -29,3 +29,8 @@ thesis.pdf
 *.toc
 *.dvi
 *.ist
+*.ist
+*.acn
+*.acr
+*.synctex.gz
+*.alg
