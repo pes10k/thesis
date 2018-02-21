@@ -1,28 +1,32 @@
-\section{Browser Extension}
+\section{Browser Hardening Extension}
 \label{current-web:extension}
 
-As part of this work, we are also releasing a Firefox browser extension
-that allows users to harden their browsers using the same standard
-disabling technique described in this paper.  The extension is available
-as source code\footnote{\ExtensionSourceUrl}.
+This section presents efforts at using the cost-benefit measurements
+from Section~\ref{cost-benefit} to design and develop a browser extension
+that allows users to control website access to \WAPI functionality.
+The extension has been released to the public and is being used by almost
+1k users at the time of this writing (555 Firefox users~\footnote{\url{https://addons.mozilla.org/en-US/firefox/addon/webapi-manager/}} and
+417 Chrome users~\footnote{\url{https://chrome.google.com/webstore/detail/webapi-manager/hojoljbhkebfjalcbnfmoiljfidcmcmj}}).
+This Section describes how the
+extension was designed, evaluated and implemented before it was publicly
+released, and Section~\ref{current-web:extension-deployment} discusses lessons
+and findings that were gained only once the extension was available for the
+public.
+
+The source of the extension has been released publicly~\footnote{\ExtensionSourceUrl},
+and the project continues to be refined with the help and input of other
+developers and privacy activists.
+
 
 \subsection{Implementation}
 Our browser extension uses the same \WAS disabling technique described in
 Section~\ref{cost-benefit:intercepting-js} to dynamically control the DOM-related
-attack surface to expose to websites.  The extension allows users to
-deploy the same conservative and aggressive hardened browser configurations
-described in Section~\ref{current-web:extension:configurations}.
-Extension users can also create their own hardened configurations by selecting
-any permutation of the \NumStandards measured \WASs to disable.
-
-Hardened configurations can be adjusted over time, as the
-relative security and benefit of different browser features changes.  This
-fixed-core-functionality, updated-policies deployment model works well
-for popular web-modifying browser extensions (such as AdBlock, PrivacyBadger and
-Ghostery).  Our browser-hardening extension similarly allows users to subscribe
-to configuration updates from external sources (trusted members of the security
-community, a company's IT staff, security-and-privacy advice groups, etc.), or
-allows users to create their own configurations.
+attack surface exposed to websites.  The extension allows users to
+apply hardened configurations we designed (based on the findings
+discussed in Section~\ref{cost-benefit} and detailed in
+Section~\ref{current-web:extension:configurations}), or design and deploy
+their own hardened configurations by selecting any permutation of the
+\NumStandards measured \WASs to disable.
 
 If a browser standard were found to be vulnerable to new attacks in the future,
 security sensitive users could update their hardened configurations to remove it.
@@ -38,33 +42,32 @@ finer grained than, the origin based policies of tools like NoScript, this
 approach allows users to better limit websites to the least privilege
 needed to carry out the sites' desired functionality.
 
-We discussed our approach with engineers at Mozilla, and we are
-investigating how our feature usage measurement and blocking techniques could be
-incorporated into Firefox Test Pilot as an experimental feature. This
-capability would allow wider deployment of this technique within a genuine
-browsing environment, which can also improve the external validity of our
-measurements.
 
 \subsection{Tradeoffs and Limitations}
-Implementing our approach as a browser extension entails significant tradeoffs.
-It has the benefit of being easy for users to install and update, and that
-it works on popular browsers already.  The extension approach also protect users
-from vulnerabilities that depends on accessing a \JS-exposed
-method or data structure (of which there are many, as documented in
-Section~\ref{cost-benefit:results:costs-cves}), with minimal re-engineering effort,
-allowing policies to be updated quickly, as security needs change.  Finally,
-the \WAS-blocking, extension approach is also useful for disabling large
+Deploying our approach as a browser extension entails significant tradeoffs.
+On the benefit side, browser extensions are easy for users to install and update,
+and our browser extensions is compatible with current popular web browsers,
+minimizing the amount of additional engineering work needed to get the approach
+implemented and usable by security and privacy concerned users.  The extension
+approach also successfully protects users from most vulnerabilities that depend
+on accessing a \JS-exposed method or data structure (of which there are many, as
+documented in Section~\ref{cost-benefit:results:costs-cves}).  Finally,
+this \WAS-blocking extension approach is also useful for disabling large
 portions of high-risk functionality, which could protect users from not-yet-discovered
 bugs, in a way that ad-hoc fixing of known bugs could not.
 
-There are several significant downsides to the extension-based approach however.
-First is that there are substantial categories of browser exploits that our
-extension-based approach cannot guard against.  Our approach does not provide
-protection against exploits that rely on browser functionality that is reachable
-through means other than \JS-exposed functionality.  The extension would not
-provide protection against, for example, exploits in the browser's CSS parser,
-TLS code, or image parsers (since the attacker would not require \JS to
-access such code-paths).
+However, the choice to deploy as a browser extension also carries significant
+downsides. First is that there are categories of browser exploits
+that our extension-based approach cannot guard against.  For example, our
+approach cannot provide protection against exploits that rely on \WAPI
+functionality that is reachable through means other than \JS-exposed
+functionality.  The extension would not provide protection against, for example,
+exploits in the browser's CSS parser, TLS code, or image parsers (since the
+attacker would not require \JS to access such code-paths).  Similarly,
+the choice to implement as a browser extension made our approach
+vulnerable to a weakness common to all DOM-modifying browser extensions privacy
+and security tools that discovered in this work (discussed in detail in
+Section~\ref{current-web:extension-deployment}).
 
 Additionally, the extension approach does not have access to some
 information that could be used to make more sophisticated decisions about
@@ -76,20 +79,38 @@ in \JS code delivered over TLS from a trusted website).  Because such informatio
 is not exposed to the browser in \JS, our extension is not able to take advantage
 of such information.
 
-\subsection{Controlled Evaluation}
-TBD
+
+\subsection{Usability Evaluation}
+This section presents an evaluation of the usability of our \WAPI-standard
+blocking extension.  The goal of this evaluation was to measure the impact
+of users' browsing experiences, to see what the cost (measured in ``number
+of sites that no longer function correctly'') would be to gain the benefits
+(measured as ``security risk reduction from blocking \WAPI standards'') provided
+by the extension.
+
+The extension allows users to develop custom, per-site configurations of
+which \WAPI standards to block.  Since there were \NumStandards considered in
+Section~\ref{cost-benefit}, there are \(2^\NumStandards\) possible configurations
+of the extension, yielding an impossible number of configurations to test
+for even a single site, let alone a large enough sample of websites to
+represent the web as a whole.
+
+Instead, we created two plausible extension configurations, based on the data
+described in Section~\ref{cost-benefit}, to represent users with different
+privacy needs, and thus willing to accept different security/usability trade offs.
+The following subsections present our analysis of useability these two selected
+configurations.
+
 
 \subsubsection{Selecting Configurations}
 \label{current-web:extension:configurations}
 
 \input{tables/extension_configurations}
 
-To evaluate the utility and usability of our fine grained, standards-focused
-approach to browser hardening, we created two hardened browser configurations.
-
 \ref{table:browser-configs} lists the standards that we blocked for
 the conservative and aggressive hardened browser configurations.
-Our \textbf{conservative} configuration focuses on removing features that are infrequently needed by websites to function, and would be fitting for users who desire more
+Our \textbf{conservative} configuration focuses on removing features that are
+infrequently needed by websites to function, and would be fitting for users who desire more
 security than is typical of a commodity web browser, and are tolerant of a
 slight loss of functionality.  Our \textbf{aggressive} configuration focuses on removing
 attack surface from the browser, even when that necessitates breaking more websites.
@@ -107,8 +128,8 @@ We note that these are just two possible configurations, and that users
 use this method to find the security / usability tradeoff that best fit their needs.
 
 
-% \subsubsection{Evaluation}
-% \label{subsubsec:eval-configs-evaluation}
+\subsubsection{Configuration Evaluation}
+\label{subsubsec:eval-configs-evaluation}
 \input{tables/extension_configuration_evaluation}
 
 We evaluated the usability and the security gains these hardened browser
@@ -227,7 +248,7 @@ NoScript).
 
 We built these application specific configurations using a tool-assisted,
 trial and error process: first, we visited the application with the browser
-extension in ``debug'' mode,
+extension in ``logging'' mode,
 which caused the extension to log blocked functionality.  Next,
 when we encountered a part of the web application that did not function correctly,
 we reviewed the extension's log to see what blocked functionality seemed
@@ -241,8 +262,7 @@ capable of, or interested in doing.  Users who were interested in improving the
 security of their browser, but not interested in creating hardened app
 configurations themselves, could subscribe to trusted, expert curated polices,
 similar to how users of AdBlock Plus receive community created rules from
-EasyList.  Section~\ref{subsec:dynamic-config} discusses ways that rulesets
-could be distributed to users.
+EasyList.
 
 For each of the following tests, we started with a browser configured in
 the previously mentioned \textbf{aggressive} hardened configuration, 

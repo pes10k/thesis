@@ -5,10 +5,10 @@ all: thesis
 clean:
 	@for extension in $(extensions_to_clean); do \
 		find . -type f -name "*.$$extension" -delete;\
-	done
-	rm thesis.pdf
+	done;
+	@test -f thesis.pdf && rm thesis.pdf;
 
-thesis: thesis.tex thesis.bib
+thesis:
 	latexmk -bibtex -pdf thesis
 	makeglossaries thesis
 	latexmk -bibtex -pdf thesis

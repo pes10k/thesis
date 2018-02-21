@@ -96,7 +96,7 @@
 % version.  To break this dependency, I have made \ds@draft set a marker
 % which is later tested to determine whether to actually do the draft
 % mode actions.
-% 
+%
 % Ethan Munson (October 16, 1992)
 
 % FMi 91/03/30: made twocolum.sty a file and twocolumn an option.
@@ -107,7 +107,7 @@
 
 % The \ProcessOptions command causes the execution of every option command
 % FOO which is declared and for which the user typed the FOO option in his
-% \documentclass.  For every undeclared option BAR there will be a warning 
+% \documentclass.  For every undeclared option BAR there will be a warning
 % message. (BBF 10/31/94)
 
 \ProcessOptions
@@ -138,19 +138,19 @@
 \def\author#1{
    \gdef\@author{#1}
    \gdef\@upauthor{#1}}
- 
+
 \def\@date{\the\year}
 \def\degree#1{\def\@degree{#1}}
 \def\pdegrees#1{\def\@pdegrees{#1}}
-\def\committee#1{\def\@committee{#1}} 
+\def\committee#1{\def\@committee{#1}}
 
 \def\titlepage{
    \newpage
    \c@page\z@
 }
- 
+
 \def\endtitlepage{\newpage}
- 
+
 \def\maketitle{%
    \begin{titlepage}
       \centering
@@ -170,7 +170,7 @@
          \vfill
          \vbox to 0pt{\vss
             \begin{center}
-               
+
                \vskip \baselineskip
                Thesis submitted in partial fulfillment of the requirements\\
                for the degree of \@degree\\
@@ -193,7 +193,7 @@
 % the value of secnumdepth to a high number like 10 (5 will do).
 %    \begin{macrocode}
 \c@secnumdepth=10  % or  \setcounter{secnumdepth}{10}
- 
+
 \def\@sect#1#2#3#4#5#6[#7]#8{
    \ifnum #2>\c@secnumdepth
       \def\@svsec{}
@@ -284,14 +284,14 @@
    \def\section@mark{ACKNOWLEDGMENT}
    \@makeprelimhead}
 \let\acknowledgement\acknowledgment
- 
+
 \def\acknowledgments{
    \clearpage
    \typeout{ACKNOWLEDGMENTS.}
    \def\section@mark{ACKNOWLEDGMENTS}
    \@makeprelimhead}
 \let\acknowledgements\acknowledgments
- 
+
 \def\initials#1{
    \par\vspace{50pt}
    \leftline{\hskip 5.5in #1 \hfil}}
@@ -356,7 +356,7 @@
 \def\@pnumwidth{3em}
 \def\@tocrmarg {4em}
 \def\@dotsep{4.0}
- 
+
 \def\tableofcontents{
    \clearpage
    \typeout{TABLE OF CONTENTS.}
@@ -370,7 +370,7 @@
    \table@of@cont
    \newpage
    }
- 
+
 \def\table@of@cont{%
    \begin{singlespace}
    \thispagestyle{pageonbottom}
@@ -426,7 +426,7 @@
       \@makecaption{\csname fnum@#1\endcsname}{\ignorespaces #3}\par
    \fi
    \endgroup}
- 
+
 \long\def\@makecaption#1#2{
    {\vspace{10pt}\centering
    \if@isatable
@@ -446,7 +446,7 @@
           \hbox to\hsize{\hfil\box\@tempboxa\hfil}
       \fi
    \fi}}
- 
+
 \def\tablerule{
    \kern-3\p@
    \hrule width \columnwidth
@@ -499,7 +499,7 @@
    \list@of@figs
    \newpage
    }
- 
+
 \def\list@of@figs{
    \begin{singlespace}
    \thispagestyle{pageonbottom}
@@ -509,7 +509,7 @@
       \underbar{FIGURE}\hfil\underbar{PAGE}}
    \@starttoc{lof}
    \end{singlespace}}
- 
+
 \def\l@figure{
    \@dottedtocline{1}{2.5em}{3.5em}}
 %    \end{macrocode}
@@ -529,7 +529,7 @@
    \list@of@tabs
    \newpage
    }
- 
+
 \def\list@of@tabs{
    \begin{singlespace}
    \thispagestyle{pageonbottom}
@@ -539,7 +539,7 @@
        \underbar{TABLE}\hfil\underbar{PAGE}}
    \@starttoc{lot}
    \end{singlespace}}
- 
+
 \def\l@table{
    \@dottedtocline{1}{3.5em}{4.0em}}
 %    \end{macrocode}
@@ -560,18 +560,18 @@
 % The expansion of \verb+\p@enumN\theenumN+ defines the
 %  output of a \verb+\ref+ command.
 %    \begin{macrocode}
- 
+
 \def\labelenumi{\theenumi.}
 \def\theenumi{\arabic{enumi}}
- 
+
 \def\labelenumii{(\theenumii)}
 \def\theenumii{\alph{enumii}}
 \def\p@enumii{\theenumi}
- 
+
 \def\labelenumiii{\theenumiii.}
 \def\theenumiii{\roman{enumiii}}
 \def\p@enumiii{\theenumi(\theenumii)}
- 
+
 \def\labelenumiv{\theenumiv.}
 \def\theenumiv{\Alph{enumiv}}
 \def\p@enumiv{\p@enumiii\theenumiii}
@@ -625,12 +625,12 @@
 %  \verb+\descriptionlabel+.
 %    \begin{macrocode}
 \def\descriptionlabel#1{\hspace\labelsep \bfseries #1}
- 
+
 \def\description{\list{}{\labelwidth\z@ \itemindent-\leftmargin
     \let\makelabel\descriptionlabel}}
- 
+
 \let\enddescription\endlist
- 
+
 \newdimen\descriptionmargin
 \descriptionmargin=3em
 %    \end{macrocode}
@@ -705,7 +705,7 @@
 %    \begin{macrocode}
 \newcounter{chapter}                % The counter
 \def\thechapter{\arabic{chapter}}   % Printed representation of counter.
- 
+
 \def\chapter{
    \clearpage              % Starts new page.
    \if@startedappendices
@@ -734,12 +734,12 @@
    \global\@topnum\z@      % Prevents figures from going at top of page.
    \ifabseqnumbering\relax\else\setcounter{equation}{0}\fi
    \secdef\@chapter\@schapter}
- 
+
 \def\@schapter#1{
    \typeout{Unnumbered Chapter.}
    \@makeschapterhead{#1}
    \@afterheading}
- 
+
 \def\@chapter[#1]#2{
    \ifnum \c@secnumdepth > \m@ne
        \refstepcounter{chapter}
@@ -779,7 +779,7 @@
 % instead of the right.
 %    \begin{macrocode}
 \def\chaptermark#1{}
- 
+
 %    \end{macrocode}
 %
 % \subsubsection{Make Chapter Heading}
@@ -818,7 +818,7 @@
 % The \verb+\appendix+ command redefines it to be ``Appendix''.
 %    \begin{macrocode}
 \def\@chapapp{CHAPTER}
- 
+
 \def\appendix{\par
   \@startedappendicestrue
   \setcounter{chapter}{0}
@@ -851,7 +851,7 @@
 %    \begin{macrocode}
 \def\numberline#1{\hbox to 0.75in{#1\hss}}
 \def\xnumberline#1{\hbox to\@tempdima{#1\hss}}
- 
+
 \def\l@chapter#1#2{
    \if@startedappendices
       \if@multappendices
@@ -884,7 +884,7 @@
 %    \begin{macrocode}
 \newcounter{section}[chapter]                  % The counter
 \def\thesection {\thechapter.\arabic{section}} %Printed representation.
- 
+
 \def\section{
      \@startsection{section}      % name of section and also name of
                                   % the counter.
@@ -922,7 +922,7 @@
 %    \begin{macrocode}
 \newcounter{subsection}[section]                    % The counter
 \def\thesubsection{\thesection.\arabic{subsection}} % printed form
- 
+
 \def\subsection{%
      \@startsection{subsection}   % name of section and also name of
                                   % the counter.
@@ -960,7 +960,7 @@
 %    \begin{macrocode}
 \newcounter{subsubsection}[subsection]        % The counter
 \def\thesubsubsection{\thesubsection .\arabic{subsubsection}}
- 
+
 \def\subsubsection{%
      \@startsection{subsubsection} % name of section and also name of
                                   % the counter.
@@ -997,7 +997,7 @@
 %    \begin{macrocode}
 \newcounter{paragraph}[subsubsection]       % The counter.
 \def\theparagraph{\thesubsubsection.\arabic{paragraph}}
- 
+
 \def\paragraph{%
      \@startsection{paragraph}    % name of section and also name of
                                   % the counter.
@@ -1035,7 +1035,7 @@
 %    \begin{macrocode}
 \newcounter{subparagraph}[paragraph]        % The counter
 \def\thesubparagraph{\theparagraph.\arabic{subparagraph}}
- 
+
 \def\subparagraph{%
      \@startsection{subparagraph} % name of section and also name of
                                   % the counter.
@@ -1081,7 +1081,7 @@
 \def\bibforma{\@bibformatrue\bibliographystyle{forma}}
 \def\bibformb{\@bibformafalse\bibliographystyle{formb}}
 \def\bibformc{\@bibformafalse\bibliographystyle{formc}}
- 
+
 \def\bibob{(}\def\bibcb{)}
 \def\roundbrackets{\def\bibob{(}\def\bibcb{)}}
 \def\squarebrackets{\def\bibob{[}\def\bibcb{]}}
@@ -1089,24 +1089,24 @@
 \def\bibdatesep{,\ }
 \def\bibmultisep{;}
 \def\egrp/{\egroup}
- 
+
  \def\@citex[#1]#2{\if@filesw\immediate\write\@auxout{\string\citation{#2}}\fi
   \def\@citea{}\@cite{\@for\@citeb:=#2\do
     {\@citea\def\@citea{\bibmultisep\penalty\@m\ }\@ifundefined
        {b@\@citeb}{{\bfseries ?}\@warning
        {Citation `\@citeb' on page \thepage \space undefined}}%
 {\csname b@\@citeb\endcsname}}}{#1}}
- 
+
 \def\@cite#1#2{{#1\if@tempswa \bibdatesep #2\fi}}
- 
+
 \let\@internalcite\@citex
- 
+
 \def\cite{\@ifnextchar[{\@tempswatrue\@namecite}%
     {\@tempswafalse\@namecite[]}}
- 
+
 \def\@namecite[#1]#2{\bibob\def\citename##1{##1\bibdatesep}%
     \@internalcite[#1]{#2}\bibcb}
- 
+
 %% original
 \def\@lbibitem[#1]#2{\item[]\if@filesw
       { \def\protect##1{\string ##1\space}\immediate
@@ -1125,7 +1125,7 @@
 %% \makeatother
 
 
- 
+
 \def\bibliography#1{
    \clearpage
    \typeout{CITED LITERATURE.}
@@ -1140,7 +1140,7 @@
    \if@filesw\immediate\write\@auxout{\string\bibdata{#1}}\fi
    \@input{\jobname.bbl}
    \end{singlespace}}
- 
+
 \def\thebibliography#1{
    \if@bibforma
       \list{\relax}
@@ -1161,7 +1161,7 @@
    \sloppy\clubpenalty4000\widowpenalty4000
    \sfcode`\.=1000\relax
    }
- 
+
 \def\endthebibliography{\endlist\pagestyle{pageontop}}
 %    \end{macrocode}
 %
@@ -1180,7 +1180,7 @@
    \parindent\z@
    \parskip\z@ plus .3pt\relax
    \let\item\@idxitem}
- 
+
 \def\@idxitem{\par\hangindent 40pt}
 \def\subitem{\par\hangindent 40pt \hspace*{20pt}}
 \def\subsubitem{\par\hangindent 40pt \hspace*{30pt}}
@@ -1198,21 +1198,22 @@
    \kern-3\p@
    \hrule width \columnwidth
    \kern 2.6\p@}
- 
+
 \@addtoreset{footnote}{chapter}
- 
+
 \long\def\@makefntext#1{\parindent 1em\noindent%
 \hbox to 1.8em{\hss$^{\@thefnmark}$}#1}
- 
+
 \def\footnotesep{\baselineskip}
- 
+
 \def\footnote{\@ifnextchar[{\@xfootnote}%
 {\@pagefn\xdef\@thefnmark{\thefootnote}\@footnotemark\@footnotetext}}
- 
+{\stepcounter{footnote}}
+
 \def\footnotemark{%
 \@ifnextchar[{\@xfootnotemark}%
 {\@pagefn\xdef\@thefnmark{\thefootnote}\@footnotemark}}
- 
+
 \long\def\@footnotetext#1{%
 \insert\footins{\singlespace\small%
 \interlinepenalty\interfootnotelinepenalty%
@@ -1222,12 +1223,12 @@
 \edef\@currentlabel{\csname p@footnote\endcsname\@thefnmark}%
 \@makefntext{\rule{\z@}{\footnotesep}\ignorespaces#1\strut}%
 \endsinglespace}}
- 
+
 \def\@pagefn{%
 \stepcounter{fnref}%
 \@ifnewpage{\setcounter{footnote}{1}}%
 {\stepcounter{footnote}}}
- 
+
 \def\@ifnewpage#1#2{\if@filesw {\let\thepage\relax
    \def\protect{\noexpand\noexpand\noexpand}%
 \xdef\@tempg{\write\@auxout{\string\fnref{\the\c@fnref}
@@ -1242,7 +1243,7 @@
 % increase the counter throughout the documents
 %    \begin{macrocode}
 \def\fnref#1#2{\expandafter\gdef\csname fn@#1\endcsname{#2}}
- 
+
 \def\@iflastfnsamepage#1#2{%
 \edef\@tempa{fn@\the\c@fnref}%
 \edef\this@fnpage{\expandafter\csname\@tempa\endcsname}%
@@ -1253,9 +1254,9 @@
 \ifx\last@fnpage\this@fnpage #1%
 \else #2%
 \fi}
- 
+
 \fnref{0}{-1}
- 
+
 \def\@fnfinish{%
 \def\fnref##1##2{%
 \def\@tempa{##2}%
