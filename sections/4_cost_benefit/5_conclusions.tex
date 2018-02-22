@@ -1,4 +1,38 @@
 \section{Conclusions}
 \label{cost-benefit:conclusions}
 
-TBD
+This Chapter presented a systematic evaluation of the costs and benefits that
+each standard in the \WAPI brings to browser users, in non-trust,
+non-authenticated situations.  This evaluation measured the benefit of each
+standard as a function of the number of sites in the Alexa 10k that require
+the standard to carry out the site's main purpose, judged from the perspective
+of the browser user, not the site operator.  The evaluation measured the cost
+of each standard in three ways: first as the number of peer-reviewed papers
+in top security conferences and journals that use the standard in an attack,
+second as the amount of complexity that the standard's implementation adds
+to the code base, and third, as the number of vulnerabilities the standard's
+implementation is responsible for.
+
+The most significant results of this work, as it relates to this dissertation's
+overarching goal of improving privacy and security on the web, are again, two
+related insights.  First, there is a significant subset of functionality in
+the \WAPI where the cost to users (in terms of security risk) is much higher
+than the benefit (in terms of sites that need the functionality to do what
+users care about).  This suggests that web privacy and security could be
+improved by restricting which sites can access these low-benefit, high-risk
+features.
+
+A second related but distinct important insight is that a small number of
+standards in the \WAPI provide the majority of the benefit to browser users.
+These same standards, with a few exceptions, carry very little security risk
+to users.  This suggests that an application system based around just these
+safe, core-web features would provide users with most of the benefits of
+modern web applications, with significant security improvements.
+
+The next to Chapters follow these insights to build tools and systems that
+improve the privacy and security of web users.  Chapter~\ref{current-web}
+pursues the first insight by building tools that restrict the parts of the
+\WAPI that existing web applications can access.  Chapter~\ref{future-web}
+builds on the second insight by exploring new ways of developing and deploying
+web applications that restrict websites to core web functionality, and
+emphasize privacy and security over developer expressivity and functionality.
