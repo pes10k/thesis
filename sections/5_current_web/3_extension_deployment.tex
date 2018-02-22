@@ -1,6 +1,5 @@
 \section{Real-World Extension Deployment}
 \label{current-web:extension-deployment}
-
 The previous section described the design of the \WAPI blocking extension, and
 how that design was based on the cost-benefit measurements from
 Chapter~\ref{cost-benefit}.  This section describes discoveries that were
@@ -140,8 +139,62 @@ projects that use the same WebExtension approach (i.e. Brave and PrivacyBadger)
 of the issue.  In both cases, the developers acknowledged the issue, but are
 waiting on action from the browser vendors before pursing the matter further.
 
-
+Third, we modified the extension to give users an option to protect themselves
+against this vulnerability, at the cost of breaking some benign sites.  Versions
+of ECMAScript (the technical name for the standard that defines \JS) 5.1
+and later define a \texttt{Object.defineProperty}~\cite{ecmascript51} function,
+which can be used to prevent code from reading from and writing to properties
+on certain types of objects.  Newer versions of the extension can use this
+function  to prevent frames from accessing the the content of child frames,
+which prevents websites from bypassing the extension, but break sites
+that expect to be able to access child frames in this way.  While this does
+not seem to be a common pattern online, some very popular sites use this
+technique to coordinate across origins (e.g. Google's authentication flow).
 
 
 \subsection{Feature-level Granularity}
-\subsection{New Standard Adoption}
+A second insight gained from making the browser extension public, and working
+on it with other privacy and security-minded developers, is that in some cases
+\WAPI standards may be the wrong level of analysis.  In some cases, users
+are better served by being able to define finer-grained policies, such as blocking
+a small number of features in a larger standard.  These finer-grained policies
+allow dedicated users to drive down the number of sites the extension breaks,
+while still preventing sites from accessing problematic \WAPI features.
+
+For example, many users of the extension were interested in blocking the
+\textit{Canvas} standard, since its often implicated in fingerprinting attacks.
+And while the functionality in the standard is rarely needed to deliver the
+main content on a site, its sometimes used when rendering peripheral but pleasant
+content, and users wanted to be able to protect themselves without giving
+up some of the flasher parts of the sites they visited.
+
+After a closer analysis, the solution was to allow users the option to block
+just some features in a standard, but leave the rest of the features unmodified.
+In the \textit{Canvas} example, the standard includes 53 features, only 4
+of which are used for fingerprinting~\footnote{%
+\texttt{HTMLCanvasElement.prototype.toDataURL}, \texttt{HTMLCanvasElement.prototype.toBlob},
+\texttt{CanvasRenderingContext2D.prototype.isPointInPath} and \texttt{CanvasRenderingContext2D.prototype.isPointInStroke}}.
+By blocking methods that allowed for reading from a canvas, but allowing
+the rest of the writing methods, users were able to allow a greater number
+of sites to provide their user-benefiting features, without making themselves
+vulnerable to other privacy and security violations.
+
+More broadly, but giving the users the option to block at the feature level,
+instead of the standard level, users were able to push the extension's break
+rate down without reducing their security.
+
+
+\subsection{\WAPI Standard Growth}
+Finally, deploying and maintaining the extension has emphasized just how quickly
+the \WAPI has been growing, and the need for security and privacy researchers
+to understand how quickly the web changes as an application platform.  Just
+since the research in Chapter~\ref{cost-benefit} was conducted, browsers have
+implemented some or all of standards interacting with VR headsets~\cite{webvrstandard},
+interacting with USB devices~\cite{webusbstandard}, and synthesizing and
+recognizing speech~\cite{speechtandard}.
+
+Each of these features, while adding
+potentially useful new features to the platform, also expands the browser's
+attack surface and makes the system more complex.  More work like that
+described in Chapter~\ref{cost-benefit} will be needed to understand if
+the benefit of each new powerful feature is worth the its cost.
