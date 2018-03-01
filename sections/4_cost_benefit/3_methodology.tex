@@ -19,7 +19,7 @@ this browser to represent modern web browsers general for several reasons.
 
 \textbf{First}, Firefox's implementation of \WASs is representative of how \WASs
 are implemented in other popular web browsers, such as Chrome.  These browsers
-use WebIDL to define the supported \WA interfaces, and implement the underlying functionality
+use \gls{webidl} to define the supported \WAPI interfaces, and implement the underlying functionality
 mostly in C++, with some newer standards implemented in \JS.  These browsers even
 share a significant amount of code, through their use
 of third party libraries and code explicitly copied from each other's projects
@@ -32,8 +32,8 @@ libraries).
 % vs
 % https://dxr.mozilla.org/mozilla-central/source/tools/rewriting/ThirdPartyPaths.txt
 
-\textbf{Second}, the standardized nature of the \WA means that measures of
-\WA costs and benefits performed against one browser will roughly generalize to
+\textbf{Second}, the standardized nature of the \WAPI means that measures of
+\WAPI costs and benefits performed against one browser will roughly generalize to
 all modern browsers; features that are frequently used in one browser will be
 as popular when using any other recent browser.
 Similarly, most of the attacks documented in academic literature exploit
@@ -54,7 +54,7 @@ and is in no way tied to  \FFWithVersion in particular.
 \subsection{Measuring by Standard}
 To measure the costs and benefits of Web API features in the browser, we identified
 a large, representative set browser features implemented across
-all modern web browsers.  We extracted the 1,392 standardized \WA features
+all modern web browsers.  We extracted the 1,392 standardized \WAPI features
 implemented in Firefox, and categorized those features into
 \NumStandards \WASs, using the same technique as in~\cite{snyder2016browser}.
 
@@ -64,9 +64,9 @@ and \texttt{Console.prototype.timeline} with the \emph{Console API},
 \texttt{SVGFilterElement.apply} and \texttt{SVGNumberList.prototype.getItem} with
 the \emph{SVG} standard, and so forth, for each of the 1,392 features.
 
-We use these \NumStandards standards as our unit of \WA measurement for two
+We use these \NumStandards standards as our unit of \WAPI measurement for two
 reasons.  First, focusing on \NumStandards standards leads to less of a combinatorial explosion when
-testing different subsets of \WA functionality.  Secondly, as
+testing different subsets of \WAPI functionality.  Secondly, as
 standards are organized around high level features of the browser that often
 have one cohesive purpose, for instance the \emph{Scalable Vector Graphics} standard or the \emph{Web
 Audio API}, being able to reason about what features a website might need is
@@ -297,13 +297,13 @@ underlying code in Firefox code.  There is
 \textbf{implementation code} (hand written code that implements \WAS's
 functionality), and \textbf{binding code} (programmatically generated C++ code
 only called by the \JS runtime).  Binding code is generated at build time
-from WebIDL documents, an interface description language that defines each \WAS's
-\JS API endpoints. By mapping each feature in each Web IDL document to a \WAS,
+from \gls{webidl} documents, an interface description language that defines each \WAS's
+\JS API endpoints. By mapping each feature in each \gls{webidl} document to a \WAS,
 we are able to associate each binding code function with a \WAS.
 
 \input{figures/prune_graph}
 
-Given the entry points in the call graph for each \WA feature, we used a
+Given the entry points in the call graph for each \WAPI feature, we used a
 recursive graph algorithm to identify implementation code
 associated with each standard. We
 illustrate an example of this approach in

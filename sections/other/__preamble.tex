@@ -10,7 +10,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{euler}
-\usepackage[acronym,nomain]{glossaries}
+\usepackage[xindy={glsnumbers=false}, nonumberlist, acronym, nopostdot, nogroupskip]{glossaries}
 \usepackage{xspace}
 \usepackage{float}
 \usepackage{flushend}
@@ -19,6 +19,19 @@
 \usepackage{url}
 \usepackage{caption}
 \usepackage{graphicx}
+
+\newglossarystyle{clong}{%
+ \renewenvironment{theglossary}%
+     {\begin{longtable}{p{.2\linewidth}p{.8\linewidth}}}%
+     {\end{longtable}}%
+  \renewcommand*{\glossaryheader}{}%
+  \renewcommand*{\glsgroupheading}[1]{}%
+  \renewcommand*{\glossaryentryfield}[5]{%
+    \glstarget{##1}{##2} & ##3\glspostdescription\space ##5\\}%
+  \renewcommand*{\glossarysubentryfield}[6]{%
+     & \glstarget{##2}{\strut}##4\glspostdescription\space ##6\\}%
+  %\renewcommand*{\glsgroupskip}{ & \\}%
+}
 
 \makesavenoteenv{tabular}
 \makesavenoteenv{table}
@@ -68,5 +81,7 @@
 % one or two other commands
 \def\newfont#1#2{\@ifdefinable #1{\font #1=#2\relax}}
 \def\symbol#1{\char #1\relax}
-\setacronymstyle{long-short}
+
+%\setacronymstyle{long-short}
+%\setglossarystyle{long}
 \makeglossaries

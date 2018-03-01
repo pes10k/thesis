@@ -1,33 +1,12 @@
 \section{Intercepting \JS Functionality}
 \label{cost-benefit:intercepting-js}
 
-Core to both our measurements and the browser hardening extension is the
-ability to disable specific features from the browser's \JS environment.  Here we
-present a technique for removing access to these features
-while minimizing collateral damage in code that expects those
-features to be available.
-
-
-\subsection{Web API / W3C standards}
-\label{cost-benefit:intercepting-js:webapi}
-When visiting and displaying websites, browsers build a tree-based model of the
-document.  This tree, along with the methods and properties the browser provides
-to allow site authors to interact with the browser and the tree, are collectively
-known as the DOM (document object model), or the Web API.
-
-The browser makes much of its functionality available to websites
-through a single, global object, called \texttt{window}.  Almost all \JS
-accessible browser functionality is implemented as a property or method on this
-global object.  The set of properties, functions, and methods available in
-the DOM is standardized using Interface Description Language documents. Browser
-vendors implement these standards in their browsers.
-
-For the purposes of this paper, we define a \textbf{feature} as an individual
-\JS method or property available in the browser, and a \textbf{\WAS} (or
-just \textbf{standard}) as a collection of features collected into a single
-document and published together.  Each standard generally contains features
-that are intended to be used together to enable a common functionality (such as
-WebGL graphics manipulation, geolocation services, or cryptographic services).
+This Section presents a technique for interposing on, and optionally removing
+access to, \WAPI features, that attempts to minimize the effect on
+existing code bases that expect the now-removed feature to be present.
+This approach is used both in building cost-benefit measurements described
+in this chapter, and in the implementation of the browser-hardening extension
+described in Chapter~\ref{current-web}.
 
 
 \subsection{Removing Features from the DOM}
@@ -153,14 +132,14 @@ property set or pass it along to the original \texttt{GainNode} object.
 
 There are some code patterns where the proxy approach described here could have
 a negative impact on security, such as when security sensitive computations are
-done in the client, relying on functionality provided by the \WA, and where the
+done in the client, relying on functionality provided by the \WAPI, and where the
 results of those calculations are critical inputs to other security sensitive
 operations.  We expect that such cases are rare, given common web application
 design practices. Even so, in the interest of safety, we whitelist the
 \emph{WebCrypto} API by default, and discuss the security
 and privacy tradeoffs here.
 
-As discussed above, our proxy-based approach for interposing on \WA features
+As discussed above, our proxy-based approach for interposing on \WAPI features
 replaces references to the functionality being blocked with a new function that
 returns the proxy object.  In most cases where the feature being replaced is
 security relevant, this should not negatively effect the security of the system.  For
@@ -184,7 +163,7 @@ debate among experts and users as to what a sensible set of defaults should be
 in this situation.
 
 
-% Second, we note that common web application practices already emphasize 
+% Second, we note that common web application practices already emphasize
 % not performing security sensitive operations in the browser, but instead to
 % move them to a more trusted location in the system (i.e. the server).
 % Applications following these practices would be not have their security impacted

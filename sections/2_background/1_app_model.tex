@@ -1,0 +1,49 @@
+\section{Web Application Model}
+\label{background:web-application-model}
+
+This section provides a brief overview of how web applications are designed,
+and the role of the \WAPI in the implementation of modern web applications.
+This description is not intended to be comprehensive, but to provide enough
+context so that the content in the rest of this work can be understood
+by readers without experience in web development.
+
+Browsers allow \JS code to interact with websites in several steps. First,
+browsers parse the received \gls{html} into a \JS accessible data-structure,
+that roughly-mirrors the tree-based structure of the original document.
+This structure allows \JS code to access and modify the document-tree,
+using \JS properties and functions.  These \JS features are collectively known
+as the \gls{dom}, and are standardized across browsers.
+
+Browsers also provided websites access to a large amount of \JS accessible
+functionality that is not directly related to modifying the \gls{dom}, or
+the original \gls{html} document.  This functionally is extremely wide ranging,
+accessing device hardware, performing high resolution timing operations, and
+performing network \gls{io}.  The term ``Web \gls{api}'' refers to the union of
+functionality related to modifying the rendered \gls{html} document, and
+other \JS related functionally.
+
+Modern web applications are then a combination of two sources of code.
+First, the \WAPI functionality is implemented in the browser, and provided
+to websites, and second, \JS code provided by websites to use the \WAPI
+to implement their applications.
+
+Web applications have three properties that make them difficult to secure.
+First, all \JS code has access to nearly all functionality in the \WAPI.
+There are a few exceptions, where users are
+prompted to allow site-code access to certain functionalities, relating
+to accessing hardware devices like cameras and microphones.  These restrictions
+though only apply to a small fraction of \WAPI features.
+
+Second, the web application model lacks a formal
+way of allowing code units to interact.  Instead, all code units are
+executed in a common namespace, and code units collaborate by accessing and
+modifying a single global variable (implemented in the browser as
+\texttt{window}), or by modifying the globally accessible representation of the
+\gls{html} document (implemented in the browser as \texttt{window.document}).
+This model makes it difficult to executed a code unit, without allowing
+it to read and modify the execution environment.  All code executed in the
+page (whether that code was intended by the page author, loaded by a third
+party to implement an advertising system, or maliciously include as part of
+an \gls{xss} attack) gets equal access to the capabilities, secrets and data
+available to the website or application.
+
