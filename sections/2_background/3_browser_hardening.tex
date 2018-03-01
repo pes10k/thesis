@@ -4,23 +4,24 @@
 There are variety of techniques which ``harden'' the browser against attacks
 via limiting what \JS is allowed to run within the browser. These defenses can
 be split into two categories: those configured by the user, and those
-configured by the website author. Our method is in the former category,
-allowing the user to make decisions about which features to enable when.
+configured by the website author.
 
-In the user configured category, both Adblock and NoScript prevent \JS from
-running based on the site serving it.  While its primary function is to block
-ads for aesthetic purposes, Adblock~\cite{adblockplus} can also prevent
+In the user-configured category, both Adblock and NoScript prevent \JS from
+running based on the site serving it.  Adblock~\cite{adblockplus} primary
+function is to block ads for aesthetic purposes, but it can also prevent
 infection by malware being served in those
-ads~\cite{forbes-malware,engadget-malware}.  Adblock blocks \JS features by
-preventing the loading of resources from certain domains, rather than disabling
-specific functionality.  NoScript~\cite{noscriptwebsite} prevents \JS on an
-all-or-nothing basis, decided based on its origin.  Its default for unknown
-origins is to allow nothing, rendering a large swath of the web unusable.  It
-is worth noting that NoScript defaults to whitelisting a number of websites,
-which has resulted in a proof of concept exploit via purchasing expired
-whitelisted domains~\cite{noscript_whitelist}.  Beyond these popular tools,
-IceShield~\cite{heiderich2011iceshield}  dynamically detects suspicious \JS
-calls within the browser, and modifies the DOM to prevent attacks.
+ads~\cite{forbes-malware,engadget-malware}.  Adblock blocks feature use by
+preventing the loading of resources from certain domains.
+
+NoScript~\cite{noscriptwebsite} prevents \JS on an
+all-or-nothing basis, based on the code's origin.  By default, NoScript prevents
+\JS execution from all origins, rendering a large swath of the web unusable.  
+In its default configuration, NoScript does allows \JS execution from a built
+in set of trusted origins.  This built in allow-list has resulted in a proof of
+concept exploit via purchasing expired, allowed domains~\cite{noscript_whitelist}.
+Beyond these popular tools, IceShield~\cite{heiderich2011iceshield}
+dynamically detects suspicious \JS calls within the browser, and modifies the
+\gls{dom} to prevent attacks.
 
 The Tor Browser~\cite{dingledine2004tor} disables by default or prompts the
 user before using a number of features.  Regarding \JS, they disable
@@ -29,9 +30,9 @@ Canvas, the GamePad API, WebGL, the Battery API, and the Sensor
 API~\cite{tor-features}.  These particular features are disabled because they
 enable techniques which violate the Tor Browser's security and privacy goals.
 
-On the website author side, Content Security Policy allows limiting of the
+On the website author side, \gls{csp} allows limiting of the
 functionality of a website, but rather than allowing browser users to decide
-what will be run, CSP allows web developers to constrain code on their own
+what will be run, \gls{csp} allows web developers to constrain code on their own
 sites so that potential attack code cannot access functionality deemed
 unnecessary or dangerous~\cite{stamm2010reining}.  Conscript is another
 client-side implementation which allows a hosting page to specify policies for
