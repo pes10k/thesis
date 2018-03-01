@@ -1,4 +1,4 @@
-extensions_to_clean := out aux log bbl blg fls fdb_latexmk glg gls lof glo glsdefs lot toc dvi ist acn acr synctex.gz alg
+extensions_to_clean := out aux log bbl blg fls fdb_latexmk glg gls lof glo glsdefs lot toc dvi ist acn acr synctex.gz alg xdy
 
 all: thesis
 
@@ -13,4 +13,4 @@ clean:
 thesis:
 	latexmk -bibtex -pdf thesis
 	makeglossaries thesis
-	latexmk -bibtex -pdf thesis
+	pdflatex -bibtex thesis

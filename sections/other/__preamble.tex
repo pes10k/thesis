@@ -1,16 +1,10 @@
 \usepackage{booktabs}
-% \usepackage[dvipsnames]{xcolor}
-% \usepackage{xcolor}
-% \usepackage{color, colortbl}
-% \definecolor{linkcol}{rgb}{0,0,1}
-% \definecolor{citecol}{rgb}{0,0,1}
-% \definecolor{urlcol}{rgb}{0,0,1}
 \usepackage{listings}
 \usepackage{newlfont}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{euler}
-\usepackage[xindy={glsnumbers=false}, nonumberlist, acronym, nopostdot, nogroupskip]{glossaries}
+\usepackage[xindy={glsnumbers=false},nonumberlist,acronym,nopostdot,nogroupskip,nomain]{glossaries}
 \usepackage{xspace}
 \usepackage{float}
 \usepackage{flushend}
@@ -37,7 +31,6 @@
 \makesavenoteenv{table}
 
 \input{sections/other/__terms}
-
 
 % This is the user manual for UICTHESI CLS.
 % Document date 1/10/92 (phd)
@@ -82,6 +75,4 @@
 \def\newfont#1#2{\@ifdefinable #1{\font #1=#2\relax}}
 \def\symbol#1{\char #1\relax}
 
-%\setacronymstyle{long-short}
-%\setglossarystyle{long}
 \makeglossaries
