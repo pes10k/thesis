@@ -1,35 +1,33 @@
 \section{Contributions}
 \label{intro:contributions}
 
-The underlying motivation, and core thesis, of this work, is that the privacy
-and security of web users would be improved, with only small effects on usability,
-by restricting the functionality web sites have access to.  This thesis is
-explored from several angles in this work.  Specifically, this dissertation
-makes the following contributions:
+The underlying motivation, and core thesis, of this work, is that privacy
+and security on the web can be improve, with only small effects on usability,
+by restricting what functionality websites can access.  This conclusion
+is built to in four step, through the following following contributions:
 
 \begin{itemize}
     \item A web-scale measurement of how the \WAPI is used on the web today.
-          This study was an automated measurement of browser functionality
+          This study contained an automated measurement of browser functionality
           used on sites in the Alexa 10k (at time of measurement), with
-          a novel method of distinguishing between \WAPI features used
-          for core-site-functionality, and \WAPI features used for
+          a novel method of distinguishing between features used
+          for core-site-functionality, and features used for
           non-user-serving purposes (e.g. advertising and tracking).
-    \item A comprehensive measurement of the costs and benefits of the entire
-          \WAPI, broken down by standard.  This work models a standard's
+    \item A comprehensive measurement of the costs and benefits of each standard
+          in the \WAPI.  This work models a standard's
           benefit as the number of sites on the web that require the standard
           to carry out the site's core functionality.  The work models
-          a standard's cost in three ways: as the number of publicity
+          a standard's cost in three ways: as the number of recent publicity
           disclosed vulnerabilities relating to the standard, the number
           of lines of code uniquely needed to implement the standard, and
           the number of papers describing attacks that leverage the standard
           in top security conferences and journals.
-    \item Findings learned and vulnerabilities discovered when deploying
-          tools to restrict \WAPI access on the web.  These include the
-          development of a browser extension that allows for imposing
-          access controls on \WAPI features in current browsers, useability
+    \item Findings learned and vulnerabilities discovered in the development
+          and maintenance of a browser extension to restrict \WAPI access on
+          the web.  This work also presents useability
           measurements taken during an in-lab evaluation of the tool, and
           broader findings from real-world use of the extension.
-    \item The design and evaluation of CDF, a system of developing and deploying
+    \item The design and evaluation of \gls{cdf}, a system of developing and deploying
           web applications with functionality similar to most modern websites,
           but providing client-enforced protections and dataflow
           guarantees.
