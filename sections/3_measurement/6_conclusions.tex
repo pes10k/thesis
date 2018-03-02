@@ -2,28 +2,29 @@
 \label{measurement:conclusions}
 
 This Chapter presents an automated technique for measuring what parts of the
-\WAPI is used in anonymous, typical web browsing experiences, both in
-a default browser, and when a web browser is modified with common, popular
-ad and tracking blocking extensions.  This Chapter also presents the results
-of applying that technique to the Alexa 10k.
+\WAPI is used in typical low-trust, non-authenticated browsing scenarios, both
+when using a stock browser, and when using a browser with popular
+ad and tracking blocking extensions installed.  This Chapter also presents the results
+of applying the automated measurement technique to the Alexa 10k.
 
-The most significant results of this study, as it relates to this
+The most significant results of this work, as it relates to this
 dissertation's overarching goal of improving privacy and security on the web,
-are two related insights.  First, this study documents there are significant
+are two related insights.  First, this work shows there are significant
 portions of the \WAPI that are not used when browsing non-trusted websites
 (over 50\%, as measured by \WAPI features).  This strongly suggests that there
 is little benefit for browser users in enabling these features, at least until
-users have logged in or otherwise established some trust.
+users have authenticated with the site, or otherwise established some trust.
 
-Second, this study also documents that there are other parts of the \WAPI
-that are frequently used by websites, but which go unused when advertising
-and tracking is blocked.  This strongly suggests that some \WAPI functionality
-implemented in web browsers is primary used for purposes that the users of those
-web browsers do not approve of.  These frequently-blocked features also seem
-to provide little benefit to browser users, at least in the case of non-trust,
-unauthenticated browsing scenarios.
+Second, this work also documents that there are other parts of the \WAPI
+that websites often want to use, but which are blocked by advertising
+and tracking extensions.  This strongly suggests that some \WAPI functionality
+is primary used for purposes that the users of those web browsers do not
+approve of.  These frequently-blocked features also seem to provide little
+benefit to browser users, at least in the case of non-trust, unauthenticated
+browsing scenarios.
 
-Chapter~\ref{cost-benefit} builds on these findings by quantifying the costs
-and benefits all of the standards in the \WAPI bring users.  The following
-Chapters then use these findings to build tools and systems that can
-better protect the privacy and security of web users.
+Chapter~\ref{cost-benefit} builds on these findings by measuring the costs
+and benefits each standard in the \WAPI carries with it.
+Chapters~\ref{current-web} and \ref{future-web} then use these findings to
+build tools and systems to better protect the privacy and security of web
+users.

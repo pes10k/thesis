@@ -1,17 +1,20 @@
-\section{Results} \label{measuement:results}
+\section{Results}
+\label{measuement:results}
 
-This section presents the results of applying the methodology described in
-Section~\ref{measurement:methodology}, including the popularity distribution of
-\JS features used on the web with and without blocking, a feature's popularity
-in relation to its age, and which features are frequently blocked.
+This section presents the results of carrying out the methodology described in
+Section~\ref{measurement:methodology} to the Alexa 10k, including measurements
+of the popularity distribution of \JS features with and without blocking, a
+feature's popularity in relation to its age, and which features are frequently
+blocked.
 
 
-\subsection{Definitions} This work uses the term \textbf{feature popularity} to
-denote the percentage of sites that use a given feature at least once during
+\subsection{Definitions}
+This Chapter uses the term \textbf{feature popularity} to
+denote the percentage of sites that use the feature at least once during
 automated interaction with the site.  A feature that is used on every site has
 a popularity of 1, and a feature that is never seen has a popularity of 0.
 
-Similarly, we use the term \textbf{standard popularity} to denote the
+Similarly, the term \textbf{standard popularity} denotes the
 percentage of sites that use at least one feature from the standard at least
 once during the site's execution.
 
@@ -19,14 +22,15 @@ Finally, we use the term \textbf{block rate} to denote how frequently a feature
 would have been used if not for the presence of an advertisement- or
 tracking-blocking extension. Browser features that are used much less
 frequently on the web when a user has AdBlock Plus or Ghostery installed have
-high block rates, while features that are used on roughly the same number of
+high block rates. Features that are used on roughly the same number of
 websites in the presence of blocking extensions have low block rate.
 
 
-\subsection{Standard Popularity} In this subsection, we present measurements of
-the popularity of the standards in the browser, first in general, then followed
-by comparisons to the individual features in each standard, the popularity of
-sites using each standard, and when the standard was implemented in \FF.
+\subsection{Standard Popularity}
+This subsection presents measurements of the popularity of the standards in the
+browser, first in general, then followed by comparisons to the individual
+features in each standard, the popularity of sites using each standard, and
+when the standard was implemented in \FF.
 
 
 \subsubsection{Overall}
@@ -34,26 +38,26 @@ sites using each standard, and when the standard was implemented in \FF.
 \input{figures/feature_popularity}
 
 Figure~\ref{fig:popcdf} displays the cumulative distribution of standard
-popularity. Some standards are extremely popular, and others are extremely
-unpopular: six standards are used on over 90\% of all websites measured, and a
-full 28 of the 75 standards measured were used on 1\% or fewer sites, with
-eleven not used at all. Standard popularity is not feast or famine however, as
-standards see several different popularity levels between those two extremes.
+popularity. Some standards are extremely popular, others are extremely
+unpopular: six standards are used on over 90\% of all websites measured, while
+28 of the 75 standards measured were used on 1\% or fewer sites;
+eleven are not used at all. The remaining standards saw intermediate
+popularity levels.
 
 
-\subsubsection{Standard Popularity By Feature} We find that browser features
-are not equally used on the web.  Some features are extremely popular, such as
-the \texttt{Document.prototype.createElement} method, which allows sites to
-create new page-elements.  The feature is used on 9,079--or over 90\%--of pages
-in the Alexa 10k.
+\subsubsection{Standard Popularity By Feature}
+Browser features are not equally used on the web.  Some features are extremely
+popular, such as the \texttt{Document.prototype.createElement} method,
+used to create new page-elements.  The feature is used on 9,079--or over
+90\%--of pages in the Alexa 10k.
 
 Other browser features are never used.  689 features, or almost 50\% of the
-\numfeatures implemented in the browser, are never used in the 10k most popular
+measured \numfeatures, were never observed on the 10k most popular
 sites.  A further 416 features are used on less than 1\% of the 10k most
 popular websites.  Put together, this means that over 79\% of the features
 available in the browser are used by less than 1\% of the web.
 
-We also find that browser features do not have equal block rates; some features
+Browser features also do not have equal block rates. Some features
 are blocked by advertisement and tracking blocking extensions far more often
 than others.  Ten percent of browser features are prevented from executing over
 90\% of the time when browsing with common blocking extensions.   We also find
@@ -67,14 +71,13 @@ and tracking blocking extensions.
 
 \input{figures/sites_vs_visits_scatter}
 
-The results described in this paper give equal weight to all sites in the Alexa
-10k.  If the most popular and least popular sites use the same standard, both
-uses of that standard are given equal consideration.  In this section we
-examine the accuracy of this assumption by measuring the difference between the
-number of sites using a standard, and the percentage of site visits using a
-standard.
+Most of the results presented in this Section give equal weight to all sites in
+the Alexa 10k.  Put differently, if the most popular and least popular sites use the same
+standard, both uses are given equal consideration.  This Section considers
+the difference between the number of sites using a standard, and the
+percentage of site visits using a standard.
 
-Figure \ref{fig:feature-pop-by-site-pop} shows the results of this comparison.
+Figure \ref{fig:feature-pop-by-site-pop} presents this comparison.
 The x-axis shows the percentage of sites that use at least one feature from a
 standard, and the y-axis shows the estimated percentage of site views on the
 web that use this standard.  Standards above the \texttt{x=y} line are more
@@ -87,20 +90,19 @@ Generally, the graph shows that standard usage is not equally distributed, and
 that some standards are more popular with frequently visited sites.  However,
 the general trend appears to be for standards to cluster around the
 \texttt{x=y} line, indicating that while there are some differences in standard
-usage between popular and less popular sites, they do not affect our general
-analysis of standard usage on the web.
+usage between popular and less popular sites, they do not appear to be
+substantial.
 
 Therefore, for the sake of brevity and simplicity, all other measures in this
 paper treat standard use on all domains as equal, and do not consider a site's
 popularity.
 
 In addition to the datasets used in this paper, we have also collected data
-from even-less popular sites from the Alexa one-million, sites with rank less
-than 10k, to determine whether feature usage in less popular portions of the
-web differs significantly from feature usage patterns in the Alexa 10k.  That
-measurement found no significant difference in feature usage.  We therefore, as
-a simplifying assumption, treat the Alexa 10k as representative of the web in
-general.
+from even-less popular sites from the Alexa one-million (sites with rank less
+than 10k, to determine whether the less-popular websites seem to use different
+features than popular websites.  We found no significant, notable difference
+between these two groups.  The rest of this work, therefor, as a simplifying
+assumption, treats the Alexa 10k as representative of the web in general.
 
 
 \subsection{Standard Popularity By Introduction Date}
@@ -119,68 +121,72 @@ disuse. Furthermore, it appears that some standards have been introduced
 extremely recently but have nevertheless been readily adopted by web authors.
 
 \subsubsubsection{Old, Popular Standards} For example, point \textbf{AJAX}
-depicts the \emph{XMLHttpRequest}~\cite{ajaxwhatwg}, or \emph{AJAX} standard,
+depicts the \textit{XMLHttpRequest}~\cite{ajaxwhatwg}, or \textit{AJAX} standard,
 used to send information to a server without fetching the entire document
 again.  This standard has been available in the browser for almost as long as
-\FF has been released (since 2004), and is extremely popular; the standard's
+\FF has been released (since 2004), and is extremely popular. The standard's
 most popular feature, \texttt{XMLHttpRequest.prototype.open}, is used by 7,955
 sites in the Alexa 10k.  Standards in this portion of the graph have been in
 the browser for a long time, and appear on a large fraction of sites.  This
 cluster of standards have block rates of less than 50\%, considered low in this
 study.
 
-\subsubsubsection{Old, Unpopular Standards} Other standards, despite existing
-in the browser nearly since \FF's inception, are much less popular on the web.
-Point \textbf{H-P} shows the \emph{HTML: Plugins}~\cite{htmlpluginsw3c}
-standard, a subsection of the larger \emph{HTML} standard that allows document
-authors to detect the names and capabilities of plugins installed in the
-browser (such as Flash, Shockwave, Silverlight, etc.).  The most popular
-features of this standard have been available in \FF since 2005.  However, the
-standard's most popular feature, \texttt{PluginArray.prototype.refresh}, which
-checks for changes in browser plugins, is used on less than 1\% of current
-websites (90 sites).
+\subsubsubsection{Old, Unpopular Standards}
+Other standards, despite existing in the browser nearly since \FF's inception,
+are much less popular on the web.  Point \textbf{H-P} shows the \textit{HTML:
+Plugins}~\cite{htmlpluginsw3c} standard, a subsection of the larger \textit{HTML}
+standard that allows document authors to detect the names and capabilities of
+plugins installed in the browser (such as Flash, Shockwave, Silverlight, etc.).
+The most popular features of this standard have been available in \FF since
+2005.  However, the standard's most popular feature,
+\texttt{PluginArray.prototype.refresh}, which checks for changes in browser
+plugins, is used on less than 1\% of current websites (90 sites).
 
-\subsubsubsection{New, Popular Standards} Point \textbf{SEL} depicts the
-\emph{Selectors API Level 1}~\cite{selectors1w3c} standard, which provides site
-authors with a simplified interface for selecting elements in a document.
-Despite being a relatively recent addition to the browser (the standard was
-added in 2013), the most popular feature in the
+\subsubsubsection{New, Popular Standards}
+Point \textbf{SEL} depicts the \emph{Selectors API Level
+1}~\cite{selectors1w3c} standard, which provides site authors with a simplified
+interface for selecting elements in a document.  Despite being a relatively
+recent addition to the browser (the standard was added in 2013), the most
+popular feature in the
 standard--\texttt{Document.prototype.querySelectorAll}--is used on over 80\% of
 websites.  This standard, and other standards in this area of the graph, have
 low block rates.
 
-\subsubsubsection{New, Unpopular Standards} Point \textbf{V} shows the
-\emph{Vibration}~\cite{vibrationapi} standard, which allows site authors to
-trigger a vibration in the user's device on platforms that support it.  Despite
-this standard having been available in \FF longer than the previously mentioned
-\emph{Selectors API Level 1} standard, the \emph{Vibration} standard is
-significantly less popular on the web.  The sole method in the standard,
-\texttt{Navigator.prototype.vibrate}, is used only once in the Alexa 10k.
+\subsubsubsection{New, Unpopular Standards}
+Point \textbf{V} shows the \textit{Vibration}~\cite{vibrationapi} standard,
+which allows site authors to trigger a vibration in the user's device on
+platforms that support it.  Despite this standard having been available in \FF
+longer than the previously mentioned \textit{Selectors API Level 1} standard,
+the \textit{Vibration} standard is significantly less popular on the web.  The
+sole method in the standard, \texttt{Navigator.prototype.vibrate}, is used only
+once in the Alexa 10k.
 
 
-\subsection{Standard Blocking} \label{sec:results-feature-blocking} Many users
-alter their browsing environment when visiting websites.  They do so for a
-variety of reasons, including wishing to limit advertising displayed on the
-pages they read, reducing their exposure to malware distributed through
+\subsection{Standard Blocking}
+\label{sec:results-feature-blocking}
+Many users alter their browsing environment when visiting websites.  They do so
+for a variety of reasons, including wishing to limit advertising displayed on
+the pages they read, reducing their exposure to malware distributed through
 advertising networks, and increasing their privacy by reducing the amount of
-tracking they experience online.  These browser modifications are typically
+tracking they experience online.  These browser modifications are commonly
 made by installing browser extensions.
 
-We measured the effect of installing two common browser extensions, AdBlock
-Plus and Ghostery, on the type and number of features that are executed when
-visiting websites.
+The following Sub-Sections present the effect of installing two common browser
+extensions, AdBlock Plus and Ghostery, on the type and number of features that
+are executed when visiting websites.
 
-\subsubsection{Popularity vs. Blocking} \label{sec:results-feature-popularity}
+\subsubsection{Popularity vs. Blocking}
+\label{sec:results-feature-popularity}
 
 \input{figures/megagraph}
 
 Ad and tracking blocking extensions do not block the use of all standards
-equally; some standards are blocked far more of often that others.  Figure
-\ref{fig:megagraph} depicts the relationship between a standard's popularity
-(represented by the number of sites the standard was used on, log scale) and
-its block rate.  Since a standard's popularity is the number of sites where a
-feature in a standard is used at least once, the popularity of the standard is
-equal to at least the popularity of the most popular feature in the standard.
+equally.  Figure \ref{fig:megagraph} shows the relationship between a
+standard's popularity (represented by the number of sites the standard was used
+on, log scale) and its block rate.  Recall that this work measures a standard's
+popularity as the number of sites where a feature in a standard is used at
+least once.  Therefor, the popularity of the standard is equal to at least the
+popularity of the most popular feature in the standard.
 
 Each quadrant of the graph tells a different story about the popularity and the
 block rate of a standard on the web.
@@ -237,11 +243,11 @@ times the standard was used; this sole site still used the \emph{Encodings}
 standard when AdBlock Plus and Ghostery were installed.
 
 
-\subsubsection{Blocking Frequency} As discussed in
-\ref{sec:results-feature-popularity}, blocking extensions do not block all
-browser standard usage equally.  As Figure \ref{fig:megagraph} shows, some
-standards are greatly impacted by installing these advertising and tracking
-blocking extensions, while others are not impacted at all.
+\subsubsection{Blocking Frequency}
+As discussed in \ref{sec:results-feature-popularity}, blocking extensions do
+not block all browser standard usage equally; as Figure \ref{fig:megagraph}
+shows, some standards are greatly impacted by installing these advertising and
+tracking blocking extensions, while others are not impacted at all.
 
 For example, the \textit{Beacon}~\cite{beaconapi} standard, which allows
 websites to trigger functionality when a user leaves a page, has a 83.6\%
@@ -254,12 +260,12 @@ similar 86.8\% reduction in site usage when browsing with blocking extensions.
 Other browser standards, such as the core \textit{DOM} standards, see little
 reduction in use in the presence of blocking extensions.
 
-\subsubsection{Blocking Purpose}
 
+\subsubsection{Blocking Purpose}
 \input{figures/ad_vs_tracking_blocking}
 
 In addition to measuring which standards were blocked by extensions, we also
-distinguished which extension did the blocking.
+distinguished \emph{which} extension did the blocking.
 Figure~\ref{fig:feature-blocking-source} plots standards' block rates in the
 presence of an advertising blocking extension (x-axis), versus standards' block
 rates when a tracking-blocking extension is installed (y-axis).
@@ -285,14 +291,3 @@ advertisement blocking extensions.
 The opposite is true, to a lesser extent, for the \emph{UI Events
 Specification}~\cite{uievents3c} standard, which specifies new ways that sites
 can respond to user interactions.
-
-\subsection{Site Complexity} \label{sec:results-site-complexity}
-
-\input{figures/site_complexity}
-
-We also evaluated sites based on their complexity. We define complexity as the
-number of standards used on a given website.  As
-Figure~\ref{fig:results-site-complexity} shows, most sites use many standards:
-between 14 and 32 of the \numstandards available in the browser. No site used
-more than 41 standards, and a second mode exists around the zero mark, showing
-that a small but measurable number of sites use little to no \JS at all.

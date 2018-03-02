@@ -2,18 +2,20 @@
 \label{background:related-browser-defs}
 
 There are variety of techniques which ``harden'' the browser against attacks
-via limiting what \JS is allowed to run within the browser. These defenses can
+by limiting what \JS is allowed to run within the browser. These defenses can
 be split into two categories: those configured by the user, and those
 configured by the website author.
 
-In the user-configured category, both Adblock and NoScript prevent \JS from
-running based on the site serving it.  Adblock~\cite{adblockplus} primary
+In the user-configured category, Adblock~\cite{adblockplus} and
+NoScript~\cite{noscriptwebsite} are popular browser
+extensions that control what \JS is executed in the browser, based on the
+\gls{url} the \JS came from.  Adblock's primary
 function is to block ads for aesthetic purposes, but it can also prevent
 infection by malware being served in those
 ads~\cite{forbes-malware,engadget-malware}.  Adblock blocks feature use by
 preventing the loading of resources from certain domains.
 
-NoScript~\cite{noscriptwebsite} prevents \JS on an
+NoScript prevents \JS on an
 all-or-nothing basis, based on the code's origin.  By default, NoScript prevents
 \JS execution from all origins, rendering a large swath of the web unusable.  
 In its default configuration, NoScript does allows \JS execution from a built

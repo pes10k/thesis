@@ -1,50 +1,45 @@
 \section{Data Sources}
 \label{measurement:data-sources}
 
-This work relied on several prior-existing sets of data.  This section proceeds by
-detailing how we determined which websites are popular and how often
-they are visited, how we determined the current \JS-exposed feature set
-of web browsers, what web standards those features belong to and when
-they were introduced, and which browser extensions we used to distinguish
-user-serving from non-user-serving feature use.
+This work relied on several prior-existing sets of data.  This Section
+describes these existing data sets, and how we used them to measure what
+\JS features are used on the modern web.
 
 
 \subsection{Alexa Website Rankings}
 \label{measurement:data-sources:website-popularity-rankings}
-The Alexa rankings are a well known ordering of websites ranked by traffic.
-Typically, research which uses Alexa relies on their ranked list of the
-worldwide top one million sites. Alexa also provides other data about these sites.
-In addition to a global ranking of each of these sites,
-there are local rankings at country granularity, breakdowns of which
+The Alexa rankings are a well known ordering of websites by traffic.
+Typically, researchers uses Alexa's rankings of the worldwide million most
+popular sites. However, Alexa also provides other data about these sites,
+including popularity rankings at country granularity, breakdowns of which
 sub-sites (by fully qualified domain name) are most popular, and a breakdown by
 page load and by unique visitor of how many monthly visitors each site gets.
 
 We used the 10,000 top ranked sites from Alexa's list of the one-million
-most popular sites, and which collectively represent approximately one third of
-all web visits, as representative of the web in general.
+most popular sites as representative of the web in general.  This set of 10,000
+websites represent approximately one third of all web visits.
 
 
 \subsection{Web API Features}
 \label{measurement:data-sources:method-web-standards}
-As mentioned in Section~\ref{intro:terms}, this work uses the term \textbf{feature}
-to denote a browser capability that is accessible through calling a
-\JS call or setting a property on a \JS object.
+As mentioned in Section~\ref{intro:terms}, this work uses the term
+\textbf{feature} to denote a browser capability that is accessible through
+calling a \JS function or setting a property on a \JS object.
 
-We determined the set of \JS-exposed features by reviewing the WebIDL definitions
-included in the \FF version \FFversion source
-code. WebIDL is a language that defines the \JS features web browsers
-provided to web authors.  In the case of \FF, these WebIDL files are
-included in the browser source.
+We determined the set of \JS-exposed features by reviewing the \gls{webidl}
+definitions included in the \FF version \FFversion source code. \gls{webidl} is
+a language that define \JS interfaces implemented in a browsers.
+These \gls{webidl} files are included in the \FF source.
 
-In the common case, Firefox's WebIDL files define a mapping between a
+In the common case, Firefox's \gls{webidl} files define a mapping between a
 \JS accessible method or property and the C++ code that implements
 the underlying functionality\footnote{In addition to mapping
-\JS to C++ methods and structures, WebIDL can also define \JS
+\JS to C++ methods and structures, \gls{webidl} can also define \JS
 to \JS methods, as well as intermediate structures that are not
-exposed to the browser.  In practice though, the primary role of WebIDL
-in Firefox is to define a mapping between \JS API endpoints and
+exposed to the browser.  In practice though, the primary role of \gls{webidl}
+is to define a mapping between \JS API endpoints and
 the underlying implementations, generally in C++.}. We examined each of the 757
-WebIDL files in the \FF and extracted \numfeatures relevant methods and
+\gls{webidl} files in the \FF and extracted \numfeatures relevant methods and
 properties implemented in the browser.
 
 
@@ -63,68 +58,65 @@ etc.). This work focuses only on web standards that define \JS exposed
 functionality.
 
 We identified \numstandards standards implemented in \FF.  We associated each
-of these to a standards document.
-We also found 65 API endpoints implemented in \FF that are not
-found in any web standard document, which we associated with a catch-all
-\textit{Non-Standard} categorization.
+of these to a standards document.  We also found 65 API endpoints implemented
+in \FF that are not found in any web standard document, which we associated
+with a catch-all \textit{Non-Standard} categorization.
 
-In the case of extremely large standards, we identify sub-standards,
-which define a subset of related features intended to be used together.
-For example, we treat the subsections of the \textit{HTML}~\cite{whatwg2018html}
-standard that define the basic \textit{Canvas API}, or the \textit{WebSockets API},
-as their own standards.
+In the case of extremely large standards, we identify sub-standards, which
+define a subset of related features intended to be used together.  For example,
+we treat the subsections of the \textit{HTML}~\cite{whatwg2018html} standard
+that define the basic \textit{Canvas API}, or the \textit{WebSockets API}, as
+their own standards.
 
-Because these sub-standards have their own coherent purpose,
-it is meaningful to discuss them independently of their parent standards. Furthermore,
-many have been implemented in browsers independent
-of the parent standard (i.e. browser vendors added support for
-``websockets'' long before they implemented the full ``HTML5''
-standard).
+We treated these signifigant sub-standards as seperate units of analysis
+becuase they have their own coherent purpose in the \WAPI, independent
+of their parent, containing standard; many of these signifigant subs-standards
+were implemented in browsers independent of the parent standard (i.e. browser
+vendors added support for ``websockets'' long before they implemented the full
+``HTML5'' standard).
 
 Some features appear in multiple web standards.  For example, the
-\texttt{Node.prototype.insertBefore} feature appears in the
-\textit{Document Object Model (DOM) Level 1 Specification}~\cite{dom1w3c},
-\textit{Document Object Model (DOM) Level 2 Core Specification}~\cite{dom2corew3c}
-and \emph{Document Object Model (DOM) Level 3 Core Specification}~\cite{dom3corew3c}
-standards.  In such cases, the feature is attributed to its earliest published
-standard.
+\texttt{Node.prototype.insertBefore} feature appears in the \textit{Document
+Object Model (DOM) Level 1 Specification}~\cite{dom1w3c}, \textit{Document
+Object Model (DOM) Level 2 Core Specification}~\cite{dom2corew3c} and
+\emph{Document Object Model (DOM) Level 3 Core
+Specification}~\cite{dom3corew3c} standards.  In such cases, the feature is
+attributed to the earliest containing standard.
 
 
 \subsection{Historical Firefox Builds}
-We determined when features were implemented in Firefox by
-examining the \numfirefoxes versions of \FF that have been released since 2004
-and testing when each of the \numfeatures features first appeared.
+We determined when features were implemented in \FF by
+examining the \numfirefoxes versions of \FF that were released between 2004
+and when this work was conducted in 2016, and finding the earliest version
+that each of the \numfeatures feature appeared.
 We treat the release date of the earliest version of
 \FF that a feature appears in as the feature's ``implementation date''.
 
-Most standards do not have a single implementation date, since it could take
-months or years for all features in a standard to be implemented in \FF.  We therefore
-treat the introduction of a standard's currently most popular feature as the
-standard's implementation date. For ties (especially relevant when no feature
-in a standard is used), we default to the earliest feature available.
-
-%This approach differs from, and is more accurate than, other popular approaches,
-%such as the CanIUse website\cite{deveria2015caniuse}, which tracks when
-%some standards and features became available in web browsers, but only for a
-%small, curated subset of features and standards.
+Most standards do not have a single implementation date, since in some case
+it took months or years for all of the features in a standard to be
+implemented in \FF.  We therefore treated the introduction of a standard's
+most popular feature as the standard's implementation date. For ties
+(especially relevant when no feature in a standard is used), we
+used the date of the earliest implemented feature.
 
 
 \subsection{Blocking Extensions}
 \label{measurement:data-sources:data-extensions}
-Finally, this work pulls from commercial and crowd-sourced browser extensions,
+Finally, this work drew from commercial and crowd-sourced browser extensions,
 which are popularly used to modify the browser environment.
 
-This work uses two such browser extensions, Ghostery and AdBlock Plus.  Ghostery is a
-browser extension that allows users to increase their privacy online
-by modifying the browser to not load resources or set cookies associated with
-cross-domain passive tracking, as determined by the extension's maintainer, Ghostery, Inc..
+This work used two such browser extensions, Ghostery and AdBlock Plus.
+Ghostery is a browser extension that allows users to increase their privacy
+online by modifying the browser to not load resources or set cookies associated
+with cross-domain passive tracking, as determined by the extension's
+maintainer, Ghostery, Inc..
 
-This work also uses the AdBlock Plus browser extension, which modifies
+This work also uses the AdBlock Plus extension, which modifies
 the browser to not load resources the extension associates with
 advertising, and to hide elements in the page that are advertising related.
 AdBlock Plus draws from a crowdsourced list of rules and URLs to determine
 if a resource is advertising-related.
 
-This work uses the default configuration for each browser extension, including
-the default rule sets for which elements and resources to block.
-No changes were made to the configuration or implementation of either extension.
+This work used each extension's default configuration, including the default
+rule sets for which elements and resources to block.  No changes were made to
+the configuration or implementation of either extension.
