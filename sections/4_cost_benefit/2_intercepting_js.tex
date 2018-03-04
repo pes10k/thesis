@@ -1,170 +1,123 @@
 \section{Intercepting \JS Functionality}
 \label{cost-benefit:intercepting-js}
 
-This Section presents a technique for interposing on, and optionally removing
-access to, \WAPI features, that attempts to minimize the effect on
-existing code bases that expect the now-removed feature to be present.
-This approach is used both in building cost-benefit measurements described
-in this chapter, and in the implementation of the browser-hardening extension
-described in Chapter~\ref{current-web}.
+This Section presents a technique for interposing on, and optionally preventing
+access to, \WAPI features.  The technique is novel in the way it attempts to
+minimize the effect on existing code that expects the now-removed feature to be
+present.  This approach is used both in building cost-benefit measurements
+described in this chapter, and in the implementation of the browser-hardening
+extension described in Chapter~\ref{current-web}.
 
 
 \subsection{Removing Features from the DOM}
 \label{cost-benefit:intercepting-js:featremove}
-Each webpage and iframe gets its own global
-window object.  Changes made to the global object are shared across all scripts
-on the same page, but not between pages.  Furthermore, changes made to this
-global object are seen immediately by all other script running in the page.  If
-one script deletes or overwrites the \texttt{window.alert}
-function, for example, no other scripts on the page will be able to use the
-\texttt{alert} function, and there is no way they can recover it.
+Each webpage and iframe gets its own global \texttt{window} object.  Changes
+made to this global object are shared across all scripts on the same page, but
+not between pages.  Furthermore, changes made to this global object are seen
+immediately by all other script running in the page.  If one script, for
+example, deletes or overwrites the \texttt{window.alert} function, no other
+scripts on the page will be able to use the \texttt{alert} function, and there
+is no way they can recover it.
 
-As a result, code executed earlier can arbitrarily modify the browser environment
-seen by code executed later.  Since code run by browser extensions can
-run before any scripts included by the page, extensions can modify the
-browser environment for all code executed in any page.
-The challenge in removing a feature from the browser environment is not to
-\textit{just} prevent pages from reaching the feature, but to do so \textit{in way that
-still allows the rest of the code on the page to execute without introducing errors}.
+As a result, earlier code can arbitrarily modify the execution environment seen
+by later code.  Browsers allow extensions to inject \JS code into pages and
+frames before any page controlled code
+runs\footnote{Section~\ref{current-web:extension-deployment} discusses in much
+greater detail how and when extensions can modify page execution environments.
+This brief discussion is only intended to be enough to support the discussion
+of how \WAPI features can be interposed on.} Since this extensions can run
+before any scripts included by the page, extensions can modify the browser
+environment for all code executed in any page.  The challenge in removing a
+feature from the browser environment is not to \emph{just} prevent pages from
+reaching the feature, but to do so \emph{in way that still allows the rest of
+the code on the page to execute without introducing errors}.
 
 For example, to disable the \texttt{getElementsByTagName} feature, one could
 simply remove the \texttt{getElementsByTagName} method from the
-\texttt{window.document} object. However, this will result in fatal errors
-if future code attempts to call that now-removed method.
+\texttt{window.document} object. However, this will result in exceptions to
+be thrown if future code attempts to call the now-removed method.
+
+\input{figures/js_code_example}
 
 Consider the code in \ref{fig:trivial-js}:  removing the
-\texttt{window.document} \texttt{.getElementsByTagName} method will cause an error
-on line one, as the site would be trying to call the now-missing property as if
+\texttt{window.document.getElementsByTagName} method will cause an error
+on line one, as the code is attempting to call the now-missing property as if
 were a function.  Replacing \texttt{getElementsByTagName} with a new, empty
-function would solve the problem on line one, but would cause an error on line
+function solves the problem on line one, but only pushes the error to line
 two, unless the function returned an array of at least length five. Even after
 accounting for that result, one would need to expect that the
 \texttt{setAttribute} method was defined on the fourth element in that array.
 One could further imagine that other code on the page may be predicated on
-other properties of that return value, and fail when those are not true.
+other properties of that return value, and fail when those expectations are not
+met.
 
-\input{figures/js_code_example}
 
 \subsection{ES6 Proxy Configuration}
-
-Our technique solves this problem through a specially constructed version of
-the \texttt{Proxy} object.  The \texttt{Proxy} object can intercept operations
-and optionally pass them along to another object.  Relevant to this work,
-proxy objects also allow code to trap on general language-operations.  Proxies
-can register generic handlers that fire when the proxy is called like a
-function, indexed into like an array, has its properties accessed like an object,
-and operated on in other ways.
+Our technique solves this problem through a novel use of a new capability
+introduced in ES6, the \texttt{Proxy} object.  The \texttt{Proxy} object can
+intercept operations and optionally pass them along to another object.
+Relevant to this work, proxy objects also allow code to trap on general
+language-operations.  Proxies can register functions that fire when the
+proxy is called like a function, indexed into like an array, has its properties
+accessed like an object, and operated on in other ways.
 
 We take advantage of the \texttt{Proxy} object's versatility in two ways.
-First, we use it to prevent websites from accessing certain browser
-features, without breaking existing code.  This use case is described in detail
-in Subsection~\ref{cost-benefit:intercepting-js:proxy-general}.  And second, we use the \texttt{Proxy}
-object to enforce policies on runtime created objects.  This use case is
-described in further detail in Subsection~\ref{cost-benefit:intercepting-js:proxy-non-signletons}
+First, we use it to prevent websites from accessing browser features,
+without breaking existing code.  This use case is described in detail in
+Subsection~\ref{cost-benefit:intercepting-js:proxy-general}.  Second, we
+use the \texttt{Proxy} object to enforce policies on runtime created objects.
+This use case is described in further detail in
+Subsection~\ref{cost-benefit:intercepting-js:proxy-non-singletons}.
 
 
 \subsection{Proxy-Based Approach}
 \label{cost-benefit:intercepting-js:proxy-general}
 
-We first use the \texttt{Proxy} object to solve the problems described in
-\ref{cost-benefit:intercepting-js:featremove}.  We create a specially configured a proxy object
-that registers callback functions for \textit{all} possible \JS
-operations, and having those callback functions return a reference to the
-same proxy object.  We also handle cases where Web API properties and
-functions return scalar values (instead of functions, arrays or higher order
-objects), by programming the proxy to evaluate to \texttt{0}, empty string,
-or \texttt{undefined}, depending on the context. Thus configured, the proxy
-object can validly take on the semantics of any variable in any \JS program.
+Our technique uses the \texttt{Proxy} object to solve the general problem
+demonstrated in Section~\ref{cost-benefit:intercepting-js:featremove}.  We
+create a specially configured a proxy object that registers callback functions
+for \emph{all} possible \JS operations, and have those callback functions
+return a reference to the same proxy object.  We also handle cases where \WAPI
+properties and functions return scalar values (instead of functions, arrays
+or higher order objects), by having the proxy to coerce to \texttt{0},
+empty string, or \texttt{undefined}, depending on the context. Thus configured,
+the proxy object can validly take on the semantics of any variable in any \JS
+program.
 
-By replacing \texttt{getElementsByTagName} with our proxy, the code in
-\ref{fig:trivial-js} will execute cleanly and the alert dialog on line
-four will successfully appear.  On line one, the proxy object's function handler
-will execute, resulting in the proxy being stored in the \texttt{ps} variable.
-On line two, the proxy's \texttt{get} handler will execute, which also returns
-the proxy, resulting in the proxy again being stored in \texttt{p5}.
-Calling the \texttt{setAttribute} method causes the proxy object
-to be called twice, first because of looking up the \texttt{setAttribute},
-and then because of the result of that look up being called as a function.  The
-end result is that the code executes correctly, but without
-accessing any browser functionality beyond the core \JS language.
+Returning to the example in \ref{fig:trivial-js}, replacing
+\texttt{getElementsByTagName} with our proxy will execute cleanly and the alert
+dialog on line four will successfully appear.  On line one, the proxy object's
+function handler will execute, resulting in the proxy being stored in the
+\texttt{ps} variable.  On line two, the proxy's \texttt{get} handler will
+execute, which also returns the proxy, resulting in the proxy again being
+stored in \texttt{p5}.  Calling the \texttt{setAttribute} method causes the
+proxy object to be called twice, first because of looking up the
+\texttt{setAttribute}, and then because of the result of that look up being
+called as a function.  The end result is that the code executes correctly, but
+without accessing the original \texttt{getElementsByTagName} functionality.
 
 The complete proxy-based approach to graceful degradation can be found in
-the source code of our browser extension\footnote{\ExtensionSourceUrl}.
+the source code of our browser extension\footnote{\ExtensionSourceUrl}, which
+is discussed in detail in Chapter~\ref{current-web}.
 
 Most state changing features in the browser are implemented through methods
-which we block or record using the above described method.  This approach
+which we interpose on using the above described method.  However, this approach
 does not work for the small number of features implemented through property sets.
 For example, assigning a string to \texttt{document.location} redirects
-the browser to the URL represented by the string.  When the property is
+the browser to the \gls{url} represented by the string.  When the property is
 being set on a singleton object in the browser, as is the case with the
 \texttt{document} object, we interpose on property sets by assigning a new
 ``set'' function for the property on the singleton using
 \texttt{Object.defineProperty}.
 
+
 \subsection{Sets on Non-Singleton Objects}
-\label{cost-benefit:intercepting-js:proxy-non-signletons}
+\label{cost-benefit:intercepting-js:proxy-non-singletons}
 A different approach is needed for property sets on non-singleton objects.
-Property sets cannot be imposed on through
-altering an object's \texttt{Prototype}, and non-singleton objects
-can not be modified with \texttt{Object.defineProperty} at
-instrumentation time (since those objects do not yet exist). We instead interpose
-on methods that yield non-singleton objects.
-
-We modify these methods to return
-\texttt{Proxy} objects that wrap these non-singleton objects, which we use
-to control access to set these properties at run time. For example,
-consider the below code example, using the \emph{Web Audio} API.
-
-\input{figures/js_prop_set}
-
-In this example, we are not able to interpose on the \texttt{gainNode.} \texttt{channelCount}
-set, as the \texttt{gainNode} object does not exist when we modify the
-\texttt{DOM}.  To address these cases, we further modify the
-\texttt{AudioContext.property.createGain} to return a specially created
-proxy object, instead of a \texttt{GainNode} object.  This, specially crafted
-proxy object wraps the \texttt{GainNode} object, allowing us to interpose
-on property sets.  Depending on the current policy, we either ignore the
-property set or pass it along to the original \texttt{GainNode} object.
-
-
-\subsection{Security Implications}
-\label{cost-benefit:intercepting-js:proxy-security}
-
-There are some code patterns where the proxy approach described here could have
-a negative impact on security, such as when security sensitive computations are
-done in the client, relying on functionality provided by the \WAPI, and where the
-results of those calculations are critical inputs to other security sensitive
-operations.  We expect that such cases are rare, given common web application
-design practices. Even so, in the interest of safety, we whitelist the
-\emph{WebCrypto} API by default, and discuss the security
-and privacy tradeoffs here.
-
-As discussed above, our proxy-based approach for interposing on \WAPI features
-replaces references to the functionality being blocked with a new function that
-returns the proxy object.  In most cases where the feature being replaced is
-security relevant, this should not negatively effect the security of the system.  For
-example, if the \texttt{encrypt} method from the \emph{Web Crypto} were
-replaced with our proxy object, the function would not return an unencrypted
-string, but instead the proxy object.  While this would break a system that
-expected the cryptographic operation to be successful, it would
-``fail-closed''; sensitive information would \textbf{not} be returned where
-encrypted information was expected.
-
-Conversely, if \texttt{getRandomValues} is used to generate a nonce,  the
-returned proxy object would coerce to an empty string. While the security
-repercussions of this silent failure could possibly be grave,
-\cite{snyder2016browser} observed that the vast majority of calls to
-\texttt{getRandomValues} on the open web could be considered privacy-invasive,
-as they were used as part of the Google Analytics tracking library. Even so,
-the potential harm to users from a silent failure is too great, resulting in
-our decision to whitelist \emph{WebCrypto}. As our proposed contextual
-protection extension can implement arbitrary policies, we look forward to
-debate among experts and users as to what a sensible set of defaults should be
-in this situation.
-
-
-% Second, we note that common web application practices already emphasize
-% not performing security sensitive operations in the browser, but instead to
-% move them to a more trusted location in the system (i.e. the server).
-% Applications following these practices would be not have their security impacted
-% by this already-unlikely issue.
+Property sets on \WAPI defined objects can be imposed on by using \texttt{Object.defineProperty}
+to overwrite the ``get'' and ``set'' attributes of the property.  However,
+this approach does not allow for capturing the value being set in the ``set''
+case.  Therefor, our approach only allows for blocking sets on non-singleton,
+\WAPI defined objects.  It can't be used to make more general, runtime policy
+decisions, where decision logic would need to be made at execution time on
+whether to block or allow the ``set'' operation.

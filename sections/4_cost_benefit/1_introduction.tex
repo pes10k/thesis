@@ -4,62 +4,66 @@
 A second step in improving web security and privacy is to understand the
 trade-offs each standard in the \WAPI carries with it.
 Each feature added to the web platform brings some benefit,
-by allowing websites to create new types of applications that their users
-may enjoy, and some cost, such as new implementation bugs, or enabling new forms
-of tracking or privacy loss.  This implies that web users are not best served
-by browsers with the maximum set of features, but by browsers that only include
-features where the benefit of doing so outweighs the risks.
+by allowing websites to create new types of applications that users
+may enjoy.  Each new feature also carries some cost, in the form of additional
+security risk.  This risk can take a variety of forms, such as bugs in the
+features implementation, or the feature being exploited to enabling new forms
+of tracking or privacy loss.
+
+This implies that web users are not best served by browsers with the maximum
+set of features, but by browsers that only include features where the benefit
+of doing so outweighs the risks.
 
 This chapter presents a measurement of the costs and benefits each standard
 brings to web users.  This chapter is focused only on a global measurement,
 or the costs and benefits of enabling the standard in the browser for all
 websites.  The more complicated question of how to deal with the fact of that
-each standards' cost and benefit may differ by site (i.e. the risk of allowing
+costs and benefits may differ by site (i.e. the risk of allowing
 \texttt{good-folks.org} to access the \textit{Canvas} standard may differ
 from the risk of allowing \texttt{evil-jerks.net} to access the standard)
-is discussed further in Chapter~\ref{current-web}.
+is considered in Chapter~\ref{current-web}.
 
-This chapter builds on the feature-use work presented in Chapter~\ref{measurement}
-by using that chapter's \WAPI measurements as one input to a
-larger framework for assessing per-standard cost and benefit.  How frequently
-a standard is used on the web is an important signal to understand if a standard
-is beneficial to users (a \WAPI standard that is never used is trivially not
-beneficial to the user), but its only on part of a more complicated story.
-A standard, for example, could be used by every site on the internet, but only
-to carry out functionality the user does not desire. Or, converse, the standard
-could be seen on, say, 10\% of websites, but necessary to carry out functionality
-that drew the users to the website in the first place.  Another possibility
-is that a given standard is very beneficial to users, but its inclusion
-in the browser has exposed the web-user to attacks and vulnerabilities so
-severe that she would still be better off without it.  In short,
-understanding how often a \WAPI standard is used is just one piece of
-information needed to asses its impact on the browser.
+This Chapter builds on the feature-use work presented in
+Chapter~\ref{measurement} by using \WAPI use measurements as one input to a
+larger framework for assessing per-standard cost and benefit. After all, how
+frequently a standard is used on the web is an important signal to understand
+if a standard is beneficial to users (a \WAPI standard that is never used is
+trivially not beneficial to the user), but its only one part of a more
+complicated story.  A standard, for example, could be used by every site on the
+internet, but only to carry out functionality the user does not desire. Or,
+contra, the standard could be used by only a small number of websites, but
+necessary to carry out functionality that drew the users to the website in the
+first place.  Or, third, a standard could be \emph{both} very beneficial to
+users, but expose the web-user to attacks and vulnerabilities so severe that
+she would still be better off without it.  In short, understanding how often a
+\WAPI standard is used is just one piece of information needed to asses its
+impact on the browser.
 
-On the other hand, improving browser privacy and security cannot be the \textit{only}
-goal to consider when trying to improve web browsers.  If one were to set out
-with so narrow a goal, then she would end up stripping out all functionality from
-the browser, since trivially a browser with no functionality cannot be attacked!
-But this is not likely to be seen by anyone but the most short-sighted security
-researcher as an improvement!
+On the other hand, improving browser privacy and security cannot be the
+\textit{only} goal to consider when trying to improve web browsers.  If one
+were to set out with so narrow a goal, then she would end up stripping out all
+functionality from the browser, since, trivially, a browser with no
+functionality cannot be attacked!  This is not likely to be seen by anyone but
+the most Luddite-minded researcher as an improvement!
 
-The necessary goal then is to identify a subset of the \WAPI where the benefit
-to the user outweighs the security and privacy risks associated with the
-selected functionality.  This chapter works towards this goal by presenting a
-systematic cost-benefit analysis of the portions of the \WAPI implemented in all
-popular browsers.  By drawing on the measurements described in Chapter~\ref{measurement},
-this chapter models a standard's benefit as the number of websites in
-Alexa 10k that require that standard to function correctly.  The costs (in
-terms of user privacy and security) are modeled in three ways: first, as a function of the
-number of previously reported CVEs related to the implementation of the standard,
-second, as the number of academic papers which leverage the standard to carry
-out an an attack, and third, as a function of complexity added to the code base
-by implementing the standard.
+The goal then is to identify a subset of the \WAPI where the benefit to the
+user outweighs the associated security and privacy risks.  This Chapter builds
+towards that goal by presenting a systematic cost-benefit analysis of each
+standard in the \WAPI.  By drawing on the measurements described in
+Chapter~\ref{measurement}, this chapter models a standard's benefit as the
+number of websites in Alexa 10k that require that standard to function
+correctly.  Each standard's costs is modeled in three ways: first, as a
+function of the number of previously reported \gls{cve} reports related to the
+implementation of the standard, second, as the number of academic papers which
+leverage the standard to carry out an attack, and third, as a function of
+complexity added to the code base by implementing the standard.
 
-The rest of this chapter is organized as follows: Section~\ref{cost-benefit:intercepting-js}
-presents a technique for removing \WAPI features from the browser, with
-a minimal effect on existing code.  Section~\ref{cost-benefit:methodology}
-describes the full methodology used for measuring the costs and benefits of
-enabling a \WAPI standard in the browser.  Section~\ref{cost-benefit:results}
-presents the results of applying the cost-benefit-measurement methodology to a
-representative modern web browser.  Section~\ref{cost-benefit:conclusions} discusses
-this work's place in the context of the larger goals of this work.
+The rest of this Chapter is organized as follows:
+Section~\ref{cost-benefit:intercepting-js} presents a technique for removing
+\WAPI features from the browser, with a minimal effect on existing code.
+Section~\ref{cost-benefit:methodology} describes the full methodology used for
+measuring the costs and benefits of enabling a \WAPI standard in the browser.
+Section~\ref{cost-benefit:results} presents the results of applying the
+cost-benefit-measurement methodology to a representative modern web browser.
+Section~\ref{cost-benefit:conclusions} discusses this work's place in the
+context of the larger goals of this dissertation.

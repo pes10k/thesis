@@ -1,35 +1,31 @@
 \section{Introduction}
 \label{current-web:current-web}
 
-The third step towards the over-arching goal of improving web security and
-privacy is to consider how the per-standard cost and benefit measurements
-described in Chapter~\ref{cost-benefit} can be used to improve the web as it
-exists today.  More specifically, to explore how the data and techniques
-discussed in the previous chapters can be used to better protect web users
-visiting websites, as they are constructed now.
+The third step towards this dissertation's over-arching goal of improving web
+security and privacy is to consider how the per-standard cost and benefit
+measurements described in Chapter~\ref{cost-benefit} can be used to improve the
+web as it exists today.  More specifically, to explore how the data and
+techniques discussed in the previous chapters can be used to better protect web
+users, given how web sites are currently deployed.
 
-This chapter describes two such efforts.  The first is the design and development
+This chapter describes one such effort, through the design and development
 of a browser-extension that imposes access controls on which \WAPI features
-web sites can access.  The second approach is through modifications to the Brave
-browser,a privacy oriented web browser designed (in part) to prevent tracking online.
-In both cases, the goal is to modify the DOM to prevent websites from gaining
-access to features that risk user's security and privacy, though the general
-approach differs in each case. Our browser extension attempts to limit web
-sites to a minimal set of features, judged to be high benefit and low cost.
-The Brave browser has identified a small set of \WAPI features that
-are frequently used to track users online, and (by default) prevents sites
-from using those features.
+web sites can access.  The tool's goal is to modify the \gls{dom} to prevent
+websites from accessing to features that risk user's security and privacy. The
+extension attempts to limit web sites to a minimal set of features, judged to
+be high benefit and low cost.
 
-This chapter discusses lessons learned by working with both approaches, including
-the discovery of a significant vulnerability in the way the Firefox and Chrome
-browsers implement the WebExtension standard, which significantly limits
-the security and privacy guarantees our extension can enforce.  This discovered
+This chapter discusses the design of this tool, a usability evaluation
+of the tool, and a discovered vulnerability the Firefox and Chrome
+implementations of the WebExtension standard, which significantly limits the
+security and privacy guarantees our extension can enforce.  This
 vulnerability affects many other privacy-oriented WebExtensions, and most
-security tools are still vulnerable at the time this work is being written.
+of these tools are still vulnerable at the time this work is being written.
 
-The rest of this chapter is organized as follows:  Section~\ref{current-web:extension}
-describes the design of a browser extension we developed based on the findings
-discussed in Chapter~\ref{cost-benefit}, along with a useability analysis of
-the extension.  Section~\ref{current-web:extension-deployment} presents
-issues and discoveries that were made after the browser extension was released
-to the public, and began being used by approximately 1k users.
+The rest of this Chapter is organized as follows:
+Section~\ref{current-web:extension} describes the design of a browser extension
+based on the findings discussed in Chapter~\ref{cost-benefit},
+along with a usability analysis of the extension.
+Section~\ref{current-web:extension-deployment} presents issues and discoveries
+that were made after the browser extension was released to the public and
+began being used by approximately 1k users.

@@ -7,25 +7,25 @@ made once the extension was released to the public, and further
 developed with the help of other privacy and security focused developers.
 
 
-\subsection{Discovered Vulnerability in WebExtension Implementations}
+\subsection{Vulnerability in WebExtension Implementations}
 While working on an issue that was reported against the blocking extension, we
 discovered a security-related vulnerability in the WebExtension implementations
-in Firefox and Chrome.  This issue allows determined websites to access browser
-functionality blocked by our extension, and a comprehensive defense against it
-required modifications to our approach that breaks more websites than we
-originally accounted for.  This same WebExtension weakness also affects other
-security and privacy improving extensions (for example PrivacyBadger).
+in Firefox and Chrome.  This vulnerability allows determined websites to access
+browser functionality blocked by our extension, and a comprehensive defense
+against it required modifications to our approach that breaks more websites
+than we originally accounted for.  This same WebExtension weakness also affects
+other security and privacy improving extensions (e.g. PrivacyBadger, canvas
+blockers, the ``Shields Up'' defenses in the Brave browser).
 
 This section provides some background information on what the WebExtension
-standard is, describes the vulnerability in WebExtension implementations that
-prevents extension like ours from making strong security and privacy guarantees
-(without making further page-breaking DOM modifications), and describes how
-authors of privacy and security enhancing extensions can move forward.
+standard is, describes the vulnerability in the most popular
+implementations of the WebExtension standard we discovered,
+and how authors of privacy and security enhancing extensions can move forward.
 
 
 \subsubsection{The WebExtension Standard}
 The \textit{WebExtension}~\cite{webext2018standard} standard is a standard
-for writing browser-modifying extensions, in a way that is compatible
+for writing browser-modifying extensions in a way that is compatible
 with all major browsers.  All of the major browser vendors have pledged
 support for the standard, but Firefox and Chrome have the most complete
 and popular implementations.  Though the standard is largely based on
@@ -37,93 +37,92 @@ in many ways.  Most relevant to our extension is the ability to inject
 the extension to modify the environment the website executes in.  Our extension
 uses this technique to add access controls to \WAPI features, using a method
 described in greater detail in Section~\ref{cost-benefit:intercepting-js}.
-Many other privacy and security enhancing extensions (e.g. PrivacyBadger) use
+Many other privacy and security enhancing extensions use
 this same technique to prevent pages from accessing parts of the \WAPI, to
-protect users (for example to prevent the page from fingerprinting users).
+protect users (e.g. to detect or prevent fingerprinting attempts).
 
 
 \subsubsection{How the Vulnerability Works}
 The vulnerability we discovered allows pages to access unmodified versions
 of the browser environment, even after the extension's \JS has run.  The
 vulnerability works by exploiting how frames interact in Chrome and Firefox,
-and when the WebExtension's script injection hooks run.
+and the timing of when WebExtension's script injection hooks execute.
 
 
 \subsubsubsection{Frames in HTML Documents}
 The term \textbf{frame} refers to an execution environment in the browser.
-Most commonly these are pages loaded by the browser, with each browser
+Each page loaded by the browser gets a frame, with each browser
 tab depicting a single frame.  For example, loading \texttt{example.org} in
 a browser tab will create a single frame, showing the \gls{html} document
 returned by \texttt{example.org}.  Opening a second tab and loading
 \texttt{other-example.org} will likewise create a new frame, this time
-depicting the HTML returned from \texttt{other-example.org}.
+depicting the document returned from \texttt{other-example.org}.
 
 Importantly, each frame gets its own \gls{dom} instance, each with its own
-version of each \WAPI feature.  \WAPI feature is implemented by a \JS object,
-with functions represented by objects inheriting from
+version of each \WAPI feature.  Each \WAPI feature is implemented by a \JS
+object, with functions represented by objects inheriting from
 \texttt{Function.prototype}.  Changing a function in one frame will have no
 effect on similar objects in other frames.  Put differently, deleting the
-`Document.prototype.getElementById' object in the \texttt{example.org} frame
-will prevent other code executing in the \texttt{example.org} frame from
+\texttt{Document.prototype.getElementById} object in the \texttt{example.org}
+frame will prevent code executing in the \texttt{example.org} frame from
 querying for elements by their \texttt{id}, but that change will be invisible
 to code running in the \texttt{other-example.org} frame.
 
-Generally frames are not able to communicate with each other.  The above
-mentioned \texttt{example.org} frame has no way to access the \gls{dom} of the
-\texttt{other-example.org} frame.  There are cases where frames are access
-resources from other frames though.  A common example of such a case is if
-a frame creates a child frame that is rendering content from the same domain
-as the the parent frame.  In such cases, \JS running in the parent frame
+In general, frames are not able to directly access the resources of other
+frames.  In the above example, code running in the \texttt{example.org} frame
+cannot access the \gls{dom} of the \texttt{other-example.org} frame.  This rule
+does not hold in all cases though.  In some cases, a frame can access the
+\gls{dom} of its child frames (e.g. \texttt{iframes}).  When the child frame is
+rendering content from the same domain as the parent frame, the parent frame
 can access the \gls{dom} of the child frame through the child frame's
 \texttt{contentWindow} property.
-
-% \input{figures/webextension_vulnerability}
 
 
 \subsubsubsection{Injecting Script from a WebExtension}
 The WebExtension standard provides several opportunities for extensions to
 inject \JS into frames.  Relevant to this vulnerability is that scripts can
 register to run at \texttt{loading} time, which corresponds to a point when
-the \gls{dom} for the frame has been prepare, but no page contents have
-executed yet. The WebExtension standard defines this as the
+the \gls{dom} for the frame has been prepared, but no page contents have
+yet executed. The WebExtension standard defines this as the
 \texttt{document\_start} hook.
 
 Because the WebExtension standard guarantees that \texttt{document\_start} will
 run before any other content is executed in the frame, many extensions use
 this opportunity to inject script into a frame, to modify the DOM of the frame
 to achieve some security or privacy improvement.  Our extension uses this
-hook to inject \JS that interposes on the features in the standards the user
-has blocked.  Since the WebExtension standard guarantees that this will happens
-before any page content runs, the extension can be sure that will only see
-the \gls{dom} as its been modified by the extension, can that page code
+hook to inject \JS that interposes on the features of blocked standards.
+Since the WebExtension standard guarantees that this will happen
+before any page content executes, the extension can be sure that the page will
+only see the \gls{dom} as its been modified by the extension, and that page code
 will not be able to access the original, non-interposed-on versions of the
 blocked features.
 
 Many other extensions do something similar, and use the
 \texttt{document\_start} hook to achieve security or privacy goals.
-PrivacyBadger, for example, uses this opportunity to replace \WAPI function
+PrivacyBadger, for example, uses this opportunity to replace \WAPI functions
 associated with canvas fingerprinting with new functions that record the
 fingerprinting attempt.
 
 
 \subsubsubsection{Exploiting the Vulnerability}
-The vulnerability arises because of how the above two issues interact.  One
-might expect that because the \texttt{document\_start} hook runs before
-page content, then page content will only be able to access the \gls{dom}
-after its been modified.  However, this is not the case.  While frames are unable
-to access their own \gls{dom} before its modified by extensions, frames can
-access the \gls{dom} of child frames before the \texttt{document\_start}
-hook fires in the child frame.
+The vulnerability arises because of how the above two issues (child-frame
+access and extension code injection timing) interact in common WebExtension
+implementations.  One might expect that because the \texttt{document\_start}
+hook runs before page content, then page content will only be able to access
+the \gls{dom} after its been modified.  However, this proves to be incorrect.
+While frames are unable to access \emph{their own} \gls{dom} before its
+modified by extensions, frames can access the \gls{dom} of child frames before
+the \texttt{document\_start} hook fires in the child frame.
 
 This occurs because, while the \texttt{document\_start} hook is guaranteed to
-fire before a frame's content runs, there is a period of time between
-when the child frame's \gls{dom} is created, and the \texttt{document\_start}
-hook fires.  If a parent frame accesses the child frame's \texttt{contentWindow}
-property during this interim period, the parent frame will be able to access
-the child frame's \gls{dom} before its modified.  The parent frame
-can then extract references to blocked functionality and execute them
-in the context of the parent frame.  The end result of this is pages are able
-to bypass extensions that attempt to restrict access to \WAPI features.
+fire before a frame's content runs, there is a period of time between when the
+child frame's \gls{dom} is created, and the child's \texttt{document\_start}
+hook fires.  If a parent frame accesses the child frame's
+\texttt{contentWindow} property during this interim period, the parent frame
+will be able to access the child frame's \gls{dom} before its modified.  The
+parent frame can then extract references to blocked functionality and execute
+them in the context of the parent frame.  The end result of this is pages are
+able to bypass extensions that attempt to restrict access to \WAPI features.
 
 
 \subsubsection{Addressing the Vulnerability}
@@ -138,47 +137,52 @@ Chromium's system.
 Second, we notified other similar privacy and security minded
 projects that use the same WebExtension approach (i.e. Brave and PrivacyBadger)
 of the issue.  In both cases, the developers acknowledged the issue, but are
-waiting on action from the browser vendors before pursing the matter further.
+waiting on action from the browser vendors before pursing the matter further,
+largely because currently available solutions break too many websites.
 
 Third, we modified the extension to give users an option to protect themselves
 against this vulnerability, at the cost of breaking some benign sites.  Versions
 of ECMAScript (the technical name for the standard that defines \JS) 5.1
 and later define a \texttt{Object.defineProperty}~\cite{ecmascript51} function,
 which can be used to prevent code from reading from and writing to properties
-on certain types of objects.  Newer versions of the extension can use this
-function  to prevent frames from accessing the content of child frames,
-which prevents websites from bypassing the extension, but break sites
-that expect to be able to access child frames in this way.  While this does
-not seem to be a common pattern online, some very popular sites use this
-technique to coordinate across origins (e.g. Google's authentication flow).
+on certain types of objects.  The extension can use this
+function to prevent frames from accessing the content of child frames.
+This prevents websites from bypassing the extension, with the downside of
+breaking sites that benignly access child frames in this way.  While this
+is not a common technique online (measured by domains that use the technique),
+some very popular sites use this technique to coordinate across origins (e.g.
+Google's authentication flow).
 
-At a fundamental level though, likely the best solution to this issue would be
-to freeze the event loop of the parent frame until the \texttt{document\_start}
-hook of the child frame had fired.  While this would incur some performance
-loss (since the parent frame would momentarily freeze), this cost would
-likely be minimal.  Its difficult to think of scenarios when frames need
+At a fundamental level, the correct solution is likely to freeze the event loop
+of the parent frame until the \texttt{document\_start}
+hook of the child frame has fired.  This would incur some performance
+loss (since the parent frame would momentarily freeze), but the cost would
+be small.  Its difficult to think of scenarios when frames need
 to create and insert large numbers of child frames into documents, particularly
 in performance sensitive tasks.  However, further exploring and evaluating
 solutions to this issue is beyond the scope of this dissertation.
 
 
 \subsection{Feature-level Granularity}
-A second insight gained from making the browser extension public, and working
-on it with other privacy and security-minded developers, is that in some cases
-\WAPI standards may be the wrong level of analysis.  In some cases, users
-are better served by being able to define finer-grained policies, such as blocking
-a small number of features in a larger standard.  These finer-grained policies
-allow dedicated users to drive down the number of sites the extension breaks,
-while still preventing sites from accessing problematic \WAPI features.
+\label{current-web:extension-deployment:feature-level}
+A second insight gained from making the browser extension public, and improving
+it with other privacy and security-minded developers, is that, in some cases,
+the ``standard'' may be the wrong level of analysis when evaluating the
+\WAPI.  In some cases, users are better served by being able to define
+finer-grained policies, such as blocking a small number of features in a larger
+standard.  These finer-grained policies allow dedicated users to drive down the
+number of sites the extension breaks, while still preventing sites from
+accessing problematic \WAPI features.
 
 For example, many users of the extension were interested in blocking the
 \textit{Canvas} standard, since its often implicated in fingerprinting attacks.
 And while the functionality in the standard is rarely needed to deliver the
-main content on a site, its sometimes used when rendering peripheral but pleasant
-content, and users wanted to be able to protect themselves without giving
-up some of the flasher parts of the sites they visited.
+main content on a site, its sometimes used when rendering peripheral but
+pleasant content.  Some users wanted to be able to protect themselves against
+fingerprinting attacks without giving up some of the flasher parts of the sites
+they visited.
 
-After a closer analysis, the solution was to allow users the option to block
+The solution was to allow users the option to block
 just some features in a standard, but leave the rest of the features
 unmodified.  In the \textit{Canvas} example, the standard includes 53 features,
 only 4 of which are used for fingerprinting~\footnote{%
@@ -187,27 +191,27 @@ only 4 of which are used for fingerprinting~\footnote{%
 \texttt{CanvasRenderingContext2D.prototype.isPointInPath} and
 \texttt{CanvasRenderingContext2D.prototype.isPointInStroke}}.  By blocking
 methods that allowed for reading from a canvas, but allowing the rest of the
-writing methods, users were able to allow a greater number of sites to provide
-their user-benefiting features, without making themselves vulnerable to other
-privacy and security violations.
+standard to function as normal, users were able to better protect themselves against
+privacy and security violations, while still allowing trusted sites to provide
+their user-benefiting functionality.
 
-More broadly, but giving the users the option to block at the feature level,
+More broadly, buy giving the users the option to block at the feature level,
 instead of the standard level, users were able to push the extension's break
 rate down without reducing their security.
 
 
 \subsection{\WAPI Standard Growth}
 Finally, deploying and maintaining the extension has emphasized just how
-quickly the \WAPI has been growing, and the need for security and privacy
-researchers to understand how quickly the web changes as an application
-platform.  Just since the research in Chapter~\ref{cost-benefit} was conducted,
-browsers have implemented some or all of standards interacting with VR
-headsets~\cite{webvrstandard}, interacting with USB
+quickly the \WAPI grows, and the need for security and privacy
+researchers to consider how quickly the web changes as an application
+platform.  Since the research in Chapter~\ref{cost-benefit} was conducted,
+browsers have implemented partially or fully implemented \WAS for interacting
+with VR headsets~\cite{webvrstandard}, interacting with USB
 devices~\cite{webusbstandard}, and synthesizing and recognizing
-speech~\cite{speechtandard}.
+speech~\cite{speechtandard}, among many others.
 
-Each of these features, while adding
-potentially useful new features to the platform, also expands the browser's
-attack surface and makes the system more complex.  More work like that
-described in Chapter~\ref{cost-benefit} will be needed to understand if
-the benefit of each new powerful feature is worth the its cost.
+Each of these features, while adding potentially useful new capabilities to the
+platform, also expands the browser's attack surface and makes the system more
+complex.  More work like that described in Chapter~\ref{cost-benefit} will be
+needed to understand if the benefit of each new powerful feature is worth the
+cost.

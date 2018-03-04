@@ -17,13 +17,13 @@ describe how \CDF improves the situation.
 
 
 \subsection{Cross-Site Scripting}
-Cross-Site scripting (XSS) refers to when attackers are able to inject \JS code
+\gls{xss} refers to when attackers are able to inject \JS code
 into an HTML document, so that the code is executed by all site visitors, trusted
 as if the code came from the site author.  The technique is used for many
 malicious purposes, including extracting session tokens from the client or
 redirecting the user to a domain the attacker controls.
 
-\CDF protects the client from XSS attacks.  First and most
+\CDF protects the client from \gls{xss} attacks.  First and most
 significantly it removes the ability for a document to describe any kind of
 \JS code directly.  Instead of arbitrary code, \CDF documents can only describe
 a composition of trusted, safe types.  While a malicious attacker could
@@ -31,7 +31,7 @@ possibly corrupt a target server to present visitors a different
 composition of types than the application author intended, \CDF's types
 constrain the functionality that can be described to only safe activities.  \CDF
 does not include, for example, anyway to access cookie values or
-redirect the client in \JS to another location, common goals of XSS attacks.
+redirect the client in \JS to another location, common goals of \gls{css} attacks.
 
 
 \subsection{Page Alteration / Defacement}
