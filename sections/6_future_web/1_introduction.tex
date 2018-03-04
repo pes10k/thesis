@@ -1,33 +1,31 @@
 \section{Introduction}
 \label{future-web:introduction}
 
-A fourth step this work makes in improving web privacy and security is to explore
-other ways web-like applications could be developed and deployed, in light of
-the findings discussed earlier in earlier chapters.  While Chapter~\ref{current-web}
-presented ways of improving web security and privacy while having to maintain
-compatibility with existing websites, this chapter considers the further
-improvements that could be achieved by a system designed from the start to
-protect web users.
-
-This chapter presents \CDF, an alternative method for describing interactive
-websites. The design requires site authors to describe sites using a declarative,
-statically checkable format, that trades a loss in author-expressiveness for
-a gain in client-enforceable security guarantees.  The design is intended to
-serve as a proof of concept that a hypermedia based communication medium with a
-generic design can provide the features necessary
-for a large subset of the popular uses of today's web, without the security
-and privacy risks posed by the web's current \JS-based design.
-The design is further intended to show that most of the functionality
-users expect in modern websites can be implemented without needing to allow
-websites to access the high-risk parts of the \WAPI, as identified in
+A final step this dissertation makes in improving web privacy and security is
+to explore other ways web-like applications could be developed and deployed, in
+light of the findings discussed earlier in earlier chapters.  While
+Chapter~\ref{current-web} presented ways of improving web security and privacy
+while maintaining compatibility with existing websites, this chapter
+considers the further improvements that could be achieved with a system
+designed from the start with the findings from Chapter~\ref{measurement} and
 Chapter~\ref{cost-benefit}.
 
-The rest of this chapter is organized as follows: Section~\ref{future-web:design}
-presents the high level design of the system, and Section~\ref{future-web:implementation}
-describes how we implemented that design in a way that leverages the engineering
-and omnipresence of commodity web browsers.  Section~\ref{future-web:evaluation}
-gives an evaluation of the capabilities and security guarantees provided by the
-system, and Section~\ref{future-web:implementation} discusses the limitations
-of the current design, and the types of applications the design would not be
-able to deliver.  Section~\ref{future-web:conclusions} discusses
-this work's place in the context of the larger goals of this work.
+This chapter presents \CDF, an alternative method for describing interactive
+websites. The design requires site authors to describe sites using a
+declarative, statically checkable format, that trades a loss in
+author-expressiveness for gains in client-enforceable security guarantees.
+The design is intended to serve as a proof of concept that many of the kinds
+of websites users enjoy on the modern web can be achieved with only a subset of
+the functionality in the browser, and in a manner that allows the client to
+enforce a greater number of protections and guarantees.
+
+The rest of this chapter is organized as follows:
+Section~\ref{future-web:design} presents the high level design of the system.
+Section~\ref{future-web:implementation} describes an implementation of that
+design way that leverages the engineering and omnipresence of commodity
+web browsers.  Section~\ref{future-web:evaluation} gives an evaluation of the
+capabilities and security guarantees provided by the system, and
+Section~\ref{future-web:implementation} discusses the limitations of the
+current design, and the types of applications the design would not be able to
+deliver.  Section~\ref{future-web:conclusions} discusses this work's place in
+the overarching goals of this dissertation.

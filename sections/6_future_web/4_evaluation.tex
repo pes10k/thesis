@@ -2,13 +2,13 @@
 \label{future-web:evaluation}
 
 We tested the usability and expressiveness of \CDF by implementing several
-popular types of web applications in the the system.  We selected
-these applications (a blog modeled on \url{http://www.vogue.com/},
-an online-banking site based on \url{https://www.bankofamerica.com/}, a social
-media site modeled on \url{https://twitter.com/}, and a collaborative web application similar to
+popular types of web applications in the the system.  We selected these
+applications (a blog modeled on \url{https://www.vogue.com/}, an online-banking
+site based on \url{https://www.bankofamerica.com/}, a social media site modeled
+on \url{https://twitter.com/}, and a collaborative web application similar to
 HotCRP~\cite{hotCRPhomepage}) to represent the range of sites that web users
-commonly interact with.  In each case we were able to replicate the
-user-facing functionality of each page.
+commonly interact with.  In each case we were able to replicate the user-facing
+functionality of each page.
 
 This section evaluates the security benefits of \CDF's approach for describing
 interactive websites.  For each issue, we briefly
@@ -23,15 +23,15 @@ as if the code came from the site author.  The technique is used for many
 malicious purposes, including extracting session tokens from the client or
 redirecting the user to a domain the attacker controls.
 
-\CDF protects the client from \gls{xss} attacks.  First and most
-significantly it removes the ability for a document to describe any kind of
-\JS code directly.  Instead of arbitrary code, \CDF documents can only describe
-a composition of trusted, safe types.  While a malicious attacker could
-possibly corrupt a target server to present visitors a different
-composition of types than the application author intended, \CDF's types
-constrain the functionality that can be described to only safe activities.  \CDF
-does not include, for example, anyway to access cookie values or
-redirect the client in \JS to another location, common goals of \gls{css} attacks.
+\CDF protects the client from \gls{xss} attacks.  First and most significantly
+it removes the ability for a document to describe any kind of \JS code
+directly.  Instead of arbitrary code, \CDF documents can only describe a
+composition of trusted, safe types.  While a malicious attacker could possibly
+corrupt a target server to present visitors a different composition of types
+than the application author intended, \CDF's types constrain the functionality
+that can be described to only safe activities.  \CDF does not include, for
+example, anyway to access cookie values or redirect the client in \JS to
+another location, common goals of \gls{css} attacks.
 
 
 \subsection{Page Alteration / Defacement}
@@ -45,21 +45,20 @@ author concatenates the user's input, represented
 as a string, into a larger string the author is using for the returned
 content.
 
-\CDF's type system makes this kind of error more difficult to make.
-The \CDF author must construct pages as trees of instances of types.
-Overall page structure and styling cannot be modified from within
-an individual child node in the document tree. In cases
-where page authors are taking inputs from users, and anticipate that input
-to be in the form of an unstructured piece of text (such as a comment
-on an article), the page author would do so by setting the user's input string
-as the content of a \texttt{text} element.  When \CDF then
-renders the document to send to visitors of the site, the \CDF parser escapes all
-content in \texttt{text} instances to ensure that the content cannot change
-the structure of the page (such as by including \JS code or altering the balance
-of tags on the page).
+\CDF's type system makes this kind of error more difficult to make.  The \CDF
+author must construct pages as trees of instances of types.  Overall page
+structure and styling cannot be modified from within an individual child node
+in the document tree. In cases where page authors are taking inputs from users,
+and anticipate that input to be in the form of an unstructured piece of text
+(such as a comment on an article), the page author would do so by setting the
+user's input string as the content of a \texttt{text} element.  When \CDF then
+renders the document to send to visitors of the site, the \CDF parser escapes
+all content in \texttt{text} instances to ensure that the content cannot change
+the structure of the page (such as by including \JS code or altering the
+balance of tags on the page).
 
-While \CDF does not make this kind of attack impossible (it is possible
-to conceive of ways that a sufficiently naive page author would construct a
+While \CDF does not make this kind of attack impossible (it is possible to
+conceive of ways that a sufficiently naive page author would construct a
 vulnerable document), it makes the attack much more difficult to pull off.
 Instead of becoming relatively easy for page authors to be affected by this
 kind of attack, \CDF instead makes it difficult and less likely.
@@ -67,13 +66,13 @@ kind of attack, \CDF instead makes it difficult and less likely.
 
 \subsection{Limited Trusted Base}
 A further source of vulnerability in \HTML documents is that they allow
-attackers to take advantage of a greatly expanded trusted base, in the form
-of browser plugins like Java and Flash, and in the form of infrequently used
-Web API features.  As the frequent rate
-of browser updates shows, securing just the browser is an extremely difficult
-task.  Needing to trust the browser \emph{in addition to} closed source, third
-party plugins with long histories of exploitability makes the problem
-of securing the web dramatically more difficult.
+attackers to take advantage of a greatly expanded trusted base, in the form of
+browser plugins like Java and Flash, and in the form of infrequently used Web
+API features.  As the frequent rate of browser updates shows, securing just the
+browser is an extremely difficult task.  Needing to trust the browser \emph{in
+addition to} closed source, third party plugins with long histories of
+exploitability makes the problem of securing the web dramatically more
+difficult.
 
 \CDF further reduces the attack surface by removing the ability of \CDF
 documents to include or refer to plugins. As previously discussed, \CDF does
@@ -87,17 +86,18 @@ playback, the absolute necessity of these extensions is limited. The \CDF
 specification makes it impossible for \CDF page authors to reference or
 interact with any plugins that might be on the system.
 
+
 \subsection{Client Side Fingerprinting}
-Web users who have not authenticated or intentionally identified themselves
-to a website expect to be semi-anonymous.  Once a user discards any identifying
-tokens they've received from a website (e.g. deleting their
-browser cookies) they have a reasonable expectation that they are no longer
-known to the site.  Such assumptions are even built into the state-less nature of
-HTTP, and required the addition of cookies to add state into the web.
+Web users who have not authenticated or intentionally identified themselves to
+a website expect to be semi-anonymous.  Once a user discards any identifying
+tokens they've received from a website (e.g. deleting their browser cookies)
+they have a reasonable expectation that they are no longer known to the site.
+Such assumptions are even built into the state-less nature of HTTP, and
+required the addition of cookies to add state into the web.
 
 Malicious websites violate this assumption through client side
 fingerprinting, or by including \JS code in their pages to
-take a large number of quasi-identifiying measurements, and combine them
+take a large number of quasi-identifying measurements, and combine them
 in such a way that site visitors can be uniquely identified.  These
 quasi-identifiers are not sensitive to users deleting their cookies,
 modifying their user agent string, or taking other similar steps, making it
@@ -128,9 +128,9 @@ A user may visit a website on a domain they trust---and not intending to trust
 any other domains in doing so---only to later learn that the site (maliciously
 or unknowingly) notified a third party that they visited the site.
 
-\CDF addresses this issue in three ways.  First, the most popular
-and intrusive tracking systems used today rely, at least in part, on
-\JS run on the client.  Inclusion of third party tracking libraries is inexpressible in \CDF, and thus
+\CDF addresses this issue in three ways.  First, the most popular and intrusive
+tracking systems used today rely, at least in part, on \JS run on the client.
+Inclusion of third party tracking libraries is inexpressible in \CDF, and thus
 the user automatically gains a great deal of privacy-preservation.
 
 Second, the \CDF parser sets the \texttt{Content-Security-Policy} of all
@@ -141,12 +141,14 @@ remote resources, further protecting the privacy of the user.
 Finally, it is extremely difficult for web users to be sure where their content
 will be sent when they submit a form on a webpage, regardless of whether that
 form is to perform a search or login in a sensitive website.  Even inspecting
-the source \HTML of the page being viewed is no guarantee, since \JS could
-have manipulated where the form values will be sent.  \CDF removes these uncertainties
-by only allowing forms and sub-page requests to send to the current domain.
+the source \HTML of the page being viewed is no guarantee, since \JS could have
+manipulated where the form values will be sent.  \CDF removes these
+uncertainties by only allowing forms and sub-page requests to send to the
+current domain.
 
 Tracking pixels which load from third party domains with unique per-user IDs in
 their URL are still usable in \CDF. While this allows some level of tracking to
 persist in \CDF, a third party providing Google Analytics style functionality
 would need to synchronize the user IDs with every colluding site, rather than
-rely on \JS, cookies, and ``referer'' headers to reconstruct user browsing history.
+rely on \JS, cookies, and ``referer'' headers to reconstruct user browsing
+history.

@@ -1,25 +1,26 @@
 \chapter{Conclusion}
 \label{conclusion}
 
-The modern web is the result of a long series of largely uncoordinated iterative
-changes, driven by a combination of lineage\footnote{e.g. the
-adoption of Hypercard's event model in the early DOM standards.}, market
-competition\footnote{e.g. the 10-day design and implementation cycle allowed
-for the development of \JS}, well-intentioned but incorrect efforts to predict
-where the web would go\footnote{e.g. the entire SVG \WAPI standard, intended
-to compete with Flash's vector graphics system, but which never received
-traction}, the inability or refusal of standards committees to work together
-for the benefit of system cohesion\footnote{e.g. the choice of the CSS committee
-to use kebab-case for style properties, v.s. the DOM committee's choice to
-use camel-case names.}, and efforts to push the browser as a near-replacement
-for the operating system\footnote{e.g. the large number of \WAPI standards for
-interacting with hardware, largely adopted because of the ``Firefox OS'' and
-``Chrome OS'' projects}, among many other well intentioned reasons.
+The modern web is the result of a long series of largely uncoordinated
+iterative changes, driven by a combination of lineage\footnote{e.g. the
+adoption of Hypercard's event model in the early \gls{dom} standards.}, market
+competition\footnote{e.g. the approximately 10-day design and implementation
+cycle allowed for the development of \JS}, well-intentioned but incorrect
+efforts to predict where the web would go\footnote{e.g. the entire \gls{svg}
+\WAPI standard, intended to compete with Flash's vector graphics system, but
+which received little traction}, the inability or refusal of standards
+committees to work together for the benefit of system cohesion\footnote{e.g.
+the choice of the \gls{css} committee to use kebab-case for style properties,
+v.s.  the \gls{dom} committee's choice to use camel-case names.}, and efforts
+to push the browser as a near-replacement for the operating
+system\footnote{e.g. the large number of \WAPI standards for interacting with
+hardware, largely adopted because of the ``Firefox OS'' and ``Chrome OS''
+projects}, among many other well intentioned reasons.
 
 Given this chaotic, unplanned, and organic development history, its worth
-celebrating how successful and useful the web has been.  Its almost certainly
-the worlds largest, open application platform, and despite the myriad of
-security and privacy issues the web has suffered over its history, its worth
+celebrating how successful and useful the web has been.  The web is almost
+certainly the worlds largest, open application platform, and despite the myriad
+of security and privacy issues the web has suffered over its history, its worth
 noting that in many ways the web platform has proved more secure than its
 competitors.
 
@@ -28,14 +29,14 @@ developers alike) is not to say the system cannot be improved.  As this
 dissertation has hopefully demonstrated, web users face a large number of
 unnecessary privacy and security risks.
 
-This dissertation aims to improve the state of web privacy and security
+This dissertation aimed to improve the state of web privacy and security
 by applying a cost-benefit analysis to one important part of the browser,
 the \WAPI, and seeing how those findings can be used to make the platform
 safer for users.  Chapter~\ref{measurement} presented a technique for measuring
 what parts of the \WAPI are actually being used on the web, along with the
-results of applying that technique to the Alexa 10k.  Chapter~\ref{cost-benefit}
+results of applying that technique to the \ATK.  Chapter~\ref{cost-benefit}
 built on these measurements to systematically measure the costs and benefits
-posed by each of the standards that made up the \WAPI, in order to distinguish
+posed by each of the standards in the \WAPI, to distinguish
 highly beneficial functionality from functionality that placed web users
 at unnecessary, uncompensated risk.
 
@@ -43,12 +44,15 @@ Chapter~\ref{current-web} considered how these cost-benefit measurements could
 be used to improve privacy and security on the web as it exists today, and
 demonstrated the possibility for improvement through the development of a
 publicly available browser extension that enforces access-controls on
-the \WAPI.  Finally, Chapter~\ref{future-web} considered how these cost-benefit
+the \WAPI.
+
+Finally, Chapter~\ref{future-web} considered how these cost-benefit
 measurements could be used in the development of alternative web application
-system, in order to further protect web users.  Chapter~\ref{future-web} also
-demonstrated the feasibility of this approach through \CDF, a system for
-developing and deploying safer web applications, using commodity web browsers.
+system, in order to further protect web users, and demonstrated the feasibility
+of this approach through \CDF, a system for developing and deploying safer web
+applications, using commodity web browsers.
 
 The author hopes that collectively the findings and data presented in this
-dissertation can play a small role in guiding standards committees and browser
-vendors in the development of a safer, more privacy preserving web.
+dissertation can play a small part in guiding standards committees, future
+researchers, and browser vendors in the development of a safer, more privacy
+preserving web.
