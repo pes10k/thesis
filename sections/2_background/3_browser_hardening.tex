@@ -1,8 +1,8 @@
 \section{Client Side Browser Defenses}
 \label{background:related-browser-defs}
 
-There are variety of techniques which ``harden'' the browser against attacks
-by limiting what \JS is allowed to run within the browser. These defenses can
+There are variety of techniques which ``harden'' the browser
+by limiting what \JS pages are allowed to execute. These defenses can
 be split into two categories: those configured by the user, and those
 configured by the website author.
 
@@ -17,13 +17,13 @@ preventing the loading of resources from certain domains.
 
 NoScript prevents \JS on an
 all-or-nothing basis, based on the code's origin.  By default, NoScript prevents
-\JS execution from all origins, rendering a large swath of the web unusable.  
-In its default configuration, NoScript does allows \JS execution from a built
-in set of trusted origins.  This built in allow-list has resulted in a proof of
-concept exploit via purchasing expired, allowed domains~\cite{noscript_whitelist}.
-Beyond these popular tools, IceShield~\cite{heiderich2011iceshield}
-dynamically detects suspicious \JS calls within the browser, and modifies the
-\gls{dom} to prevent attacks.
+\JS execution from all origins, rendering a large swath of the web unusable.
+In its default configuration, NoScript allows \JS execution from a built-in set
+of trusted origins.  This built-in allow-list has resulted in a proof of
+concept exploit via purchasing expired, allowed
+domains~\cite{noscript_whitelist}.  Beyond these popular tools,
+IceShield~\cite{heiderich2011iceshield} dynamically detects suspicious \JS
+calls within the browser, and modifies the \gls{dom} to prevent attacks.
 
 The Tor Browser~\cite{dingledine2004tor} disables by default or prompts the
 user before using a number of features.  Regarding \JS, they disable
@@ -32,9 +32,10 @@ Canvas, the GamePad API, WebGL, the Battery API, and the Sensor
 API~\cite{tor-features}.  These particular features are disabled because they
 enable techniques which violate the Tor Browser's security and privacy goals.
 
-On the website author side, \gls{csp} allows limiting of the
-functionality of a website, but rather than allowing browser users to decide
-what will be run, \gls{csp} allows web developers to constrain code on their own
+On the site author side, \gls{csp} allows server operators to limiting what
+kinds of \JS functionality, and sources of code, can be executed, through
+either \gls{http} headers, or \gls{html} \textit{meta} tags.
+\gls{csp} allows web developers to constrain code on their
 sites so that potential attack code cannot access functionality deemed
 unnecessary or dangerous~\cite{stamm2010reining}.  Conscript is another
 client-side implementation which allows a hosting page to specify policies for
@@ -43,7 +44,7 @@ also a number of technologies selected by the website author but enforced on
 the client side,  including Google Caja~\cite{google13caja} and
 GATEKEEPER~\cite{guarnieri09gatekeeper}.
 
-There are existing models for enforcing policies to limit functionality outside
-of the web browser as well.  Mobile applications use a richer permission model
+There are also models for enforcing policies to limit functionality outside
+of the web browser.  Mobile applications use a richer permission model,
 where permission to use certain features is asked of the user at either install
 or run-time~\cite{android-permissions,au2011short}.

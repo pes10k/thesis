@@ -4,33 +4,33 @@
 The first step in understanding the security and privacy implications
 of the current (and quickly expanding) \WAPI is to understand what features
 are being used on the web, and for what purposes.  If every site on the
-web uses a given \WAPI feature, thats a suggestive (though not determinative)
+web uses a given \WAPI feature, that is a suggestive (though not determinative)
 signal that a feature may be useful to web users.  Conversely, if a user
 never visits a website that uses a given \WAPI feature, then that feature
 is (trivially) providing no direct benefit to the user.
 
 The design and development of the web makes these kinds of conceptually simple
-measurements complex to carry in practice.  First, with the exception of
+measurements complex to carry out in practice.  First, with the exception of
 trivial cases, one cannot simply ``download a website'' and count invocations
 of functions calls, the way one might be able to approximate with traditional
 applications.  Web sites are downloaded (and sometimes, generated) dynamically,
 one portion at a time, depending on user input. The server side of an
 application can even change while the client is interacting with the
-application!  All of which means, there is no way to meaningfully know if
+application!  This means there is no way to meaningfully know if
 you've downloaded the entire web application, making static analysis of a
 website difficult, if not impossible.
 
 Similarly, the highly-dynamic nature of \JS (how the client-side of web
 applications are implemented) means that the language is difficult to
-statically analyze; even if one could download all of the \JS code that
+statically analyze. Even if one could download all of the \JS code that
 comprises a web application, its a non-trivial task to determine what \WAPI
 functions are called in a piece of code, let alone determining which code paths
 the user would execute during a likely interaction with the website.
 
 To confound matters more, all feature invocations on a website are not equally
 desirable to the user.  A user may benefit if a feature is being used to render
-a news story she wishes to read, while the user might experience harm if the
-feature is being used to fingerprinting her browser for tracking purposes.  A
+a news story she wishes to read, while the user might experience harm, if the
+feature is being used to fingerprint her browser for tracking purposes.  A
 useful measurement of \WAPI use on the web should distinguish between these
 kinds of cases.
 
@@ -48,11 +48,11 @@ approximates how humans would interact with the site.  By counting which
 features are invoked during each automated interaction, we're able to estimate
 which features real users would encounter when interacting with a website. We
 then repeated this automated measurement technique with popular advertising and
-tracking-blocking extensions installed.  By comparing the difference in
-features that are executed under these configurations allows us to to
+tracking-blocking extensions installed.  Comparing the difference in
+features that are executed under these configurations allows us to
 distinguish user-serving \WAPI use from non-user-serving \WAPI use.
 
-Applying this automated measurement technique to the Alexa 10k gives an
+Applying this automated measurement technique to the \ATK gives an
 answer to the original question, namely, which \WAPI features do web users use when
 browsing the web.  We find, for example, that 50\% of the \WAPI features in the
 browser are never used by the ten thousand most popular websites, when users
@@ -61,23 +61,23 @@ are browsing in low trust, non-authenticated scenarios.
 We were also able to identify features that are used
 predominantly for non-user-serving purposes; 10\% of \WAPI features in the
 browser are blocked 90\% of the time when ad and tracking-blocking extensions
-are installed,  and over 83\% of features in are executed on less than 1\% of
+are installed,  and over 83\% of features are executed on less than 1\% of
 websites in the presence of these popular blocking extensions.
 
-The data described in this work has been publicity shared and is freely
+The data described in this work has been publicly shared and is freely
 available.  The dataset contains our measurements of what \JS features are used
-in the Alexa 10k, both by default browsers, and when ad and tracking blocking
+in the \ATK, both by default browsers, and when ad and tracking blocking
 extensions are installed.  The database with these measurements, along with
 documentation describing the database's schema, is available
 online~\cite{snyderp2016webapidata}.
 
-The rest of this Chapter is organized as follows.
+The rest of this chapter is organized as follows.
 Section~\ref{measurement:data-sources} describes the data sources used to
 conduct this work. Section~\ref{measurement:methodology} describes the
-methodology used in this Chapter in greater detail, and
+methodology used in this chapter in greater detail, and
 Section~\ref{measurement:results} presents the results of this automated
 measurement, including how frequently features are used, and which features are
 blocked by popular blocking extensions.  Section~\ref{measurement:validity}
-describes steps taken verify that our results are correct, and
+describes steps taken to verify that our results are correct, and
 Section~\ref{measurement:conclusions} concludes with some discussion of the
 significance of these results.

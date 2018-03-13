@@ -23,15 +23,15 @@ as if the code came from the site author.  The technique is used for many
 malicious purposes, including extracting session tokens from the client or
 redirecting the user to a domain the attacker controls.
 
-\CDF protects the client from \gls{xss} attacks.  First and most significantly
+\CDF protects the client from \gls{xss} attacks.  First, and most significantly,
 it removes the ability for a document to describe any kind of \JS code
 directly.  Instead of arbitrary code, \CDF documents can only describe a
 composition of trusted, safe types.  While a malicious attacker could possibly
 corrupt a target server to present visitors a different composition of types
 than the application author intended, \CDF's types constrain the functionality
 that can be described to only safe activities.  \CDF does not include, for
-example, anyway to access cookie values or redirect the client in \JS to
-another location, common goals of \gls{css} attacks.
+example, any way to access cookie values or redirect the client to
+another location with \JS, common goals of \gls{css} attacks.
 
 
 \subsection{Page Alteration / Defacement}
@@ -46,7 +46,7 @@ as a string, into a larger string the author is using for the returned
 content.
 
 \CDF's type system makes this kind of error more difficult to make.  The \CDF
-author must construct pages as trees of instances of types.  Overall page
+author must construct pages as trees of instances of types.  The page
 structure and styling cannot be modified from within an individual child node
 in the document tree. In cases where page authors are taking inputs from users,
 and anticipate that input to be in the form of an unstructured piece of text
@@ -59,7 +59,7 @@ balance of tags on the page).
 
 While \CDF does not make this kind of attack impossible (it is possible to
 conceive of ways that a sufficiently naive page author would construct a
-vulnerable document), it makes the attack much more difficult to pull off.
+vulnerable document), it makes the attack much more difficult to execute.
 Instead of becoming relatively easy for page authors to be affected by this
 kind of attack, \CDF instead makes it difficult and less likely.
 
@@ -90,9 +90,9 @@ interact with any plugins that might be on the system.
 \subsection{Client Side Fingerprinting}
 Web users who have not authenticated or intentionally identified themselves to
 a website expect to be semi-anonymous.  Once a user discards any identifying
-tokens they've received from a website (e.g. deleting their browser cookies)
+tokens they've received from a website (e.g. deleting their browser cookies),
 they have a reasonable expectation that they are no longer known to the site.
-Such assumptions are even built into the state-less nature of HTTP, and
+Such assumptions are even built into the state-less nature of \gls{http}, and
 required the addition of cookies to add state into the web.
 
 Malicious websites violate this assumption through client side
@@ -138,13 +138,13 @@ documents to \texttt{referrer never} though an included \texttt{<meta>} tag
 element, instructing browsers to not send a referrer header when requesting
 remote resources, further protecting the privacy of the user.
 
-Finally, it is extremely difficult for web users to be sure where their content
-will be sent when they submit a form on a webpage, regardless of whether that
-form is to perform a search or login in a sensitive website.  Even inspecting
-the source \HTML of the page being viewed is no guarantee, since \JS could have
-manipulated where the form values will be sent.  \CDF removes these
-uncertainties by only allowing forms and sub-page requests to send to the
-current domain.
+Finally, it is extremely difficult for web users to know where their content
+will be sent when they interact with a website, whether that interaction
+is interacting with form element, clicking on a button, or scrolling through
+a page.  Even inspecting the source \HTML of the page being viewed is no
+guarantee, since \JS could have manipulated where the form values will be sent.
+\CDF removes these uncertainties by only allowing forms and sub-page requests
+to send to the current domain.
 
 Tracking pixels which load from third party domains with unique per-user IDs in
 their URL are still usable in \CDF. While this allows some level of tracking to

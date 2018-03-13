@@ -1,7 +1,7 @@
 \section{Methodology}
 \label{cost-benefit:methodology}
 
-This Section presents a general methodology for measuring the costs and
+This section presents a general methodology for measuring the costs and
 benefits of allowing a website to access a \WAS.  We measure per-standard
 benefit by using the described feature degradation technique to block page
 access to the standard, manually browsing sites that use standard, and
@@ -18,7 +18,7 @@ benefit of enabling a \WAS in web browsers, and then applies that
 general approach to a specific browser, \textbf{\FFWithVersion}.  We use
 this browser to represent modern web browsers generally for several reasons.
 
-\textbf{First}, Firefox's implementation of \WASs is representative of how
+First, Firefox's implementation of \WASs is representative of how
 \WASs are implemented in other popular web browsers (e.g. Chrome, Edge,
 Safari).  These browsers use \gls{webidl} to define \WAPI interfaces, and
 implement the underlying functionality mostly in C++, with some newer standards
@@ -28,7 +28,7 @@ from each other's projects (for example, very large portions of Mozilla's
 WebRTC implementation is taken or shared with the Chromium project in the form
 of the ``webrtc'' and ``libjingle'' libraries).
 
-\textbf{Second}, the standardized nature of the \WAPI means that measures of
+Second, the standardized nature of the \WAPI means that measures of
 \WAPI costs and benefits performed against one browser will roughly generalize
 to all modern browsers; features that are frequently used in one browser will
 be as popular when using any other recent browser.  Similarly, most of the
@@ -36,28 +36,29 @@ attacks documented in academic literature exploit functionality that is
 operating as specified in these cross-browser standards, making it further
 likely that this category of security issue will generalize to all browsers.
 
-\textbf{Third}, using \FF allows for a direct comparison with the measurements
+Third, using \FF allows for a direct comparison with the measurements
 discussed in Chapter~\ref{measurement}, which were taken with a similar version
 of \FF.  It also allows for drawing on other related research conducted on
 Firefox (e.g. \cite{shin2011evaluating}).
 
-Finally, we stress that the approach described in this Chapter would work with
+Finally, we stress that the approach described in this chapter would work with
 any modern browser; the discussed techniques are not tied to \FFWithVersion.
 
 
 \subsection{Measuring by Standard}
 To measure the costs and benefits of the \WAPI, we first identified a large,
-representative set browser features implemented across all modern web browsers.
-We extracted the 1,392 standardized \WAPI features implemented in \FF, and
-categorized those features into \NumStandards \WASs, using the same as
-described in Section~\ref{measurement:data-sources:method-web-features}.
+representative set of browser features implemented across all modern web
+browsers.  We extracted the \numfeatures standardized \WAPI features
+implemented in \FF, and categorized those features into \NumStandards \WASs,
+using the same technique as described in
+Section~\ref{measurement:data-sources:method-web-features}.
 
 Using the features listed in the \gls{w3c}'s (and related standards
 organizations) publications, we categorized \texttt{Console.prototype.log} and
-\texttt{Console.prototype.timeline} with the \emph{Console API},
+\texttt{Console.prototype.timeline} with the \textit{Console API},
 \texttt{SVGFilterElement.apply} and \texttt{SVGNumberList.prototype.getItem}
-with the \emph{SVG} standard, and so forth, for each of the 1,392 features.
-Again, this mirrors the same set of features described in
+with the \textit{SVG} standard, and so forth, for each of the \numfeatures
+features.  This again mirrors the set of features described in
 Section~\ref{measurement:data-sources:method-web-standards}.
 
 We use these \NumStandards standards as our unit of \WAPI measurement for two
@@ -70,18 +71,17 @@ drawbacks, some of which are discussed later in
 Section~\ref{current-web:extension-deployment:feature-level}.
 
 
-\subsection{Determining When A Website Needs A Feature}
+\subsection{Determining When a Website Needs a Feature}
 \label{cost-benefit:methodology:manual-inspection}
-This Chapter models how beneficial each \WAPI standard is by measuring
-how many websites require the standard to function.  Enabling features sites do not
-use provides little benefit to users.  These measurements focus on
-low-trust, unauthenticated, casual browsing scenarios, and do not
-attempt to capture more app-like experiences, like video chat or rich
-user to user messaging.
+This chapter models how beneficial each \WAPI standard is by measuring how many
+websites require the standard to function.  Enabling features that sites do not
+use provides little benefit to users.  These measurements focus on low-trust,
+unauthenticated, casual browsing scenarios, and do not attempt to capture more
+app-like experiences, like video chat or rich user to user messaging.
 
 We focus on this casual browsing scenario because it closely matches the
 situations where users need to be most careful: when users first visit a new
-site, and have little basis to judge the site trustworthiness.
+site, and have little basis to judge the site's trustworthiness.
 Users can only gauge whether to trust a site with greater
 capabilities once they have some familiarity with it.
 
@@ -94,11 +94,11 @@ and are rarely used on the open web.
 A website may also use a feature, but not need it to carry out a user's
 goals on the site.  In many cases website will still function as desired (from
 the perspective of the user), even after the site is prevented from accessing
-functionality it desires.  For example, a blog may use the \textit{Canvas}
-standard to invisibly fingerprint the visitor.  If a visitor's browser prevents
-the site from using the \textit{Canvas} functionality, the visitor will still
-be able to read the desired postings on the blog, even though the
-fingerprinting attempt will fail.
+the functionality the site desires.  For example, a blog may use the
+\textit{Canvas} standard to invisibly fingerprint the visitor.  If a visitor's
+browser prevents the site from using the \textit{Canvas} functionality, the
+visitor will still be able to read the desired postings on the blog, even
+though the fingerprinting attempt will fail.
 
 This measure of ``need'' is intentionally focused on the \emph{the perspective
 of the browser user}.  The usefulness of a feature to a website author is not
@@ -108,16 +108,16 @@ broken, or the ability to A/B test is hampered) in a way the user cannot
 perceive, then we consider this feature as not being needed from the
 perspective of the browser user, and thus not needed for the site.
 
-With this insight in mind, we developed a methodology to evaluate
-whether a website needs a browser standard to function. We instructed two
-undergraduate workers to visit the same website, twice in a row. Each first visit
-was conducted in an unmodified \FF browser and treated as the control condition.
+With this insight in mind, we developed a methodology to evaluate whether a
+website needs a browser standard to function. We instructed two undergraduate
+workers to visit the same website, twice in a row. Each first visit was
+conducted in an unmodified \FF browser and treated as the control condition.
 The worker was instructed to perform as many different actions on the page as
 possible within one minute. (This is in keeping with the average dwell time a
-user spends on a website, which is slightly under a minute~\cite{liu2010understanding}.)
-On a news site this might mean skimming articles or watching videos, while
-and on an e-commerce sites it might mean searching for products and
-adding them to the cart.
+user spends on a website, which is slightly under a
+minute~\cite{liu2010understanding}.) On a news site this might mean skimming
+articles or watching videos, while on an e-commerce sites it might mean
+searching for products and adding them to the cart.
 
 The worker then visits the same site a second time.  This time, the worker's
 browser is modified to disable all of the features in a \WAS, using the
@@ -169,14 +169,14 @@ browser configurations (one configuration with each standard disabled, and one
 Fourth, we performed the manual testing described in
 Section~\ref{cost-benefit:methodology:manual-inspection}.  We carried out the
 above process twice for each of the \NumSitesTestedInStandardTests sites tested
-for this purpose.  We carried out this process for all \NumStandards standards,
-yielding the \textbf{site break rate} for each \WAS.  We define the
-per-standard \textbf{site break rate} as the percentage of times the site broke
-with the featured disabled, multiplied by how frequently the standard is used
-in the \ATK.  We then define the benefit of a standard as a function of its
-site break rate; the more sites break when a standard is disabled, the more
-useful the standard is to a browser user.  The results of this measurement are
-discussed in Section~\ref{cost-benefit:results}.
+for this purpose, and for each of the \NumStandards \WAPI standards.
+This yielded the \textbf{site break rate} for each \WAS, defined as the
+percentage of times the site broke with the feature disabled, multiplied by
+how frequently the standard is used in the \ATK.  We then define the benefit of
+a standard as a function of its site break rate; the more sites break when a
+standard is disabled, the more useful the standard is to a browser user.  The
+results of this measurement are discussed in
+Section~\ref{cost-benefit:results}.
 
 
 \subsection{Determining Per-Standard Cost}
@@ -186,14 +186,14 @@ We measured the security cost of enabling a \WAS in three ways.
 The first cost metric for enabling a \WAS is as a function of reported
 \gls{cve}s against the standard's implementation.  Past \gls{cve}s are an
 indicator of present risk for three reasons.  First, multiple past
-vulnerabilities indicate that the problem domain addressed by this code that is
+vulnerabilities indicate that the problem domain addressed by this code is
 difficult to code securely. These code areas therefor deserve heightened
 scrutiny, and carry additional risk.  Second, prior
-research~\cite{ozment2006milk,zimmermann2008predicting} found that bugs fixes
+research~\cite{ozment2006milk,zimmermann2008predicting} found that bug fixes
 introduce nearly as many bugs as they address, suggesting that code that has
-been previously patched carries heightened risk for future future
+been previously patched carries heightened risk for future
 vulnerabilities.  Third, recent industry practices suggest that project
-maintainers asses security risk similarly; that codebases with many past
+maintainers assess security risk similarly; that codebases with many past
 vulnerabilities should be treated with increased caution~\cite{boringssl}.
 
 Second, we measure a \WAS~'s cost as a function of the amount of recent academic
@@ -204,7 +204,7 @@ for attacks leveraging each \WAS in security conferences and journals between
 Third, we measure a \WAS~'s cost by the number of lines of code
 needed solely to implement the standard in the browser. We base this metric
 on previous research that found that code complexity (measured as the
-number of lines of code in function definitions) has have moderate predictive
+number of lines of code in function definitions) has had moderate predictive
 power for discovering where future vulnerabilities will occur in the
 \FF codebase~\cite{shin2011evaluating}.
 
@@ -215,19 +215,19 @@ We determined the number of \gls{cve}s previously associated with each
 \WAS in three steps:
 
 First, we searched the MITRE \gls{cve} database for all references to \FF in
-\gls{cve}s issued between 2010 and 2016 resulting in \NumFirefoxCVEs \gls{cve}
+\gls{cve}s issued between 2010 and 2016, resulting in \NumFirefoxCVEs \gls{cve}
 records.
 
-Second, we reviewed these \gls{cve}s and discarded \NumFirefoxCVEsOther \gls{cve}s that
-were predominantly about other pieces of software, where the browser was
-only incidentally related (e.g. the Adobe Flash Player
+Second, we reviewed these \gls{cve}s and discarded \NumFirefoxCVEsOther
+\gls{cve}s that were predominantly about other pieces of software, where the
+browser was only incidentally related (e.g. the Adobe Flash Player
 plugin~\cite{cve_2012_4171}, or vulnerabilities in web sites that are
 exploitable through \FF~\cite{cve_2013_2031}).
 
 Third, we examined each of the remaining \gls{cve}s to
 determine if they documented vulnerabilities in the implementation of one of the
 \NumStandards considered \WASs.  This step's goal was to exclude vulnerabilities
-relating to no-\WAPI parts of the browser, such as the layout engine,
+relating to non-\WAPI parts of the browser, such as the layout engine,
 the \JS runtime, or networking libraries.
 We identified \NumFirefoxStandardCVEs \gls{cve}s describing vulnerabilities in
 \FF~'s implementation of \NumStandardsWithCVE standards.
@@ -235,24 +235,21 @@ We identified \NumFirefoxStandardCVEs \gls{cve}s describing vulnerabilities in
 standards.
 
 We identified which \WAS a \gls{cve} related to by reading the text
-description of each \gls{cve}. We attributed \gls{cve}s to \WAS
+description of each \gls{cve}. We attributed \gls{cve}s to \WASs
 in the following ways:
 
-\hspace{1em}
 \begin{itemize}
-
   \item 117 (66.9\%) \gls{cve}s explicitly named a \WAS.
   \item 32 (18.3\%) \gls{cve}s named a \JS method, structure
         or interface uniquely related to a larger standard.
   \item 21 (12\%) \gls{cve}s named a C++ class or method uniquely
-        related to the implementation of \WAS, using the methodology described
-        in~\ref{cost-benefit:methodology:costs-loc}.
+        related to the implementation of a \WAS, using the methodology described
+        in Section \ref{cost-benefit:methodology:costs-loc}.
   \item 5 (2.8\%) \gls{cve}s named browser functionality defined by a \WAS
         (e.x. several \gls{cve}s described vulnerabilities in \FF's handling of
         drag-and-drop events, which are covered by the \gls{html}
         standard~\cite{whatwg2018html}).
 \end{itemize}
-\hspace{1em}
 
 We were careful to distinguish \gls{cve}s associated with \WAPI functionality
 from \gls{cve}s associated with lower level functionality.  This was done to
@@ -273,18 +270,18 @@ counted in these measurements.
 \subsubsection{Implementation Complexity}
 \label{cost-benefit:methodology:costs-loc}
 The third method used to evaluate the per-standard cost relates to
-how much complexity does the standard bring to the code base.  To measure this,
-we performed a static analysis of the \FF source to generate lower-bound
-code-complexity approximations, as a count of significant lines of C/C++ code.
-This measurement rests on the intuition that more complex implementations
-carry greater security-costs.
+how much complexity the standard's implementation adds to the code base.  To
+measure this, we performed a static analysis of the \FF source to generate
+lower-bound code-complexity approximations, as a count of significant lines of
+C/C++ code.  This measurement rests on the intuition that more complex
+implementations carry greater security-costs.
 
 This measurement considers lines of C/C++ code used \emph{only} to implement
-the measured \WAS.  Lines of code shared between multiple standards are therefor
-ignored in this measurement.  We call this metric as \gls{eloc}.
-We compute the \gls{eloc} for each \WAS in three steps.
+the measured \WAS.  Lines of code shared between multiple standards are ignored
+in this measurement.  We call this metric \gls{eloc}.  We compute the
+\gls{eloc} for each \WAS in three steps.
 
-Step one was to build a call graph of \FF using Mozilla's DXR tool~\cite{dxr}.
+First, web built a call graph of \FF using Mozilla's DXR tool~\cite{dxr}.
 DXR has two related functions. First, DXR includes a clang compiler plugin that
 builds a call graph of C/C++ code bases.  Second, DXR provides tools for
 querying the call graph, most significantly a web application.\footnote{An
@@ -293,7 +290,7 @@ example of the DXR interface is available at
 to understand how code paths related and depend on each other.  We modified DXR
 to record the number of lines of code for each function.
 
-In step two, we determined the entry points for standard in the call
+Second, we determined the entry points for the standard in the call
 graph.  Each property, method or interface defined by a \WAS has two categories
 of underlying code in Firefox code, \textbf{implementation code}
 (hand written code that implements \WAS's functionality), and \textbf{binding
@@ -316,13 +313,13 @@ pink nodes.  If an implementation-code (pink) node had only a single incoming ed
 we determined that this method / function was only in the code because of
 the \WAS associated with those binding functions.
 
-In the \ref{fig:prune-graph} example, algorithm begins by finding that the only
-code in the \FF code base that calls the \texttt{Charging} and
+In the \ref{fig:prune-graph} example, the algorithm begins by finding that the
+only code in the \FF code base that calls the \texttt{Charging} and
 \texttt{DischargingTime} methods are the binding functions generated by the
 \textit{Battery API} standard.  The algorithm then marks these methods as
 uniquely related to the \texttt{Battery API}.  The algorithm then repeats,
 again looking for nodes with only callers from known \texttt{Battery API}
-methods.  On the second iteration, the algorithm with identify the
+methods.  On the second iteration, the algorithm will identify the
 \texttt{ChargingTime} method as solely related to the \textit{Battery API}
 standard's implementation, since it is only called by functions we know to be
 solely part of the \textit{Battery API}'s implementation. Thus, the lines
@@ -332,16 +329,16 @@ the \gls{eloc} metric for the \textit{Battery API}.
 
 \subsubsection{Third Party Libraries}
 \label{cost-benefit:methodology:third-party-libraries}
-The above described algorithm gives a precise lower bound measurement of the
+The \gls{eloc} algorithm gives a precise lower bound measurement of the
 lines of code \emph{in the Firefox source} included only to implement a given
 \WAS.  It does not include code from third-party libraries, which are compiled
 as a separate step in the \FF build process, and thus excluded from DXR's
 call-graph.
 
-While this is a limitation of our technique, in practice it ended up bot being
-significant.  In nearly all cases, third party libraries are used in multiples
-places in the \FF codebase and cannot be uniquely attributed to any single
-standard, and thus are not relevant to our per-standard \gls{eloc} counts.
+This limitation ended up bot being significant in practice.  In nearly all
+cases, third party libraries are used in multiple places in the \FF codebase
+and cannot be uniquely attributed to any single standard, and thus are not
+relevant to our per-standard \gls{eloc} counts.
 
 The sole exception is the \textit{WebRTC} standard, which uniquely uses over
 500k lines of third party code.  While this undercount is large, it too is

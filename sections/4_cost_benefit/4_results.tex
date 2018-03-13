@@ -2,8 +2,8 @@
 \label{cost-benefit:results}
 
 This section presents the results of applying the methodology discussed in
-Section~\ref{cost-benefit:methodology} to \FFWithVersion.  The first
-describes the each \WAS benefit, and follows with its cost.
+Section~\ref{cost-benefit:methodology} to \FFWithVersion.  The section first
+describes each \WAS~'s benefit, and follows with each standard's cost.
 
 \input{tables/megatable}
 
@@ -11,7 +11,6 @@ describes the each \WAS benefit, and follows with its cost.
 \subsection{Per-Standard Benefit}
 \label{cost-benefit:results:results-benefit}
 \input{figures/breakrate_histogram.tex}
-
 As explained in Section~\ref{cost-benefit:methodology:per-standard-benefit},
 our workers conducted up to \NumSitesPerStandard measurements of websites in
 the \ATK known to use each \WAS. If a standard was observed being used
@@ -25,11 +24,11 @@ over 60\% of the measured standards resulted in no noticeable effect on the
 user's experience.
 
 In some cases, this was because the standard was never observed being
-used\footnote{e.g. The \textit{WebVTT} standard, which allows document
-authors to synchronize text changes with media playing on the page.}.
-In other cases, it was because the standard is intended to be used in a way
-that users do not notice\footnote{e.g. The \textit{Beacon} standard, which allows content
-authors to trigger code execution when a user browses away from a website.}.
+used\footnote{e.g. The \textit{WebVTT} standard, which allows document authors
+to synchronize text changes with media playing on the page.}.  In other cases,
+it was because the standard is intended to be used in a way that users do not
+notice\footnote{e.g. The \textit{Beacon} standard, which allows content authors
+to trigger code execution when a user browses away from a website.}.
 
 Other standards caused a large number of sites to break when removed from the
 browser.  Disabling access to the \textit{DOM 1} standard (which provides basic
@@ -49,7 +48,7 @@ full functionality to registered users.
 \label{cost-benefit:results:results-costs}
 As described in Section~\ref{cost-benefit:methodology:per-standard-cost}, we
 measured the cost of a \WAS being available in the browser in three ways: first
-as number of times the standard is leveraged by attacks in high quality
+as the number of times the standard is leveraged by attacks in high quality
 peer-reviewed research (Section~\ref{cost-benefit:results:costs-research}),
 second as the number of \gls{cve}s reported against the standard between 2010
 and 2015 (Section~\ref{cost-benefit:results:costs-cves}), and third with a
@@ -59,7 +58,6 @@ standard in the browser (Section~\ref{cost-benefit:results:costs-loc}).
 
 \subsubsection{Attacks from Related Research}
 \label{cost-benefit:results:costs-research}
-
 We searched the work published at major research conferences and journals
 between 2010 and 2015 for research on browser weaknesses related to \WASs.
 These papers either explicitly identified either a \WAS, or a feature or
@@ -67,8 +65,8 @@ functionality uniquely related to a \WAS.  In each case the standard was either
 necessary for the documented attack to succeed, or was used to make the attack
 faster or more reliable.  Since academic attacks emphasize attack novelty,
 instead of only finding all existing vulnerabilities, the use of a \WAS in
-academic literature suggests that the \WAS allowed new, previously undiscovered
-way to exploit the browser.
+academic literature suggests that the \WAS allowed new, previously unknown
+ways to exploit the browser.
 
 The most frequently cited standard was the \textit{High Resolution Time Level
 2}~\cite{highres2016w3c} standard, which provides highly accurate,
@@ -131,30 +129,30 @@ little attenuating benefit.
 \subsubsection{Implementation Complexity}
 \label{cost-benefit:results:costs-loc}
 \input{figures/loc_breakrate.tex}
-Per-standard costs also varied wildly, when measuring cost as the amount of
+Per-standard costs also varied widely when measuring cost as the amount of
 additional complexity the standard adds to the code base.
 \ref{fig:loc-breakrate} presents a comparison of each standard's benefit
 (measured by the number of sites that require the standard to function) against
 and number of lines of code uniquely needed to implement the standard,
-using the method described in section \ref{cost-benefit:results:costs-loc}.
+using the method described in Section~\ref{cost-benefit:results:costs-loc}.
 
 Points in the upper-left of \ref{fig:loc-breakrate} depict standards that are
 frequently needed on the web, but which have relatively non-complex
 implementations.  One example of such a standard is the \textit{DOM-Level 2
-Core} standard, denoted by \textbf{DOM2-C}.  This standard provides extensions
+Core} standard, denoted by \textbf{DOM2-C}.  This standard extends
 the browser's basic document modification methods.  This standard is needed for
 89\% of websites to function correctly, suggesting it is highly beneficial to
-web users.  The standard comes with a low security cost too; our technique
+web users.  The standard comes with a low security cost; our technique
 identifies only 225 lines of code that are only included to enable this
-standard (the code for the rest of the standard is shared with other
-standards).
+standard (most of the code that implements this standard is shared by the
+implementations of other standards).
 
 Points in the lower-right of the figure depict standards that provide
 little benefit, but which are responsible for a great deal
 of complexity in the browser's code base.  The \textit{Scalable Vector
 Graphics} standard, denoted by \textbf{SVG}, is an example of
-such a high-cost, low-benefit standard.  The standard allows website authors
-to dynamically create and interact with embedded \gls{svg} documents through.
+such a high-cost, low-benefit standard.  The standard allows website authors to
+dynamically create and interact with embedded \gls{svg} documents through \JS.
 The standard is required for core functionality in approximately 0\% of
 websites on the \ATK, while adding a large amount of complexity to the
 browser's code base (at least 5,949 exclusive lines of code, more than our

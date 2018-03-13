@@ -5,14 +5,14 @@
 provides greater security and privacy guarantees than the current HTML-and-\JS
 system.  The principal features in the design of \CDF are as follows.
 
-\textbf{First}, \CDF prevents websites from running arbitrary \JS on the
+First, \CDF prevents websites from running arbitrary \JS on the
 client.  Instead, \CDF authors create interactive websites by composing
 trusted, client-controlled implementations of interactive functionality using
-an easily checked, declarative syntax.  \textbf{Second}, \CDF only uses a small
+an easily checked, declarative syntax.  Second, \CDF only uses a small
 subset of browser features, allowing websites to access only the ``core'', or
 most popular and frequently used parts of the \WAPI, when creating web sites.
-\textbf{Third}, \CDF places stricter constraints on the kinds of web documents
-than current HTML-and-\JS applications enforce, to restrict possible data
+Third, \CDF places stricter constraints on the kinds of web documents
+than current \gls{html}~-and-\JS applications enforce, to restrict possible data
 flows through the application.
 
 \input{tables/html_cdf_comparison}
@@ -31,12 +31,12 @@ system for providing interactive websites is the cause of many web browser
 security problems.  Browsers must trust that code will carry out some
 non-malicious purpose when executing it, and that a given set of \JS
 instructions will benefit the user (by, for example, setting up a website's
-user interface elements) instead of harming the user (e.g. by fingerprinting
+user interface elements), instead of harming the user (e.g. by fingerprinting
 the user, accessing a browser feature with a known security flaw, or sending a
 session token to a malicious destination).
 
-Instead of attempting to difficult task of verifiying that \JS code is benign
-before executing in, \CDF takes the simpler approach of not allowing
+Instead of attempting the difficult task of verifying that \JS code is benign
+before executing it, \CDF takes the simpler approach of not allowing
 applications to provide their own \JS.  \CDF instead provides a set of trusted,
 client-side implemented interactive primitives, which web authors can compose
 into higher-level functionality with a declarative, easy to verify syntax.
@@ -51,7 +51,7 @@ in trusted, client-controlled libraries.  These libraries are designed to
 compose safely, and pages can only access them through a simple, declarative
 syntax.  This is in contrast to the typical \JS based approach, where websites
 can execute arbitrary code, and web browsers must judge if the resulting
-behavior seems safe through heuristics like \gls{xss} filters and code origin
+behavior seems safe through heuristics, like \gls{xss} filters and code origin
 reputation systems.
 
 
@@ -62,7 +62,7 @@ surface by preventing websites from accessing browser functionality that
 is either rarely used, or predominantly used for non-user-serving purposes
 (e.g. browser fingerprinting).
 
-As demonstrated in chapters~\ref{measurement} and \ref{cost-benefit}, modern
+As demonstrated in Chapters~\ref{measurement} and \ref{cost-benefit}, modern
 web browsers implement a huge array of \WAPI features.  While some of this
 functionality is closely related to the web's most-frequent purpose of delivering
 interactive documents, other functionality is never used, used in only rare
@@ -86,7 +86,7 @@ them difficult to secure.  To name only a few such examples: \gls{html} and
 part of the \gls{html} document, enabling many \gls{xss} attacks.  \gls{html}
 documents can contain complete sub-documents through the use of
 \texttt{<iframe>} elements, enabling drive by downloads and related attacks.
-And \gls{html} applications generally include a ``referer'' header when
+\gls{html} applications generally include a ``referer'' header when
 requesting remote resources, enabling some forms of user tracking.
 
 \CDF improves user security and privacy by tightly-controlling what kinds of

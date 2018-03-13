@@ -17,9 +17,9 @@ verified this assumption to be reasonable.
 \input{tables/measurement_internal_validation}
 As discussed in
 Section~\ref{measurement:methodology:default-case-measurements}, we applied our
-automated measurement technique to each site in the Alexa 10k ten times, five
+automated measurement technique to each site in the \ATK ten times, five
 times in an unmodified browser, and five times with blocking extensions in
-place.  We performed five measurements in each condition to with the goal of
+place.  We performed five measurements in each condition with the goal of
 capturing the full set of functionality used on the site, since the
 measurement's random walk technique means that each subsequent measurement may
 encounter different, new parts of the site.
@@ -29,13 +29,13 @@ all potentially encountered features per site, or whether additional
 measurements would have triggered new standards.  To test this, we examined how
 many new standards were encountered on each round of measurement.  If new
 standards were still being encountered in the final round of measurement, it
-would indicate five measurements were was insufficient to fully measure what
+would indicate five measurements were insufficient to fully measure what
 features were used on each site.
 
 \ref{fig:internal-validation-table} shows the results of this verification.
 The first column lists each round of measurement, and the second column lists
 the number of new standards encountered that had not yet been observed in the
-previous rounds (averaged across the entire Alexa 10k).  As the table shows,
+previous rounds (averaged across the entire \ATK).  As the table shows,
 the average number of new standards observed on each site decreased with each
 measurement, until the fifth measurement for each site, at which point we did
 not observe any new features being executed on any site.
@@ -48,10 +48,9 @@ feature use.
 \subsection{External Validation}
 \label{measurement:validity:external-validation}
 \input{figures/measurement_external_validation}
-
 We also tested whether our automated technique observed the same feature
-use as human web users.   To do so, we randomly selected 100 sites to visit
-from the Alexa 10k and interacted with each for 90 seconds in a casual
+use as human web users.  To do so, we randomly selected 100 sites to visit
+from the \ATK and interacted with each of them for 90 seconds in a casual
 web browsing fashion.  This included reading articles and blog posts, scrolling
 through websites, browsing site navigation listings, and generally attempting
 to exercise what we thought was key functionality on each site.
@@ -82,9 +81,10 @@ changes its front page content hour to hour.  The site further features
 subsections that are unlike the rest of the site, and can have widely differing
 functionality, resulting in very different standard usage over time. We checked
 to see if manual evaluation of this site triggered standards not
-observed during automated testing on the rest of the Alexa 10k, and did not
+observed during automated testing on the rest of the \ATK, and did not
 find any.
 
-From this we conclude that our automated measurement technique did a generally
-accurate job of elicit the feature use a human user would encounter on the web,
-even if the technique did not perfectly emulate human feature use in all cases.
+From this we concluded that our automated measurement technique did a generally
+accurate job of eliciting the feature use a human user would encounter on the
+web, even if the technique did not perfectly emulate human feature use in all
+cases.

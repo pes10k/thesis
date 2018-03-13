@@ -1,31 +1,29 @@
 \section{Introduction}
 \label{future-web:introduction}
 
-A final step this dissertation makes in improving web privacy and security is
+The final step this dissertation makes in improving web privacy and security is
 to explore other ways web-like applications could be developed and deployed, in
-light of the findings discussed earlier in earlier chapters.  While
-Chapter~\ref{current-web} presented ways of improving web security and privacy
-while maintaining compatibility with existing websites, this chapter
-considers the further improvements that could be achieved with a system
-designed from the start with the findings from Chapter~\ref{measurement} and
-Chapter~\ref{cost-benefit}.
+light of the findings discussed in earlier chapters.  Chapter~\ref{current-web}
+presented ways of improving web security and privacy while maintaining
+compatibility with existing websites. This chapter considers the further
+improvements that could be achieved with a system designed from the start with
+the findings from Chapters~\ref{measurement} and \ref{cost-benefit}.
 
 This chapter presents \CDF, an alternative method for describing interactive
 websites. The design requires site authors to describe sites using a
 declarative, statically checkable format, that trades a loss in
-author-expressiveness for gains in client-enforceable security guarantees.
-The design is intended to serve as a proof of concept that many of the kinds
-of websites users enjoy on the modern web can be achieved with only a subset of
-the functionality in the browser, and in a manner that allows the client to
-enforce a greater number of protections and guarantees.
+author-expressiveness for gains in client-enforceable security guarantees.  The
+design is as a proof of concept, to demonstrate that many kinds of websites
+users enjoy on the modern web can be implemented with only a subset of the
+functionality in the browser, and in a manner that allows the client to enforce
+a greater number of protections and guarantees.
 
 The rest of this chapter is organized as follows:
 Section~\ref{future-web:design} presents the high level design of the system.
-Section~\ref{future-web:implementation} describes an implementation of that
-design way that leverages the engineering and omnipresence of commodity
-web browsers.  Section~\ref{future-web:evaluation} gives an evaluation of the
-capabilities and security guarantees provided by the system, and
-Section~\ref{future-web:implementation} discusses the limitations of the
-current design, and the types of applications the design would not be able to
-deliver.  Section~\ref{future-web:conclusions} discusses this work's place in
-the overarching goals of this dissertation.
+Section~\ref{future-web:implementation} describes an implementation of \CDF~'s
+design that leverages the engineering and omnipresence of commodity web
+browsers.  Section~\ref{future-web:evaluation} gives an evaluation of the
+system's capabilities and security guarantees, a discussion of the limitations
+of the current design, and the types of applications the system could not
+implement, in its current state.  Section~\ref{future-web:conclusions}
+discusses this work's place in the overarching goals of this dissertation.

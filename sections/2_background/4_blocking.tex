@@ -4,40 +4,41 @@
 Researchers have previously investigated how people use ad blockers.
 Pujol et al. measured AdBlock usage in the wild, discovering that while a
 significant fraction of web users use AdBlock, most users
-primarily use its ad blocking, and not its privacy preserving,
+primarily use its ad blocking, and not its privacy preserving
 features~\cite{pujolannoyed}.
 
 User tracking is a more insidious aspect of the modern web. Recent work by Radler
 found that users were much less aware of cross-website tracking than they were
-about collection of data by single sites such as Facebook and Google, and that
-users who were aware of it had greater concerns about unwanted access to
-private information than those who weren't aware~\cite{rader2014awareness}.
-Tracking users' web browsing activity across websites is largely unregulated,
-and a complex network of mechanisms and businesses have sprung up to provide services
-in this space~\cite{falahrastegar2014anatomy}.
-Krishnamurthy and Willis found that aggregation of user-related data is both
-growing and becoming more concentrated, i.e. being conducted by a smaller number
-of companies~\cite{krishnamurthy2009privacy}.
+about collection of data by single sites such as Facebook and Google. They also
+found that users who were aware of it had greater concerns about unwanted
+access to private information than those who weren't
+aware~\cite{rader2014awareness}.  Tracking users' web browsing activity across
+websites is largely unregulated, and a complex network of mechanisms and
+businesses have sprung up to provide services in this
+space~\cite{falahrastegar2014anatomy}.  Krishnamurthy and Willis found that
+aggregation of user-related data is both growing and becoming more
+concentrated, i.e. being conducted by a smaller number of
+companies~\cite{krishnamurthy2009privacy}.
 
-Traditionally, tracking was done via client-side cookies, giving users a measure
-of control over how much they are tracked (i.e. they can always delete cookies).
-However, a wide variety of non-cookie tracking measures have been developed that
-take this control away from users, and these are what tracking blockers have
-been designed to prevent. These include browser
+Tracking was traditionally done via client-side cookies, giving users a measure
+of control over how much they are tracked (i.e. they can always delete
+cookies).  However, a wide variety of non-cookie tracking measures have been
+developed that take this control away from users. A variety of tracking
+blockers prevent these non-cookie tracking mechanisms, including browser
 fingerprinting~\cite{eckersley2010unique}, \JS
 fingerprinting~\cite{mowery2011fingerprinting,mulazzani2013fast}, Canvas
 fingerprinting~\cite{mowery2012pixel}, clock skew
 fingerprinting~\cite{kohno2005remote}, history
-sniffing~\cite{jang2010empirical}, cross origin timing attacks~\cite{van2015clock},
-evercookies~\cite{evercookies}, and Flash cookie
+sniffing~\cite{jang2010empirical}, cross origin timing
+attacks~\cite{van2015clock}, evercookies~\cite{evercookies}, and Flash cookie
 respawning~\cite{soltani2010flash,ayenson2011flash}.  A variety of these
 tracking behaviors have been observed in widespread use in the
 wild~\cite{soltani2010flash,ayenson2011flash,acar2014web,nikiforakis2013cookieless,mcdonald2011survey,olejnik2014selling,sorensen2013zombie}.
 
-Especially relevant to our work is the use of \JS APIs for tracking.
-While some APIs, such as Beacon~\cite{beaconapi}, are designed specifically for
-tracking, other APIs were designed to support various other functionality and
-co-opted into behaving as trackers~\cite{mowery2012pixel,fingerprintjs2}.
-Balebako et al. evaluated tools which purport to prevent tracking and found that
-blocking add-ons were effective~\cite{balebako2012measuring}.
-
+Especially relevant to this work is the use of \JS \gls{api}~s for tracking.
+While some \gls{api}~s, such as the \textit{Beacon standard}~\cite{beaconapi},
+are designed specifically for tracking, other \gls{api}~s were designed to support
+benign functionality, but has been co-opted into tracking
+purposes~\cite{mowery2012pixel,fingerprintjs2}.  Balebako et al. evaluated
+tools which purport to prevent tracking and found that blocking add-ons were
+effective~\cite{balebako2012measuring}.

@@ -1,7 +1,7 @@
 \section{Intercepting \JS Functionality}
 \label{cost-benefit:intercepting-js}
 
-This Section presents a technique for interposing on, and optionally preventing
+This section presents a technique for interposing on, and optionally preventing
 access to, \WAPI features.  The technique is novel in the way it attempts to
 minimize the effect on existing code that expects the now-removed feature to be
 present.  This approach is used both in building cost-benefit measurements
@@ -25,7 +25,7 @@ frames before any page controlled code
 runs\footnote{Section~\ref{current-web:extension-deployment} discusses in much
 greater detail how and when extensions can modify page execution environments.
 This brief discussion is only intended to be enough to support the discussion
-of how \WAPI features can be interposed on.} Since this extensions can run
+of how \WAPI features can be interposed on.}. Since extensions can run
 before any scripts included by the page, extensions can modify the browser
 environment for all code executed in any page.  The challenge in removing a
 feature from the browser environment is not to \emph{just} prevent pages from
@@ -42,7 +42,7 @@ be thrown if future code attempts to call the now-removed method.
 Consider the code in \ref{fig:trivial-js}:  removing the
 \texttt{window.document.getElementsByTagName} method will cause an error
 on line one, as the code is attempting to call the now-missing property as if
-were a function.  Replacing \texttt{getElementsByTagName} with a new, empty
+it were a function.  Replacing \texttt{getElementsByTagName} with a new, empty
 function solves the problem on line one, but only pushes the error to line
 two, unless the function returned an array of at least length five. Even after
 accounting for that result, one would need to expect that the
@@ -72,14 +72,13 @@ Subsection~\ref{cost-benefit:intercepting-js:proxy-non-singletons}.
 
 \subsection{Proxy-Based Approach}
 \label{cost-benefit:intercepting-js:proxy-general}
-
 Our technique uses the \texttt{Proxy} object to solve the general problem
 demonstrated in Section~\ref{cost-benefit:intercepting-js:featremove}.  We
-create a specially configured a proxy object that registers callback functions
+create a specially configured proxy object that registers callback functions
 for \emph{all} possible \JS operations, and have those callback functions
 return a reference to the same proxy object.  We also handle cases where \WAPI
 properties and functions return scalar values (instead of functions, arrays
-or higher order objects), by having the proxy to coerce to \texttt{0},
+or higher order objects), by having the proxy coerce to \texttt{0},
 empty string, or \texttt{undefined}, depending on the context. Thus configured,
 the proxy object can validly take on the semantics of any variable in any \JS
 program.
@@ -114,10 +113,10 @@ being set on a singleton object in the browser, as is the case with the
 \subsection{Sets on Non-Singleton Objects}
 \label{cost-benefit:intercepting-js:proxy-non-singletons}
 A different approach is needed for property sets on non-singleton objects.
-Property sets on \WAPI defined objects can be imposed on by using \texttt{Object.defineProperty}
-to overwrite the ``get'' and ``set'' attributes of the property.  However,
-this approach does not allow for capturing the value being set in the ``set''
-case.  Therefor, our approach only allows for blocking sets on non-singleton,
-\WAPI defined objects.  It can't be used to make more general, runtime policy
-decisions, where decision logic would need to be made at execution time on
-whether to block or allow the ``set'' operation.
+Property sets on \WAPI defined objects can be imposed on by using
+\texttt{Object.defineProperty} to overwrite the ``get'' and ``set'' attributes
+of the property.  However, this approach does not allow for capturing the value
+being set in the ``set'' case.  Therefore, our approach only allows for
+blocking sets on non-singleton, \WAPI defined objects.  It can't be used to
+make more general, runtime policy decisions, where decision logic would need to
+be made at execution time on whether to block or allow the ``set'' operation.

@@ -2,13 +2,13 @@
 \label{measurement:methodology}
 
 To understand browser feature use on the open web, we conducted a survey of the
-Alexa 10k, visiting each site ten times and recording which browser features
+\ATK, visiting each site ten times and recording which browser features
 were used during each visit.  We visited each site five times with an
 unmodified browsing environment, and five times with popular tracking-blocking
 and advertising-blocking extensions installed.  This Section describes the
-goals of this survey, followed by the browser was instrumented to determine
+goals of this survey, followed by how the browser was instrumented to determine
 which features were used on a site, and then concludes with how we used
-our instrumented browser to measure feature use across the entire Alexa 10k.
+our instrumented browser to measure feature use across the entire \ATK.
 
 
 \subsection{Goals}
@@ -20,7 +20,7 @@ determine the features used by those sites.
 To do so, we built a browser extension to measure which features are used when
 a user interacts with a website.  We then chose a representative sample of the
 web to visit.  Finally, we developed a method for interacting with these sites
-in an automated fashion to elicit the same functionality that a human web user
+in an automated fashion, to elicit the same functionality that a human web user
 would experience.  Each of these steps is described in detail in the proceeding
 subsections.
 
@@ -28,14 +28,13 @@ This automated approach only attempts to measure the ``open web'', or the
 subset of webpage functionality that a user encounters \textit{without} logging
 into a website.  Users may encounter different types of functionality when
 interacting with websites they have created accounts for and established
-relationships with, but we did not attempt to gather such such measurements in
+relationships with, but we did not gather such such measurements in
 this work.  As a result, care should be taken before generalizing the following
 results to browsing in general.
 
 
 \subsection{Measuring Extension}
 \label{measurement:methodology:measureextension}
-
 We instrumented a recent version of \FF (version \FFversion) with a custom
 browser extension that records each time a \JS feature is used.  The extension
 achieves this by injecting \JS into each page after the browser has created the
@@ -44,36 +43,36 @@ injecting our instrumenting \JS into the browser before the page's content has
 been fetched and rendered, we can modify the methods and properties in the
 \WAPI before the visited page's code is able to execute.
 
-The injected \JS modifies the page's environment count when an instrumented
-method is called or that an instrumented property is written to.  How the
-extension measures these method calls and property writes is detailed in the
-following two subsections.
+The injected \JS modifies the page's environment to count whenever an
+instrumented method is called, or that an instrumented property is written to.
+How the extension measures these method calls and property writes is detailed
+in the following two subsections.
 
 
 \subsubsection{Measuring Method Calls}
 The browser extension counted method invocations by overwriting the method on
 the containing object's prototype.  This approach allowed us to shim in
 logging functionality for each method call, and then call the original method
-to preserve the original functionality.  We replace each reference to each
+to preserve the original functionality.  We replaced each reference to each
 instrumented method in the \WAPI with an extension managed, instrumented
 method.
 
 Our method used \JS closures to ensure that web pages were not able to bypass
-the our instrumented methods by looking up--or otherwise directly
+our instrumented methods by looking up--or otherwise directly
 accessing--the original versions of each method.
 
 
 \subsubsection{Measuring Property Writes}
 Properties were more difficult to instrument.  \JS provides no clean way to
-intercept when a property has been set or read on a client script-created object,
-or on an object created after the instrumenting code has finished executing, with
-out affecting the execution of the page.  However, through the use of the
-non-standard \texttt{Object.watch()}~\cite{mozillaobjectwatch} method in \FF,
-we were able to capture when pages set properties on the singleton objects in
-the browser (e.g. \texttt{window}, \texttt{window.document},
-\texttt{window.navigator}).  The \texttt{Object.watch()} method allowed
-the extension to capture and count all writes to properties on singleton
-objects in the \WAPI.
+intercept when a property has been set or read on a client script-created
+object, or on an object created after the instrumenting code has finished
+executing, without affecting the execution of the page.  However, through the
+use of the non-standard \texttt{Object.watch()}~\cite{mozillaobjectwatch}
+method in \FF, we were able to capture when pages set properties on the
+singleton objects in the browser (e.g. \texttt{window},
+\texttt{window.document}, \texttt{window.navigator}).  The
+\texttt{Object.watch()} method allowed the extension to capture and count all
+writes to properties on singleton objects in the \WAPI.
 
 There are a small number of features in the \gls{dom} where we were not able to
 intercept property writes, and were therefore unable to count how frequently
@@ -88,13 +87,13 @@ small but significant limitation of our measurement technique.
 
 
 \subsubsection{Other Browser Features}
-Web standards define other features in the browser too, such as browser events
+Web standards also define other features in the browser, such as browser events
 and \gls{css} layout rules, selectors, and instructions.  Our extension-based
-approach did not allow us to measure the use of these features, and so counts
+approach did not allow us to measure the use of these features, so counts
 of their use are not included in this work.
 
 In the case of standard defined events (e.g. \texttt{onload},
-\texttt{onmouseover}, \texttt{onhover}) the extension could have
+\texttt{onmouseover}, \texttt{onhover}), the extension could have
 captured some event registrations through a combination of watching for
 event registrations with \texttt{addEventListener} method calls
 and watching for property-sets to singleton objects.  However, we would not
@@ -123,14 +122,15 @@ modified with popular advertising and tracking blocking extensions.
 \label{measurement:methodology:default-case-measurements}
 To understand which features are used in a site's execution, we installed the
 instrumenting extension described in
-Section~\ref{measurement:methodology:measureextension} and visited sites from
-the Alexa 10k, with the goal of exercising as much of the functionality used on
-the page as possible.  While some \JS features of a site are automatically
-activated on the home page (e.g. advertisements and analytics), many code paths
-will only be used as a result of user interaction, either within the page or by
-navigating to different areas of the site. Thus, an accurate measurement
-of feature use requires interacting with an crawling each site.  This
-sub-section describes the strategy used for crawling and interacting with sites.
+Section~\ref{measurement:methodology:measureextension}. We then visited sites
+from the \ATK, with the goal of exercising as much of the functionality
+used on the page as possible.  While some \JS features of a site are
+automatically activated on the home page (e.g. advertisements and analytics),
+many code paths will only be used as a result of user interaction, either
+within the page or by navigating to different areas of the site. Thus, an
+accurate measurement of feature use requires interacting with and crawling each
+site.  This sub-section describes the strategy used for crawling and
+interacting with sites.
 
 In order to trigger as many browser features as possible on a website, we used
 a common site testing methodology called ``monkey testing''.  Monkey testing
@@ -139,7 +139,7 @@ random elements or locations on the page.  To accomplish this, we used a
 modified version of gremlins.js~\cite{zaninotto2016gremlins}, a library built
 for monkey testing front-end website interfaces.  We modified the gremlins.js
 library to distinguish between when the gremlins.js script used a
-feature, and when the visted site used a feature.  The former feature
+feature, and when the visited site used a feature.  The former feature
 use was omitted from further consideration.
 
 Each measurement started by visiting the site's home page and allowing
@@ -151,23 +151,23 @@ browser would have visited in the absence of the interception.
 
 We then executed a breadth first search of the site using the
 URLs that would have been visited by the actions of the monkey
-testing.  We selected 3 of these URLs that were on the same domain (or
+testing.  We selected three of these URLs that were on the same domain (or
 related domain, as determined by the Alexa data), and visited each, repeating
 the same 30 second monkey testing procedure and recording all used features.
-From each of these 3 sites, we then visited three more pages for 30 seconds,
-which resulted in a total of 13 pages interacted with for a total of 390 seconds
-per site.
+From each of these three sites, we then visited three more pages for 30 seconds,
+which resulted in a total of 13 pages interacted with, for a total of 390
+seconds per site.
 
 If more than three links were clicked during any stage of the monkey testing
-process, we selected which URLs to visit by giving preference to URLs where the
-path structure URL had not been previously visited. In contrast to traditional
-interface fuzzing techniques, which have as a goal finding unintended or
-malicious functionality~\cite{amalfitano2012using,liu2014decaf}, we aimed to
-find just the features site visitors would use. Selecting URLs with different
-path-segments was a heuristic based approach to visit as many types of pages on
-the site as possible, with the goal of capturing all of the functionality on
-the site that a user would encounter.  This work discusses the robustness and
-validity of this strategy in Section~\ref{measurement:validity}.
+process, we selected which URLs to visit by giving preference to \gls{url}~s,
+where the path structure \gls{url} had not been previously visited. In contrast
+to traditional interface fuzzing techniques, which have as a goal finding
+unintended or malicious functionality~\cite{amalfitano2012using,liu2014decaf},
+we aimed to find just the features site visitors would use. Selecting URLs with
+different path-segments was a heuristic based approach to visit as many types
+of pages on the site as possible, with the goal of capturing all of the
+functionality on the site that a user would encounter.  This work discusses the
+robustness and validity of this strategy in Section~\ref{measurement:validity}.
 
 
 \subsubsection{Blocking Extension Measurements}
@@ -184,13 +184,11 @@ is a common valid alternative experience of a website.
 
 \subsubsection{Automated Crawl}
 \label{measurement:methodology:automated-crawl}
-
 \input{tables/measurement_extension_stats}
-
-For each site in the Alexa 10k, we repeated the above procedure ten times to
-attempt to measured all features used on the page: five times in the default
+For each site in the \ATK, we repeated the above procedure ten times to
+attempt to measure all features used on the page: five times in the default
 case, and then five times in the blocking case.  The crawl took two days, using
-64 simultaneous \FF instances executing on 4 machines.
+64 simultaneous \FF instances executing on four machines.
 
 Section~\ref{measurement:validity} discusses why five crawls per site, per
 condition, were sufficient to induce all relevant functionality.

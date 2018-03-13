@@ -11,20 +11,20 @@ applications.
 The described system was implemented to allow \CDF documents to be run in web
 browsers today, with no additions or modifications needed to any recently
 released browser.  The same design could be implemented by modifying a browser
-to be able parse and understand \CDF documents ``natively'', though at the cost
-of a much greater engineering task.
+to be able to parse and understand \CDF documents ``natively'', though at the
+cost of a much greater engineering task.
 
 We also adopted \gls{css} as is, to handle the presentation
 of \CDF applications.  We did so to minimize the engineering effort needed
-to implemented the \CDF concept, and because of the relative lack of security
-issues associated with \gls{css} compared to \JS.  While some privacy issues
-have been raised with recent \gls{css} features~\ref{crookedstylesheets},
-such issues beyond this scope of this work, other than to note
+to implement the \CDF concept, and because of the relative lack of security
+issues associated with \gls{css} compared to \JS.  While privacy issues
+have been raised concerning recent \gls{css} features~\ref{crookedstylesheets},
+such issues are beyond this scope of this work, other than to note
 that similar sub-setting approaches could be implemented in future-\CDF-like
 systems to address such attacks.
 
-This section gives a high level explanation of how our implementation
-of the \CDF design works.  Documentation for creating \CDF documents, including
+This section gives a high level explanation of one possible implementation
+of \CDF~'s design.  Documentation for creating \CDF documents, including
 type specifications, nesting rules, and the interactivity primitives
 included in \CDF can be found in an open source implementation and accompanying
 documentation\footnote{https://github.com/bitslab/cdf.}.
@@ -43,20 +43,20 @@ trees of typed objects.  Types in \CDF fall into one of four categories.
 
 Each type defines the configuration it can receive (e.g. the
 URL that a \texttt{image} object can refer to), and the types it
-accepts as children in the tree.  For example \texttt{text} objects can be
+accepts as children in the tree.  For example, \texttt{text} objects can be
 children of \texttt{button} objects (to create labels on buttons), but
 \texttt{button} objects cannot be children of \texttt{text} objects.
-Since the types in \CDF are all well defined, they can be strictly checked to
+Since the types in \CDF are all well-defined, they can be strictly checked to
 ensure they will have predictable effects when rendered in the client.
 
 Some types accept configuration parameters (e.g. the class names to add to the
 element when rendered in \gls{html}, or the local \gls{url} to post a form's
 information to).  These configuration parameters are also strictly typed, and
-so can be checked for safety and correctness before being rendered in the
+are checked for safety and correctness before being rendered in the
 client.
 
 Types are designed to emphasize predictable information flow and user privacy.
-For example, in \CDF \texttt{form} elements are only allow to send information to
+For example, in \CDF \texttt{form} elements are only allowed to send information to
 the origin domain, while in HTML applications, \texttt{<form>} elements
 can be configured to send information to any domain.
 
@@ -83,11 +83,11 @@ parameters to be passed to those trusted libraries.  Invalid documents
 
 \subsubsection{HTTP Proxy}
 \label{future-web:implementation:proxy}
-The second addition \CDF makes to the browser's trusted base is an \gls{http}
+The second addition \CDF makes to the browser's trusted base is a \gls{http}
 proxy that sits between the browser and the internet.  The proxy passes
 requests from the browser to the destination server unchanged.  Once the server
 responds, the proxy examines the response.  If the response appears to be a
-\CDF document, the HTTP proxy extracts the body of the request and provides it
+\CDF document, the \gls{http} proxy extracts the body of the request and provides it
 to the parser.  If the parser accepts the response as a valid \CDF document,
 the proxy passes the parser-generated \HTML and \JS back to the client.  If the
 parser rejects the server's response as invalid \CDF, the proxy instead passes
