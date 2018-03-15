@@ -113,7 +113,7 @@ frequently the standard is blocked by common blocking extensions.  However, as
 \ref{fig:date_popularity} indicates, some standards have become extremely
 popular over time, while others, both recent and old, have languished in
 disuse. Furthermore, it appears that some standards have been introduced
-extremely recently but have nevertheless been readily adopted by web authors.
+extremely recently but have been adopted by many web authors.
 
 \subsubsubsection{Old, Popular Standards}
 For example, point \textbf{AJAX} depicts the
@@ -123,7 +123,7 @@ standard has been available in the browser for almost as long as \FF has been
 released (since 2004), and is extremely popular. The standard's most popular
 feature, \texttt{XMLHttpRequest.prototype.open}, is used by 7,955 sites in the
 \ATK.  Standards in this portion of the graph have been in the browser for
-a long time, and appear on a large fraction of sites.  This cluster of
+a long time and appear on a large fraction of sites.  This cluster of
 standards have block rates of less than 50\%, considered low in this study.
 
 \subsubsubsection{Old, Unpopular Standards}
@@ -176,7 +176,7 @@ are executed when visiting websites.
 \input{figures/megagraph}
 Ad and tracking blocking extensions do not block the use of all standards
 equally.  \ref{fig:megagraph} shows the relationship between a standard's
-popularity (represented by the number of sites the standard was used on, log
+popularity (represented by the number of sites the standard was used on, in log
 scale) and its block rate.  Recall that this work measures a standard's
 popularity as the number of sites where a feature in a standard is used at
 least once.  Therefore, the popularity of the standard is equal to at least the
@@ -194,7 +194,7 @@ One example, point \textbf{CSS-OM}, depicts the \textit{CSS Object
 Model}~\cite{cssomw3c} standard, which allows \JS code to introspect, modify
 and add to the styling rules in the document.  It is positioned near the top of
 the graph, because 8,193 sites used a feature from the standard at least once
-during measurement.  The standard is positioned to the left of the graph,
+during the measurement.  The standard is positioned to the left of the graph,
 because the standard has a low block rate (12.6\%). This means that the addition
 of blocking extensions had relatively little effect on how frequently sites
 used any feature from the standard.
@@ -242,8 +242,8 @@ standard when AdBlock Plus and Ghostery were installed.
 
 \subsubsection{Blocking Frequency}
 As discussed in \ref{sec:results-feature-popularity}, blocking extensions do
-not block all browser standard usage equally; as \ref{fig:megagraph}
-shows, some standards are greatly impacted by installing these advertising and
+not block all browser standard usage equally. \ref{fig:megagraph}
+shows that some standards are greatly impacted by installing advertising and
 tracking blocking extensions, while others are not impacted at all.
 
 For example, the \textit{Beacon}~\cite{beaconapi} standard, which allows
@@ -261,7 +261,7 @@ reduction in use in the presence of blocking extensions.
 \subsubsection{Blocking Purpose}
 \input{figures/ad_vs_tracking_blocking}
 In addition to measuring which standards were blocked by extensions, we also
-distinguished \emph{which} extension did the blocking.
+distinguished which extension did the blocking.
 \ref{fig:feature-blocking-source} plots standards' block rates in the
 presence of an advertising blocking extension (x-axis), versus standards' block
 rates when a tracking-blocking extension is installed (y-axis).

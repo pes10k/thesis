@@ -126,12 +126,13 @@ bypass extensions that attempt to restrict access to \WAPI features.
 
 
 \subsubsection{Addressing the Vulnerability}
-We addressed this vulnerability in the WebExtension standard in
-several ways.  First, we filed bugs with both
-Firefox~\footnote{\url{https://bugzilla.mozilla.org/show_bug.cgi?id=1424176}}
-and Chromium~\footnote{\url{https://bugs.chromium.org/p/chromium/issues/detail?id=793217}},
+We addressed this vulnerability in the WebExtension standard in several ways.
+First, we filed bugs with both
+Firefox\footnote{\url{https://bugzilla.mozilla.org/show_bug.cgi?id=1424176}}
+and
+Chromium\footnote{\url{https://bugs.chromium.org/p/chromium/issues/detail?id=793217}},
 notifying them of the issue.  Firefox has acknowledged the issue but so far the
-issue has not been address.  The issue is still waiting for triage in
+issue has not been addressed.  The issue is still waiting for triage in
 Chromium's system.
 
 Second, we notified other similar privacy and security minded
@@ -159,7 +160,7 @@ hook of the child frame has fired.  This would incur some performance
 loss (since the parent frame would momentarily freeze), but the cost would
 be small.  It is difficult to think of scenarios when frames need
 to create and insert large numbers of child frames into documents, particularly
-in performance sensitive tasks.  However, further exploring and evaluating
+in performance-sensitive tasks.  However, further exploring and evaluating
 solutions to this issue is beyond the scope of this dissertation.
 
 
@@ -185,7 +186,7 @@ they visited.
 The solution was to allow users the option to block
 just some features in a standard, but leave the rest of the features
 unmodified.  In the \textit{Canvas} example, the standard includes 53 features,
-only 4 of which are used for fingerprinting~\footnote{%
+only 4 of which are used for fingerprinting\footnote{%
 \texttt{HTMLCanvasElement.prototype.toDataURL},
 \texttt{HTMLCanvasElement.prototype.toBlob},
 \texttt{CanvasRenderingContext2D.prototype.isPointInPath} and
@@ -201,7 +202,7 @@ rate down without reducing their security.
 
 
 \subsection{Web API Standard Growth}
-Finally, deploying and maintaining the extension has emphasized just how
+Finally, maintaining the extension has emphasized how
 quickly the \WAPI grows, and the need for security and privacy
 researchers to consider how quickly the web changes as an application
 platform.  Since the research in Chapter~\ref{cost-benefit} was conducted,

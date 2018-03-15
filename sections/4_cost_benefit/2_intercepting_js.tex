@@ -14,7 +14,7 @@ extension described in Chapter~\ref{current-web}.
 Each webpage and iframe gets its own global \texttt{window} object.  Changes
 made to this global object are shared across all scripts on the same page, but
 not between pages.  Furthermore, changes made to this global object are seen
-immediately by all other script running in the page.  If one script, for
+immediately by all other scripts running in the page.  If one script, for
 example, deletes or overwrites the \texttt{window.alert} function, no other
 scripts on the page will be able to use the \texttt{alert} function, and there
 is no way they can recover it.
@@ -29,7 +29,7 @@ of how \WAPI features can be interposed on.}. Since extensions can run
 before any scripts included by the page, extensions can modify the browser
 environment for all code executed in any page.  The challenge in removing a
 feature from the browser environment is not to \emph{just} prevent pages from
-reaching the feature, but to do so \emph{in way that still allows the rest of
+reaching the feature, but to do so \emph{in a way that still allows the rest of
 the code on the page to execute without introducing errors}.
 
 For example, to disable the \texttt{getElementsByTagName} feature, one could
@@ -47,8 +47,8 @@ function solves the problem on line one, but only pushes the error to line
 two, unless the function returned an array of at least length five. Even after
 accounting for that result, one would need to expect that the
 \texttt{setAttribute} method was defined on the fourth element in that array.
-One could further imagine that other code on the page may be predicated on
-other properties of that return value, and fail when those expectations are not
+One could further imagine that other code on the page may depend on
+the properties of the return value, and fail when expectations are not
 met.
 
 

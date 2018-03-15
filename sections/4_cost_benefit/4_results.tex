@@ -35,7 +35,7 @@ browser.  Disabling access to the \textit{DOM 1} standard (which provides basic
 functionality for modifying the text and appearance of a document) broke an
 estimated 69.05\% of the web.
 
-A listing of the site break rate for all \NumStandards standards is provided in
+A listing of the site break rate for all \NumStandards standards is provided
 in \ref{table:megatable}.
 
 For emphasis, we note again that these measurements only cover interacting with
@@ -65,8 +65,7 @@ functionality uniquely related to a \WAS.  In each case the standard was either
 necessary for the documented attack to succeed, or was used to make the attack
 faster or more reliable.  Since academic attacks emphasize attack novelty,
 instead of only finding all existing vulnerabilities, the use of a \WAS in
-academic literature suggests that the \WAS allowed new, previously unknown
-ways to exploit the browser.
+academic literature suggests that the \WAS allowed new browser exploits.
 
 The most frequently cited standard was the \textit{High Resolution Time Level
 2}~\cite{highres2016w3c} standard, which provides highly accurate,
@@ -129,11 +128,10 @@ little attenuating benefit.
 \subsubsection{Implementation Complexity}
 \label{cost-benefit:results:costs-loc}
 \input{figures/loc_breakrate.tex}
-Per-standard costs also varied widely when measuring cost as the amount of
-additional complexity the standard adds to the code base.
-\ref{fig:loc-breakrate} presents a comparison of each standard's benefit
-(measured by the number of sites that require the standard to function) against
-and number of lines of code uniquely needed to implement the standard,
+The amount of complexity each standard added to the browser code base varied
+widely. \ref{fig:loc-breakrate} presents a comparison of each standard's
+benefit (measured by the number of sites that require the standard to function)
+against and number of lines of code uniquely needed to implement the standard,
 using the method described in Section~\ref{cost-benefit:results:costs-loc}.
 
 Points in the upper-left of \ref{fig:loc-breakrate} depict standards that are

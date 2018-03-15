@@ -12,12 +12,12 @@ browsers parse the received \gls{html} into a \JS accessible data-structure,
 that roughly-mirrors the tree-based structure of the original document.
 This structure allows \JS code to access and modify the document-tree,
 using \JS properties and functions.  These tree-modifying \JS features are
-collectively called the \gls{dom}, and are standardized across browsers.
+collectively called the \gls{dom} and are standardized across browsers.
 
 Browsers also provide websites access to a large number of \JS features
 that are not directly related to modifying the document-tree.  These
 features range widely in purpose, including allowing sites to
-access device hardware, take high resolution timing measurements, and
+access device hardware, take high-resolution timing measurements, and
 perform network IO.  The term ``Web \gls{api}'' refers to the union of
 functionality related to modifying the rendered \gls{html} document, and
 these additional \JS features.
@@ -27,7 +27,7 @@ first, the \WAPI functionality implemented in the browser, and second,
 the website's \JS code that uses the \WAPI to implement the site's functionality.
 
 Web applications have unique properties that make them difficult to secure.
-First, all \JS code has access to nearly all functionality in the \WAPI.
+First, every \JS code unit has access to nearly all features in the \WAPI.
 There are a few exceptions, where users are
 prompted to allow access to certain functionalities, relating
 to tasks like accessing hardware devices and geo-locating the user.  These
@@ -44,6 +44,6 @@ This model makes it difficult to execute a code unit without allowing
 it to read and modify the execution environment.  All code executed in the
 page (whether that code was intended by the page author, loaded by a third
 party to implement an advertising system, or maliciously include as part of
-an \gls{xss} attack) gets equal access to the capabilities, secrets and data
+a \gls{xss} attack) gets equal access to the capabilities, secrets and data
 available to the website or application.
 

@@ -12,15 +12,15 @@ an easily checked, declarative syntax.  Second, \CDF only uses a small
 subset of browser features, allowing websites to access only the ``core'', or
 most popular and frequently used parts of the \WAPI, when creating web sites.
 Third, \CDF places stricter constraints on the kinds of web documents
-than current \gls{html}~-and-\JS applications enforce, to restrict possible data
+than current \gls{html}~-and-\JS applications enforce to restrict possible data
 flows through the application.
 
 \input{tables/html_cdf_comparison}
 
 \ref{table:cdf-html-comparison} provides a comparison of the capabilities
 and guarantees made by current HTML-and-\JS based applications, contrasted
-against \CDF documents.  The following subsections provide more detail
-about each aspect of the design of \CDF.
+against \CDF documents.  The following subsections detail
+each aspect of CDF's design.
 
 
 \subsection{Trusted Feature Implementation}
@@ -35,8 +35,8 @@ user interface elements), instead of harming the user (e.g. by fingerprinting
 the user, accessing a browser feature with a known security flaw, or sending a
 session token to a malicious destination).
 
-Instead of attempting the difficult task of verifying that \JS code is benign
-before executing it, \CDF takes the simpler approach of not allowing
+Instead of try to verify that \JS code is benign before execution (a
+difficult-to-impossible task), \CDF takes the simpler approach of not allowing
 applications to provide their own \JS.  \CDF instead provides a set of trusted,
 client-side implemented interactive primitives, which web authors can compose
 into higher-level functionality with a declarative, easy to verify syntax.

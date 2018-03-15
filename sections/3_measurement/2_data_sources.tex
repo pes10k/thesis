@@ -9,21 +9,21 @@ describes these existing data sets, and how we used them to measure what
 \subsection{Alexa Website Rankings}
 \label{measurement:data-sources:website-popularity-rankings}
 The Alexa rankings are a well-known ordering of websites by traffic.
-Researchers frequently use Alexa's rankings of the worldwide million most
-popular sites. However, Alexa also provides other data about these sites,
+Researchers typically use Alexa's rankings of the worldwide million most
+popular sites. Alexa also provides other data about these sites,
 including popularity rankings at country granularity, breakdowns of which
 sub-sites (by fully qualified domain name) are most popular, and a breakdown by
 page load and by unique visitor of how many monthly visitors each site gets.
 
 We used the 10,000 top ranked sites from Alexa's list of the one-million
 most popular sites as representative of the web in general.  This set of 10,000
-websites represents approximately one third of all web visits.
+websites represents approximately one-third of all web visits.
 
 
 \subsection{Web API Features}
 \label{measurement:data-sources:method-web-features}
 As mentioned in Section~\ref{intro:terms}, this work uses the term
-\textbf{feature} to denote a browser capability that is accessible through
+\textbf{feature} to denote a browser capability that is accessible by
 calling a \JS function or setting a property on a \JS object.
 
 We determined the set of \JS-exposed features by reviewing the \gls{webidl}
@@ -70,9 +70,9 @@ that define the basic \textit{Canvas API}, or the \textit{WebSockets API}, as
 their own standards.
 
 We treated these significant sub-standards as separate units of analysis
-because they have their own coherent purpose in the \WAPI, independent
-of their parent, containing standard; many of these significant subs-standards
-were implemented in browsers independent of the parent standard (i.e. browser
+because they have separate, coherent purposes in the \WAPI, independent
+of their parent standard. Many of these significant subs-standards
+were also implemented in browsers independent of the parent standard (i.e. browser
 vendors added support for ``websockets'' long before they implemented the full
 ``HTML5'' standard).
 
@@ -108,8 +108,8 @@ which are popularly used to modify the browser environment.
 
 This work used two such browser extensions, Ghostery and AdBlock Plus.
 Ghostery is a browser extension that allows users to increase their privacy
-online by modifying the browser to not load resources or set cookies associated
-with cross-domain passive tracking, as determined by the extension's
+online by modifying the browser so as to not load resources or set cookies
+associated with cross-domain passive tracking, as determined by the extension's
 maintainer, Ghostery, Inc..
 
 This work also uses the AdBlock Plus extension, which modifies

@@ -85,13 +85,12 @@ site, and have little basis to judge the site's trustworthiness.
 Users can only gauge whether to trust a site with greater
 capabilities once they have some familiarity with it.
 
-Determining whether a website actually needs a feature to function is difficult.
-On one end of the spectrum, when a website never uses a feature, the
-site trivially does not need to feature to run correctly.  As established in
-Chapter~\ref{measurement}, most features in the browser fall in this category
-and are rarely used on the open web.
+Determining if a website needs a feature to function is difficult.  If a
+website does not use a feature, the site trivially does not need the feature to
+run correctly.  As established in Chapter~\ref{measurement}, most features in
+the browser fall in this category and are rarely used on the open web.
 
-A website may also use a feature, but not need it to carry out a user's
+However, a website may use a feature, but not need it to carry out a user's
 goals on the site.  In many cases website will still function as desired (from
 the perspective of the user), even after the site is prevented from accessing
 the functionality the site desires.  For example, a blog may use the
@@ -196,10 +195,11 @@ vulnerabilities.  Third, recent industry practices suggest that project
 maintainers assess security risk similarly; that codebases with many past
 vulnerabilities should be treated with increased caution~\cite{boringssl}.
 
-Second, we measure a \WAS~'s cost as a function of the amount of recent academic
-work documenting security and privacy issues in a standard.  We searched
-for attacks leveraging each \WAS in security conferences and journals between
-2010 and 2015 (i.e. the five years preceding when this work was conducted).
+Second, we measure a standard's cost as a function of how many recent
+academic works document security and privacy issues in the standard.  We
+searched for attacks leveraging each \WAS in security conferences and journals
+between 2010 and 2015 (i.e. the five years preceding when this work was
+conducted).
 
 Third, we measure a \WAS~'s cost by the number of lines of code
 needed solely to implement the standard in the browser. We base this metric
@@ -256,13 +256,13 @@ from \gls{cve}s associated with lower level functionality.  This was done to
 narrowly measure the cost of \textit{only} the \WAPI implementation of the
 standard.  For example, the \gls{svg} standard~\cite{svg2011standard} allows
 site authors to use \JS to manipulate \gls{svg} documents embedded in websites.
-We counted \gls{cve}s like \texttt{CVE-2011-2363}~\cite{cve_2011_2363} , a
+We counted \gls{cve}s like \texttt{CVE-2011-2363}~\cite{cve_2011_2363}, a
 ``use-after-free vulnerability'' in \FF's implementation of the \JS function
 for manipulating \gls{svg} documents, as part of the cost of including the
 \gls{svg} \WAS in \FF.  In contrast, \gls{cve}s relating to non-\WAPI aspects
 of \gls{svg} handing, were excluded from our measurements.  For example,
 \texttt{CVE-2015-0818}~\cite{cve_2015_0818}, a privilege escalation bug in
-\FF's \gls{svg} rendering, is not related to the \WAPI~\footnote{\gls{svg}
+\FF's \gls{svg} rendering, is not related to the \WAPI\footnote{\gls{svg}
 documents can be rendered statically, without \JS interaction.}, and so is not
 counted in these measurements.
 
@@ -287,7 +287,7 @@ builds a call graph of C/C++ code bases.  Second, DXR provides tools for
 querying the call graph, most significantly a web application.\footnote{An
 example of the DXR interface is available at
 \url{https://dxr.mozilla.org/mozilla-central/source/}.} We used this call graph
-to understand how code paths related and depend on each other.  We modified DXR
+to understand how code paths depend on each other.  We modified DXR
 to record the number of lines of code for each function.
 
 Second, we determined the entry points for the standard in the call
@@ -302,7 +302,7 @@ associate each binding code function with a \WAS.
 \input{figures/prune_graph}
 
 Once we determined the call graph entry points for each \WAPI feature, we used
-a recursive graph algorithm to identify implementation code associated with
+a recursive graph algorithm to identify the implementation code for
 each standard.  \ref{fig:prune-graph} illustrates this approach.  First, we
 programmatically extract the standard's definitions for its binding functions,
 here represented with a a simplified version of the \textit{Battery API}. Second,
@@ -319,7 +319,7 @@ only code in the \FF code base that calls the \texttt{Charging} and
 \textit{Battery API} standard.  The algorithm then marks these methods as
 uniquely related to the \texttt{Battery API}.  The algorithm then repeats,
 again looking for nodes with only callers from known \texttt{Battery API}
-methods.  On the second iteration, the algorithm will identify the
+methods.  On the second iteration, the algorithm identifes the
 \texttt{ChargingTime} method as solely related to the \textit{Battery API}
 standard's implementation, since it is only called by functions we know to be
 solely part of the \textit{Battery API}'s implementation. Thus, the lines
@@ -335,7 +335,7 @@ lines of code \emph{in the Firefox source} included only to implement a given
 as a separate step in the \FF build process, and thus excluded from DXR's
 call-graph.
 
-This limitation ended up bot being significant in practice.  In nearly all
+This limitation was not significant in practice.  In nearly all
 cases, third party libraries are used in multiple places in the \FF codebase
 and cannot be uniquely attributed to any single standard, and thus are not
 relevant to our per-standard \gls{eloc} counts.

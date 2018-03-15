@@ -41,7 +41,7 @@ achieves this by injecting \JS into each page after the browser has created the
 \gls{dom} for that page, but before the page's content has been loaded. By
 injecting our instrumenting \JS into the browser before the page's content has
 been fetched and rendered, we can modify the methods and properties in the
-\WAPI before the visited page's code is able to execute.
+\WAPI before the visited page's code executes.
 
 The injected \JS modifies the page's environment to count whenever an
 instrumented method is called, or that an instrumented property is written to.
@@ -75,7 +75,7 @@ singleton objects in the browser (e.g. \texttt{window},
 writes to properties on singleton objects in the \WAPI.
 
 There are a small number of features in the \gls{dom} where we were not able to
-intercept property writes, and were therefore unable to count how frequently
+intercept property writes. We could not count how frequently
 these features were used.  These features, found primarily in older standards,
 are properties where writes trigger side effects on the page.  The most
 significant examples of such properties are \texttt{document.location} (where
@@ -164,7 +164,7 @@ where the path structure \gls{url} had not been previously visited. In contrast
 to traditional interface fuzzing techniques, which have as a goal finding
 unintended or malicious functionality~\cite{amalfitano2012using,liu2014decaf},
 we aimed to find just the features site visitors would use. Selecting URLs with
-different path-segments was a heuristic based approach to visit as many types
+different path-segments was a heuristic-based approach to visit as many types
 of pages on the site as possible, with the goal of capturing all of the
 functionality on the site that a user would encounter.  This work discusses the
 robustness and validity of this strategy in Section~\ref{measurement:validity}.
@@ -178,7 +178,7 @@ place (AdBlock Plus and Ghostery, respectively), to generate a second,
 representative of the types of modifications users make to customize their
 browsing experience. While a so-modified version of a site no longer represents
 its author's intended representation (and may in fact break the site), the
-popularity of these content blocking extensions shows that this blocking case
+popularity of these content-blocking extensions shows that this blocking case
 is a common valid alternative experience of a website.
 
 
@@ -186,7 +186,7 @@ is a common valid alternative experience of a website.
 \label{measurement:methodology:automated-crawl}
 \input{tables/measurement_extension_stats}
 For each site in the \ATK, we repeated the above procedure ten times to
-attempt to measure all features used on the page: five times in the default
+measure all features used on the page: five times in the default
 case, and then five times in the blocking case.  The crawl took two days, using
 64 simultaneous \FF instances executing on four machines.
 

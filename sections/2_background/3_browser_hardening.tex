@@ -1,10 +1,9 @@
 \section{Client Side Browser Defenses}
 \label{background:related-browser-defs}
 
-There are variety of techniques which ``harden'' the browser
-by limiting what \JS pages are allowed to execute. These defenses can
-be split into two categories: those configured by the user, and those
-configured by the website author.
+There are many techniques to ``harden'' the browser by limiting what \JS pages
+are allowed to execute. These defenses can be split into two categories: those
+configured by the user, and those configured by the website author.
 
 In the user-configured category, Adblock~\cite{adblockplus} and
 NoScript~\cite{noscriptwebsite} are popular browser
@@ -15,24 +14,24 @@ infection by malware being served in those
 ads~\cite{forbes-malware,engadget-malware}.  Adblock blocks feature use by
 preventing the loading of resources from certain domains.
 
-NoScript prevents \JS on an
-all-or-nothing basis, based on the code's origin.  By default, NoScript prevents
-\JS execution from all origins, rendering a large swath of the web unusable.
-In its default configuration, NoScript allows \JS execution from a built-in set
-of trusted origins.  This built-in allow-list has resulted in a proof of
-concept exploit via purchasing expired, allowed
-domains~\cite{noscript_whitelist}.  Beyond these popular tools,
+NoScript decides whether \JS can execute, based on the \gls{url} the code came
+from.  By default, NoScript prevents \JS execution from all origins, rendering
+a large swath of the web unusable.  In its default configuration, NoScript
+allows \JS execution from a built-in set of trusted origins.  This built-in
+allow-list has resulted in a proof of concept exploit via purchasing expired,
+allowed domains~\cite{noscript_whitelist}.  Beyond these popular tools,
 IceShield~\cite{heiderich2011iceshield} dynamically detects suspicious \JS
 calls within the browser, and modifies the \gls{dom} to prevent attacks.
 
-The Tor Browser~\cite{dingledine2004tor} disables by default or prompts the
-user before using a number of features.  Regarding \JS, they disable
-SharedWorkers~\cite{webworkersw3c}, and prompt before using calls from HTML5
-Canvas, the GamePad API, WebGL, the Battery API, and the Sensor
-API~\cite{tor-features}.  These particular features are disabled because they
-enable techniques which violate the Tor Browser's security and privacy goals.
+The Tor Browser~\cite{dingledine2004tor} disables, or prompts the user before
+using a number of, features by default.  Tor Browser disable many \JS features,
+most significantly \textit{SharedWorkers}~\cite{webworkersw3c}, and prompts
+users before allowing pages to use the Canvas, GamePad API, WebGL, Battery API,
+and Sensor standards~\cite{tor-features}.  These particular features are
+disabled because they enable techniques which violate the Tor Browser's
+security and privacy goals.
 
-On the site author side, \gls{csp} allows server operators to limiting what
+On the site-author side, \gls{csp} allows server operators to limiting what
 kinds of \JS functionality, and sources of code, can be executed, through
 either \gls{http} headers, or \gls{html} \textit{meta} tags.
 \gls{csp} allows web developers to constrain code on their

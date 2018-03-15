@@ -13,7 +13,7 @@ The design and development of the web makes these kinds of conceptually simple
 measurements complex to carry out in practice.  First, with the exception of
 trivial cases, one cannot simply ``download a website'' and count invocations
 of functions calls, the way one might be able to approximate with traditional
-applications.  Web sites are downloaded (and sometimes, generated) dynamically,
+applications.  Websites are downloaded (and sometimes, generated) dynamically,
 one portion at a time, depending on user input. The server side of an
 application can even change while the client is interacting with the
 application!  This means there is no way to meaningfully know if
@@ -28,10 +28,10 @@ functions are called in a piece of code, let alone determining which code paths
 the user would execute during a likely interaction with the website.
 
 To confound matters more, all feature invocations on a website are not equally
-desirable to the user.  A user may benefit if a feature is being used to render
-a news story she wishes to read, while the user might experience harm, if the
-feature is being used to fingerprint her browser for tracking purposes.  A
-useful measurement of \WAPI use on the web should distinguish between these
+desirable to the user.  A user may benefit if a feature is being used to, say,
+render a news story she wishes to read, while the user might experience harm
+if the feature is being used to fingerprint her browser for tracking purposes.
+A useful measurement of \WAPI use on the web should distinguish between these
 kinds of cases.
 
 Finally, the scale of the internet means that manual interaction is not
@@ -52,11 +52,11 @@ tracking-blocking extensions installed.  Comparing the difference in
 features that are executed under these configurations allows us to
 distinguish user-serving \WAPI use from non-user-serving \WAPI use.
 
-Applying this automated measurement technique to the \ATK gives an
-answer to the original question, namely, which \WAPI features do web users use when
-browsing the web.  We find, for example, that 50\% of the \WAPI features in the
-browser are never used by the ten thousand most popular websites, when users
-are browsing in low trust, non-authenticated scenarios.
+Applying this automated measurement technique to the \ATK answers the original
+question; which \WAPI features do web users use when browsing the web.  We
+find, for example, that 50\% of the \WAPI features in the browser are never
+used by the ten thousand most popular websites, when users are browsing in low
+trust, non-authenticated scenarios.
 
 We were also able to identify features that are used
 predominantly for non-user-serving purposes; 10\% of \WAPI features in the

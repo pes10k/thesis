@@ -6,15 +6,15 @@ Section~\ref{cost-benefit} to design and develop a browser extension that
 allows users to control website access to \WAPI functionality.  The extension
 has been released to the public and is being used by almost 1k users at the
 time of this writing (555 Firefox
-users~\footnote{\url{https://addons.mozilla.org/en-US/firefox/addon/webapi-manager/}}
+users\footnote{\url{https://addons.mozilla.org/en-US/firefox/addon/webapi-manager/}}
 and 417 Chrome
-users~\footnote{\url{https://chrome.google.com/webstore/detail/webapi-manager/hojoljbhkebfjalcbnfmoiljfidcmcmj}}).
+users\footnote{\url{https://chrome.google.com/webstore/detail/webapi-manager/hojoljbhkebfjalcbnfmoiljfidcmcmj}}).
 This section describes how the extension was designed, evaluated and
 implemented before it was publicly released.
 Section~\ref{current-web:extension-deployment} discusses lessons and findings
 that were gained only once the extension was available for the public.
 
-The source of the extension has been released publicly~\footnote{\ExtensionSourceUrl},
+The source of the extension has been released publicly\footnote{\ExtensionSourceUrl},
 and the project continues to be refined with the help and input of other
 developers and privacy activists.
 
@@ -49,15 +49,15 @@ needed to carry out the sites' desired functionality.
 
 \subsection{Trade-offs and Limitations}
 Deploying our approach as a browser extension entailed significant trade-offs.
-On the benefit side, browser extensions are easy for users to install and update,
-and our browser extension is compatible with current popular web browsers,
+On the benefit side, browser extensions are easy for users to install and update.
+Our browser extension is compatible with current popular web browsers,
 minimizing the amount of additional engineering work needed to get the approach
 implemented and usable by security and privacy concerned users.  Additionally,
 browser extensions are powerful enough to (in principal) successfully protect
 users from most vulnerabilities that depend on accessing a \JS-exposed method
 or data structure (of which there are many, as documented in
 Section~\ref{cost-benefit:results:costs-cves}).  The WebExtension standard, which
-standardizes an common interface for writing cross-browser extensions,
+standardizes a common interface for writing cross-browser extensions,
 defines hooks that allow for disabling large portions of high-risk
 functionality, which could protect users from not-yet-discovered bugs, in a way
 that ad-hoc fixing of known bugs could not.
@@ -114,7 +114,7 @@ of the usability of these two selected configurations.
 \input{tables/extension_configurations}
 To address the combinatorial impossibility of evaluating all possible extension
 configurations on all sites, we created two configurations to represent
-configurations that users might create.  We call these configurations the
+configurations that users might create.  We refer to these configurations as the
 \textbf{conservative} and \textbf{aggressive} configurations, each intending to
 represent users with different privacy-functionality trade-offs.
 
@@ -137,7 +137,8 @@ affecting the possibly-security-sensitive code.
 
 We note that these are just two possible configurations, and that users
 (or trusted curators, IT administrators, or other sources) could
-use this method to find the security / usability trade-off that best fit their needs.
+use this method to find the security / usability trade-off that best fits their
+needs.
 
 
 \subsubsection{Configuration Evaluation}
@@ -164,7 +165,7 @@ per page is based on prior research~\cite{liu2010understanding} finding that
 users on average spend under a minute per page.
 
 These evaluators first visited each site in an unmodified
-Firefox browser, to determine the author-intended functionality of the website.
+Firefox browser to determine the author-intended functionality of the website.
 Second, they visited in a Firefox browser in the above mentioned conservative
 configuration.  Finally, they visited a third time in the aggressive hardened
 configuration.
@@ -229,7 +230,7 @@ methodological reasons.}.  The evaluators again reported very similar scores in
 their evaluation, reaching the same score 99.75\% of the time when evaluating
 NoScript and 90.35\% when evaluating the Tor Browser.  We expect the lower
 agreement score for the \gls{tbb} is a result of our evaluators being routed
-differently through the Tor network, and receiving different versions of the
+differently through the Tor network and receiving different versions of the
 website based on the location of their exit nodes.\footnote{We chose to
 \emph{not} assign the Tor exit node to a fixed location during this evaluation
 to accurately recreate the experience of using the default configuration of the
@@ -238,7 +239,7 @@ to accurately recreate the experience of using the default configuration of the
 As \ref{table:usability-comparison} shows, the usability of our conservative
 and aggressive configurations is as good as or better than other popularly used
 browser security tools.  This suggests that, while our \WASs blocking
-approach has some affect on usability, it is a cost security-sensitive users
+approach has some effect on usability, it is a cost security-sensitive users
 would accept.
 
 
@@ -251,7 +252,7 @@ features needed for functionality.
 
 This process of creating site-specific feature configurations
 is roughly analogous to granting trusted applications additional
-capabilities (in the context of a permissions based system), or allowing trusted
+capabilities (in the context of a permissions-based system), or allowing trusted
 domains to run \JS code (similar to how NoScript functions).
 
 We built these application specific configurations using a tool-assisted, trial
@@ -260,7 +261,7 @@ in ``logging'' mode, which caused the extension to log blocked functionality.
 Next, when we encountered a part of the web application that did not function
 correctly, we reviewed the extension's log to see what blocked functionality
 seemed related to the error.  We then iteratively enabled the related blocked
-standards and revisited the application, to see if enabling the standard
+standards and revisited the application to see if enabling the standard
 allowed the app to function correctly.  We repeated the above steps until the
 app worked as desired.
 
@@ -271,14 +272,14 @@ configurations themselves, could subscribe to trusted, expert curated policies,
 similar to how users of AdBlock Plus receive community created rules from
 EasyList.
 
-For the first example application-specific configuration, we watched videos on
+For the first application-specific configuration example, we watched videos on
 YouTube, by first searching for videos on the site's homepage, clicking on a
 video to watch, watching the video on its specific page, and then expanding the
 video's display to full-screen.  This required enabling three standards
 that are blocked in our \textbf{aggressive} configuration: the \textit{File
-API} standard~\footnote{YouTube uses methods defined in this standard to create
+API} standard\footnote{YouTube uses methods defined in this standard to create
 URL strings referring to media on the page.}, the \textit{Media Source
-Extensions} standard~\footnote{YouTube uses the
+Extensions} standard\footnote{YouTube uses the
 \texttt{HTMLVideoElement.prototype.getVideoPlaybackQuality} method from this
 standard to calibrate video quality based on bandwidth.}, and the
 \textit{Fullscreen API} standard. Once we enabled these three standards,
@@ -290,9 +291,9 @@ formatting the text using the formatting features provided by the website
 (creating bulleted lists, altering justifications, changing fonts and text
 sizes, embedding links, etc.).  Doing so required enabling two standards that
 are by default blocked in our \textbf{aggressive} configuration: the
-\textit{HTML: Web Storage} standard~\footnote{Google Drive uses functionality
+\textit{HTML: Web Storage} standard\footnote{Google Drive uses functionality
 from this standard to track user state between pages.} and the \textit{UI
-Events} standard~\footnote{Google Drive uses this standard for finer-grained
+Events} standard\footnote{Google Drive uses this standard for finer-grained
 detection of where the mouse cursor is clicking in the application's
 interface.}.  Allowing Google Docs to access these two additional standards,
 but leaving the other 40 standards disabled, allowed us to create rich text
@@ -303,6 +304,6 @@ Chicago and New York.  We did so by first searching for ``Chicago, IL'',
 allowing the map to zoom in on the city, clicking the ``Directions'' button,
 searching for ``New York, NY'', and then selecting the ``driving directions''
 option.  Once we enabled the \textit{HTML: Channel Messaging}
-standard~\footnote{Which Google Maps uses to enable communication between
+standard\footnote{Which Google Maps uses to enable communication between
 different sub-parts of the application.} we were able to use the site as
 normal.
