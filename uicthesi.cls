@@ -172,7 +172,9 @@
             \begin{center}
 
                \vskip \baselineskip
-               Thesis submitted in partial fulfillment of the requirements\\
+               THESIS\\
+               \vskip \baselineskip
+               Submitted in partial fulfillment of the requirements\\
                for the degree of \@degree\\
                in the Graduate College of the\\
                University of Illinois at Chicago, \@date
@@ -293,8 +295,18 @@
 \let\acknowledgements\acknowledgments
 
 \def\initials#1{
-   \par\vspace{50pt}
+   \par\vspace{0pt}
    \leftline{\hskip 5.5in #1 \hfil}}
+%    \end{macrocode}
+%
+% \subsection{Preface}
+%    \begin{macrocode}
+\def\authorcontributions{
+    \clearpage
+    \typeout{CONTRIBUTIONS OF AUTHORS}
+    \def\section@mark{CONTRIBUTIONS OF AUTHORS}
+    \@makeprelimhead}
+    %    \end{macrocode}
 %    \end{macrocode}
 %
 % \subsection{Preface}
@@ -333,7 +345,7 @@
       {\protect\xnumberline{\ }VITA}
    \def\section@mark{VITA}
    \pagestyle{pageontop}
-   \thispagestyle{pageontop}
+   \thispagestyle{pageonbottom}
    \@makeschapterhead{\section@mark}\par}
 %    \end{macrocode}
 %
@@ -1134,7 +1146,7 @@
       {\protect\xnumberline{\ }CITED LITERATURE}
    \def\section@mark{CITED LITERATURE}
    \pagestyle{pageontop}
-   \thispagestyle{pageontop}
+   \thispagestyle{pageonbottom}
    \@makeschapterhead{\section@mark}\par
    \begin{singlespace}
    \if@filesw\immediate\write\@auxout{\string\bibdata{#1}}\fi
