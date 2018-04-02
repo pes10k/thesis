@@ -3,11 +3,11 @@
 
 The final step this dissertation makes in improving web privacy and security is
 to explore other ways web-like applications could be developed and deployed, in
-light of the findings discussed in previous chapters.  Chapter~\ref{current-web}
-presented ways of improving web security and privacy while maintaining
-compatibility with existing websites. This chapter considers the further
-improvements that could be achieved with a system designed from the start with
-the findings from Chapters~\ref{measurement} and \ref{cost-benefit}.
+light of the findings discussed in previous chapters.
+ Chapter~\ref{current-web} presented ways of improving web security and privacy
+while maintaining compatibility with existing websites. This chapter considers
+the further improvements that could be achieved with a system designed from the
+start with the findings from Chapters~\ref{measurement} and \ref{cost-benefit}.
 
 This chapter presents \CDF, an alternative method for describing interactive
 websites. The design requires site authors to describe sites using a
@@ -17,6 +17,18 @@ design is as a proof of concept, to demonstrate that many kinds of websites
 users enjoy on the modern web can be implemented with only a subset of the
 functionality in the browser, and in a manner that allows the client to enforce
 a greater number of protections and guarantees.
+
+The discussed system is intended demonstrate two observations informed by the
+chapters: first, that there is a large class of websites that do not need
+the expressiveness and full feature set of the existing \gls{html} and \JS
+system, and second, that there are security and privacy benefits to be had
+in moving this class of websites to alternative web application systems.
+We emphasize that the system described in this chapter is not intended to
+be adopted as is, or that it makes strong claims to any specific
+security and privacy benefits.  It is instead intended as a demonstration
+that other points on the security-functionality tradeoff curve are possible,
+and that the costs (in terms of developer expressiveness) of moving to those
+other, more secure and private, points may be less than expected.
 
 The rest of this chapter is organized as follows:
 Section~\ref{future-web:design} presents the high level design of the system.

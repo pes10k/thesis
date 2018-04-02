@@ -31,6 +31,27 @@ and Sensor standards~\cite{tor-features}.  These particular features are
 disabled because they enable techniques which violate the Tor Browser's
 security and privacy goals.
 
+Significant work has been done on hardening the browser architectures, to make them
+more resilient to malicious applications attempting to exploit implementation
+errors.  Much of this work focuses on isolating or adding access control checks
+between different parts of the browser, to prevent a vulnerability in one part
+of the browser from imperiling the security of the entire system.  Barth,
+Weinberger and Song~\cite{barth2009cross} proposed imposing access control checks
+on \JS properties and functions, to prevent certain classes of cross origin
+\JS attacks.  Barth et al.~\cite{barth2010protecting} proposed isolating
+extensions from high risk resources in the browser's trusted base through
+an alternate least-privilege based extension architecture, which has been
+adopted as the model for browser extensions in all modern browsers.  Grier,
+Tang and King~\cite{grier2008secure} proposed further isolating different
+parts of the browser architecture into different operating system level
+processes, and using a minimal ``browser kernel'' to organize message passing
+between the different isolated elements, a model that mirrors micro-kernel
+operating system architectures.  Dong et al.~\cite{dong2013quantitative}
+though highlighted that such isolation strategies carry with them significant
+performance overheads, and proposed a method for evaluating the costs (in
+terms of performance) and benefits (in terms of security risk reduction)
+of different isolation schemes.
+
 On the site-author side, \gls{csp} allows server operators to limiting what
 kinds of \JS functionality, and sources of code, can be executed, through
 either \gls{http} headers, or \gls{html} \textit{meta} tags.

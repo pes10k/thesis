@@ -1,0 +1,57 @@
+\section{Complexity and Security}
+\label{background:complexity-vs-security}
+
+One core claim of this work is that there is a trade-off between security and
+functionality.  Systems that provide more functionality generally require
+more complexity in their implementations, and more complexity generally means
+that a system is harder to design, implement and verify securely.  There has
+been significant work in this area, both in designing
+security-critical systems to avoid complexity, to make
+a secure implementation more likely, and in using complexity as a
+predictor of software vulnerability.
+
+Concerning the risk of complexity in secure system design, Saltzer and
+Schroeder~\cite{saltzer1975protection} emphasized the importance of ``economy
+of mechanism'', or keeping designs as simple as
+possible, to make errors easier to detect.  This principal has been emphasized
+in the design of systems generally~\cite{singaravelu2006reducing}, and
+has directly influenced the design of many specific security-sensitive systems,
+including operating systems~\cite{whitaker2002scale,klein2009sel4}, virtual
+machines~\cite{payne2007secure} and cryptographic
+systems~\cite{naylor2015multi}, among many other areas.
+
+Similarly, significant work has been done in understanding how complexity
+relates to software implementation vulnerabilities.
+McCabe~\cite{mccabe1976complexity} developed a graph-based measurement of
+software complexity, called ``cyclomatic complexity'', as a model of how
+difficult it would be to test all possible flows of control in a code unit.
+This work highlighted just one way that complex code is more difficult to
+test, and therefor implement, correctly.  Shin and
+Williams~\cite{shin2008empirical} used McCabe's technique,
+along with eight other complexity metrics, and found that the complexity
+of a code-unit correlated with whether there were security vulnerabilities
+in the same code-unit.  Shin et al.~\cite{shin2011evaluating} took this
+approach further, and found that complexity, considered with code-churn (i.e.
+how many lines of code in a code-unit have changed during a given timespan) and
+developer related metrics (e.g. how many developers wrote the code-unit),
+could be used to predict future software vulnerabilities.
+
+Other research highlights that some degree of complexity is inescapable
+when designing secure systems, potentially more than when designing other
+systems. After all, designing a secure system requires implementing the
+functionality of some potentially insecure system, plus the additional complexity
+needed to perform that functionality in a secure or private manner.
+Zaman et al.~\cite{zaman2011security} for example, found that fixes for
+security-related bugs required more code, and more complex code, than
+for performance related bugs.
+
+Other researchers highlight the need to exercise caution and care when
+using code-based metrics to predict software vulnerabilities. Fenton and
+Neil~\cite{fenton1999critique}, for example, critique many applications
+of code complexity to predict vulnerability as being overly simplistic,
+potentially ignoring the potentially controlling effect of correlated
+factors, like developer experience or complexity inherent in the problem-domain.
+Shepperd~\cite{shepperd1988critique} found that in many types of software,
+techniques like McCabe's cyclomatic complexity predict vulnerability no
+better than simpler measurements, like the number of lines of code used
+in a code-unit.

@@ -120,3 +120,26 @@ being set in the ``set'' case.  Therefore, our approach only allows for
 blocking sets on non-singleton, \WAPI defined objects.  It can't be used to
 make more general, runtime policy decisions, where decision logic would need to
 be made at execution time on whether to block or allow the ``set'' operation.
+
+
+\subsection{Limitations}
+\label{cost-benefit:intercepting-js:limitations}
+The feature blocking technique described in this section is useful for
+preventing certain types of site breakage, but not others.  When existing
+code depends on the ``shape'' of a removed-functions return type (e.g. when
+existing code expects the value returned from a blocked feature to have a
+method with a particular name), our technique will prevent unrelated
+code paths from breaking.  In other, stronger typed languages, this would
+roughly equate to our feature removal technique not introducing type errors
+into existing code, despite us changing the ``types'' of values being returned
+from the blocked features.
+
+However, this feature removal technique will not prevent existing code from
+breaking that depends on the semantic value being returned from a now-blocked
+feature.  For example, if a web application depends on a blocked method
+returning specific, expected values to transition to a correct state,
+then our technique will not keep the program from breaking.
+
+Anecdotally, we observed many more cases of the former than the latter,
+but mention this issue here as an important and significant limitation of the
+technique.
